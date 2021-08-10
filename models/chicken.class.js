@@ -8,35 +8,41 @@ class Chicken extends MovableObject {
         'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/3.Ga_paso izquierdo.png'
     ];
     IMAGES_DEAD = ['img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/4.G_muerte.png'];
-    constructor(x) {
+    constructor() {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_DEAD);
+        super.loadImages(this.IMAGES_WALKING);
+        super.loadImages(this.IMAGES_DEAD);
         this.x = 1000 + Math.random() * 500;
         this.speed = 0.15 + Math.random() * 0.5;
         this.animate();
     }
 
     animate() {
-        setInterval(() => {
-            this.otherDirection = this.otherDirection ? false : true;
-        }, 5000);
-        setInterval(() => {
-            if (!this.isDead()) {
-                if (this.otherDirection) {
-                    this.moveRight();
-                }
-                else {
-                    this.moveLeft();
-                }
-            }
-        }, 100);
-        setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-            } else {
-                this.playAnimation(this.IMAGES_WALKING);
-            }
-        }, 200);
+        setInterval(this.changeDirection.bind(this), 5000);
+        setInterval(this.move.bind(this), 100);
+        setInterval(this.play.bind(this), 200);
+    }
+
+    play() {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+        } else {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+
+    move() {
+        if (!this.isDead()) {
+            if (this.otherDirection){
+                this.moveRight();
+            } 
+            else{
+                this.moveLeft();
+            } 
+        }
+    }
+
+    changeDirection() {
+        this.otherDirection = !this.otherDirection;
     }
 }
