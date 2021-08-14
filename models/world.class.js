@@ -12,7 +12,6 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
-        this.draw();
         this.setWorld();
         this.run();
     }
@@ -22,12 +21,14 @@ class World {
     }
 
     run() {
-        setInterval(this.checkWorld.bind(this), 60);
+        requestAnimationFrame(this.checkWorld.bind(this));
+        requestAnimationFrame(this.draw.bind(this));
     }
 
     checkWorld() {
         this.checkCollisions();
         this.checkThrowObjects();
+        requestAnimationFrame(this.checkWorld.bind(this));
     }
 
     checkThrowObjects() {
@@ -61,7 +62,8 @@ class World {
     }
 
     checkEnemyCharacterCollision(enemy) {
-        if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+        if (!this.character.isDead() && !enemy.isDead() && this.character.isColliding(enemy) && !this.character.isHurt()) {
+            console.log("HIT");
             this.character.hit();
             this.statusBar.setPercentage(this.character.energy);
         }
@@ -74,28 +76,27 @@ class World {
             }
         });
     }
-    //Draw() wird immer wieder aufgerufen
+   
     draw() {
-        // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+       
         this.addToMap(this.clearRect);
-        this.addObjectsToMap(this.level.clouds);
-
-        // this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
-        // this.ctx.translate(-this.camera_x, 0); //Back
+         // --------- Space for fixed Objects ---------
+        this.addObjectsToMap(this.level.clouds);
+        // --------- Space for fixed Objects ---------
 
-        this.ctx.translate(this.camera_x, 0); //Forwards
+        this.ctx.translate(this.camera_x, 0);
 
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
+
         this.ctx.translate(-this.camera_x, 0);
 
         // --------- Space for fixed Objects ---------
         this.addToMap(this.statusBar);
         // --------- Space for fixed Objects End ---------
-
         requestAnimationFrame(this.draw.bind(this));
     }
 

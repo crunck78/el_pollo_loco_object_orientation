@@ -8,6 +8,13 @@ class MovableObject extends DrawableObject {
 
     applyGravity() {
         setInterval(() => {
+            if(this.isJumping()){
+                console.log("Is Jumping");
+            }
+
+            if(this.isLanding()){
+                console.log("Is Landing");
+            }
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
