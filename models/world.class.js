@@ -8,6 +8,7 @@ class World {
     character = new Character();
     statusBar = new StatusBar();
     clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -26,16 +27,26 @@ class World {
     }
 
     checkWorld() {
-        this.checkCollisions();
         this.checkThrowObjects();
+        this.checkCollisions();
         requestAnimationFrame(this.checkWorld.bind(this));
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
-            this.throwableObjects.push(bottle);
+        if (this.canThrow()) {
+           this.throwObj();
         }
+    }
+
+    throwObj(){
+        this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
+        let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
+        this.throwableObjects.push(bottle);
+    }
+
+    canThrow() {
+        return this.keyboard.D &&
+            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP;
     }
 
     checkCollisions() {
@@ -52,8 +63,15 @@ class World {
     checkThrowEnemyCollision(throwObj, enemy) {
         if (!enemy.isDead() && throwObj.isColliding(enemy)) {
             enemy.kill();
+            throwObj.break();
             setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
+            setTimeout(this.deleteThrow.bind(this, throwObj), 2000);
         }
+    }
+
+    deleteThrow(to) {
+        let position = this.throwableObjects.indexOf(to);
+        this.throwableObjects.splice(position, 1);
     }
 
     deleteEnemy(enemy) {
@@ -76,12 +94,12 @@ class World {
             }
         });
     }
-   
+
     draw() {
-       
+
         this.addToMap(this.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
-         // --------- Space for fixed Objects ---------
+        // --------- Space for fixed Objects ---------
         this.addObjectsToMap(this.level.clouds);
         // --------- Space for fixed Objects ---------
 

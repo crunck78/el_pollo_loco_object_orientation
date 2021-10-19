@@ -5,17 +5,14 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    groundPos = 180;
 
     applyGravity() {
         setInterval(() => {
-            if(this.isJumping()){
-                console.log("Is Jumping");
-            }
-
-            if(this.isLanding()){
-                console.log("Is Landing");
-            }
             if (this.isAboveGround() || this.speedY > 0) {
+                if (this.isJumping()) { console.log("Is Jumping"); }
+                if (this.isLanding()) { console.log("Is Landing"); }
+                if (this.isInAir()) { console.log("Is in the Air"); }
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -23,19 +20,21 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        // Throwable object should always fall
-        if (this instanceof ThrowableObject) {
-            return true;
-        } else {
-            return this.y < 180;
-        }
+        return this.y < this.groundPos;
     }
 
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
+        return this.isIntersectingX(mo) && this.isIntersectingY(mo);
+    }
+
+    isIntersectingY(mo) {
+        return this.y + this.height > mo.y &&
             this.y < mo.y + mo.height;
+    }
+
+    isIntersectingX(mo) {
+        return this.x + this.width > mo.x &&
+            this.x < mo.x;
     }
 
     hit() {
@@ -70,6 +69,10 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    changeDirection() {
+        this.otherDirection = !this.otherDirection;
+    }
+
     moveRight() {
         this.x += this.speed;
     }
@@ -88,10 +91,10 @@ class MovableObject extends DrawableObject {
     }
 
     isLanding() {
-        return this.speedY < 0 && this.isAboveGround()
+        return this.speedY < 0 && this.isAboveGround();
     }
 
-    isInAir(){
+    isInAir() {
         return this.isJumping() || this.isLanding();
     }
 }

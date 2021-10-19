@@ -4,6 +4,10 @@ class Character extends MovableObject {
     height = 250;
     y = 80;
     speed = 10;
+
+    idleTime = 5001; // ms
+    lastIdle = new Date().getTime();
+
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',
@@ -46,6 +50,19 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-9.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-10.png',
     ];
+
+    IMAGES_LONG_IDLE = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-11.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-12.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-13.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-14.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-15.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-16.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-17.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-18.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-19.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-20.png',
+    ];
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
         super.loadImages(this.IMAGES_WALKING);
@@ -53,6 +70,7 @@ class Character extends MovableObject {
         super.loadImages(this.IMAGES_DEAD);
         super.loadImages(this.IMAGES_HURT);
         super.loadImages(this.IMAGES_IDLE);
+        super.loadImages(this.IMAGES_LONG_IDLE);
         super.applyGravity();
         this.animate();
     }
@@ -61,6 +79,7 @@ class Character extends MovableObject {
         setInterval(this.move.bind(this), 1000 / 60);
         setInterval(this.play.bind(this), 154);
     }
+    
 
     move() {
         this.walking_sound.pause();
@@ -78,27 +97,39 @@ class Character extends MovableObject {
 
     moveRight() {
         super.moveRight();
-        this.otherDirection = false;
+        super.otherDirection = false;
         this.walking_sound.play();
     }
 
     moveLeft() {
         super.moveLeft();
-        this.otherDirection = true;
+        super.otherDirection = true;
         this.walking_sound.play();
     }
 
     play() {
         if (super.isDead()) {
+            this.lastIdle = 0;
             super.playAnimation(this.IMAGES_DEAD);
         } else if (super.isHurt()) {
+            this.lastIdle = 0;
             super.playAnimation(this.IMAGES_HURT);
         } else if (super.isAboveGround()) {
+            this.lastIdle = 0;
             super.playAnimation(this.IMAGES_JUMPING);
         } else if (this.isMoving()) {
+            this.lastIdle = 0;
             super.playAnimation(this.IMAGES_WALKING);
         } else {
-            super.playAnimation(this.IMAGES_IDLE);
+            if(this.lastIdle == 0){
+                this.lastIdle = new Date().getTime();
+            }
+            this.idleTime = new Date().getTime() - this.lastIdle;
+            if(this.idleTime > 5000){
+                super.playAnimation(this.IMAGES_LONG_IDLE);
+            }else{
+                super.playAnimation(this.IMAGES_IDLE);
+            }
         }
     }
 

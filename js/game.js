@@ -24,7 +24,10 @@ window.addEventListener('keydown', (e)=>{
         keyboard.SPACE = true;
     }
     if(e.keyCode == 68){
-        keyboard.D = true;
+        if(keyboard.THROW_REQUEST_STOP > keyboard.THROW_REQUEST_START && !keyboard.D){
+            keyboard.THROW_REQUEST_START = new Date().getTime();
+            keyboard.D = true;
+        }
     }
 });
 
@@ -51,5 +54,6 @@ window.addEventListener('keyup', (e)=>{
 
     if(e.keyCode == 68){
         keyboard.D = false;
+        keyboard.THROW_REQUEST_STOP = new Date().getTime();
     }
 });
