@@ -52,7 +52,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach(enemy => this.checkEnemyCollisions(enemy));
         this.checkCollisionsWihtCollectibles(this.level.coins);
-        //this.checkCollisionsWihtCollectibles(this.bottles);
+        this.checkCollisionsWihtCollectibles(this.level.bottles);
     }
 
     checkEnemyCollisions(enemy) {
@@ -111,6 +111,7 @@ class World {
 
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
 

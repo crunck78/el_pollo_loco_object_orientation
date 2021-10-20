@@ -7,7 +7,7 @@ class Character extends MovableObject {
     groundPos = 160;
 
     offsetTop = 120;
-    offsetBottom = 30;
+    offsetBottom = 0;
     offsetLeft = 30;
     offsetRight = 30;
 
