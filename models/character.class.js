@@ -14,6 +14,9 @@ class Character extends MovableObject {
     idleTime = 5001; // ms
     lastIdle = new Date().getTime();
 
+    bottles = 0;
+    coins = 0;
+
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',

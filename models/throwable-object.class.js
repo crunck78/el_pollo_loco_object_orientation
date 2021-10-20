@@ -4,7 +4,12 @@ class ThrowableObject extends MovableObject {
     speedY = 30;
     speed = 10;
     groundPos = 380;
-    targetHit = false;
+
+    offsetTop = 10;
+    offsetLeft = 10;
+    offsetRight = 10;
+    offsetBottom = 10;
+
     IMAGE_ROTATION_BOTTLE = [
         'img/6.botella/Rotación/Mesa de trabajo 1 copia 3.png',
         'img/6.botella/Rotación/Mesa de trabajo 1 copia 4.png',
@@ -33,7 +38,7 @@ class ThrowableObject extends MovableObject {
 
     break(){
         //first resolve ... but it can be better
-        this.groundPos = this.y;
+        this.groundPos = this.y + 40; //looks like it breaks on the object ist collide with
     }
 
     throw() {

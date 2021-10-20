@@ -6,7 +6,9 @@ class World {
     level = level1;
     throwableObjects = [];
     character = new Character();
-    statusBar = new StatusBar();
+    hitPointsCharBar = new HitPointsCharBar();
+    coinsBar = new CoinsBar();
+    bottlesBar = new BottlesBar();
     clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
 
     constructor(canvas, keyboard) {
@@ -67,7 +69,7 @@ class World {
                 setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
             } else {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.hitPointCharBar.setPercentage(this.character.energy);
             }
         }
     }
@@ -95,15 +97,22 @@ class World {
         collectibles.forEach((collectible, index) => {
             if (this.character.isColliding(collectible)) {
                 collectibles.splice(index, 1);
+                if (collectible instanceof Coin) {
+                    this.character.coins += 20;
+                    this.coinsBar.setPercentage(this.character.coins);
+                }
+                if (collectible instanceof Bottle) {
+                    this.character.bottles += 20;
+                    this.bottlesBar.setPercentage(this.character.bottles);
+                }
             }
         });
     }
 
     draw() {
-
+        // --------- Space for fixed Objects ---------
         this.addToMap(this.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
-        // --------- Space for fixed Objects ---------
         this.addObjectsToMap(this.level.clouds);
         // --------- Space for fixed Objects ---------
 
@@ -114,11 +123,14 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
 
         // --------- Space for fixed Objects ---------
-        this.addToMap(this.statusBar);
+        this.addToMap(this.hitPointsCharBar);
+        this.addToMap(this.coinsBar);
+        this.addToMap(this.bottlesBar);
         // --------- Space for fixed Objects End ---------
         requestAnimationFrame(this.draw.bind(this));
     }
