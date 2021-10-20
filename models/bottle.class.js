@@ -4,10 +4,10 @@ class Bottle extends MovableObject{
 
     groundPos = 340;
 
-    // offsetTop = 20;
-    // offsetLeft = 20;
-    // offsetRight = 20;
-    // offsetBottom = 20;
+    offsetTop = 10;
+    offsetLeft = 10;
+    offsetRight = 10;
+    offsetBottom = 10;
 
     IMAGES = [
         'img/6.botella/2.Botella_enterrada1.png',

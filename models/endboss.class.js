@@ -5,7 +5,7 @@ class EndBoss extends Enemy {
     x = 2500;
     speed = 10;
 
-    offsetTop = 120;
+    offsetTop = 0;
     offsetBottom = 30;
     offsetLeft = 30;
     offsetRight = 30;

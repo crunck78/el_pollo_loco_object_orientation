@@ -44,11 +44,14 @@ class World {
         this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
         let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
         this.throwableObjects.push(bottle);
+        this.character.bottles -= 20;
+        this.bottlesBar.setPercentage(this.character.bottles);
     }
 
     canThrow() {
         return this.keyboard.D &&
-            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP;
+            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
+            this.character.bottles > 20;
     }
 
     checkCollisions() {
@@ -63,24 +66,31 @@ class World {
     }
 
     checkEnemyCharacterCollision(enemy) {
-        if (!this.character.isDead() && !enemy.isDead() && this.character.isColliding(enemy) && !this.character.isHurt()) {
-            if (this.character.isLanding()) {
-                enemy.kill();
-                setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
+        if (!(this.character.isDead() || enemy.isDead() || this.character.isHurt()) && this.character.isColliding(enemy)) {
+            if (this.character.isStamping(enemy)) {
+                this.destroyEnemy(enemy);
             } else {
                 this.character.hit();
-                this.hitPointCharBar.setPercentage(this.character.energy);
+                this.hitPointsCharBar.setPercentage(this.character.energy);
             }
         }
     }
 
     checkThrowEnemyCollision(throwObj, enemy) {
         if (!enemy.isDead() && throwObj.isColliding(enemy)) {
-            enemy.kill();
-            setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
-            throwObj.break();
-            setTimeout(this.deleteThrow.bind(this, throwObj), 2000);
+            this.destroyEnemy(enemy);
+            this.destroyThrowable(throwObj);
         }
+    }
+
+    destroyThrowable(throwObj) {
+        throwObj.break();
+        setTimeout(this.deleteThrow.bind(this, throwObj), 2000);
+    }
+
+    destroyEnemy(enemy) {
+        enemy.kill();
+        setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
     }
 
     deleteThrow(to) {
@@ -95,18 +105,32 @@ class World {
 
     checkCollisionsWihtCollectibles(collectibles) {
         collectibles.forEach((collectible, index) => {
-            if (this.character.isColliding(collectible)) {
+            if (this.character.isColliding(collectible) && this.hasCollect(collectible)) {
                 collectibles.splice(index, 1);
-                if (collectible instanceof Coin) {
-                    this.character.coins += 20;
-                    this.coinsBar.setPercentage(this.character.coins);
-                }
-                if (collectible instanceof Bottle) {
-                    this.character.bottles += 20;
-                    this.bottlesBar.setPercentage(this.character.bottles);
-                }
             }
         });
+    }
+
+    hasCollect(collectible) {
+        if (collectible instanceof Coin && this.character.coins < 100) {
+            this.collectCoin();
+            return true;
+        }
+        if (collectible instanceof Bottle && this.character.bottles < 100) {
+            this.collectBottle();
+            return true;
+        }
+        return false;
+    }
+
+    collectCoin() {
+        this.character.coins += 20;
+        this.coinsBar.setPercentage(this.character.coins);
+    }
+
+    collectBottle() {
+        this.character.bottles += 20;
+        this.bottlesBar.setPercentage(this.character.bottles);
     }
 
     draw() {

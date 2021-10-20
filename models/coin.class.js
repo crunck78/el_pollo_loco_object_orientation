@@ -2,6 +2,9 @@ class Coin extends MovableObject {
     width = 100;
     height = 100;
 
+    groundPos = 200;
+    speed = 10;
+
     offsetTop = 20;
     offsetLeft = 20;
     offsetRight = 20;
@@ -16,12 +19,23 @@ class Coin extends MovableObject {
         super.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
+       
         this.animate();
+        //super.applyGravity();
     }
 
     animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES);
-        }, 200);
+        setInterval(this.play.bind(this), 200);
+        //setInterval(this.move.bind(this), 200);
+    }
+
+    play() {
+        super.playAnimation(this.IMAGES);
+    }
+
+    move(){
+        if(!super.isAboveGround()){
+            super.jump();
+        }
     }
 }

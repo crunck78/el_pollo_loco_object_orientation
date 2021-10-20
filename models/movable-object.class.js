@@ -10,9 +10,9 @@ class MovableObject extends DrawableObject {
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
-                if (this.isJumping()) { console.log("Is Jumping"); }
-                if (this.isLanding()) { console.log("Is Landing"); }
-                if (this.isInAir()) { console.log("Is in the Air"); }
+                // if (this.isJumping()) { console.log("Is Jumping"); }
+                // if (this.isLanding()) { console.log("Is Landing"); }
+                // if (this.isInAir()) { console.log("Is in the Air"); }
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
@@ -33,11 +33,25 @@ class MovableObject extends DrawableObject {
     }
 
     isAbove(mo) {
-        return !(this.y + this.height - this.offsetBottom > mo.y + mo.offsetTop);
+        return !(this.getBottomPos() > mo.getTopPos());
     }
 
     isBelow(mo) {
-        return !(this.y + this.offsetTop < mo.y + mo.height - mo.offsetBottom);
+        return !(this.getTopPos() < mo.getBottomPos());
+    }
+
+    isStamping(mo){
+        //most  likely to stamp an enemy
+        // not exactly but does the job ... is just a soft simulation, not real life
+        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 2.6; //Tolerance
+    }
+
+    getTopPos() {
+        return this.y + this.offsetTop;
+    }
+
+    getBottomPos() {
+        return this.y + this.height - this.offsetBottom;
     }
 
     isIntersectingX(mo) {
@@ -49,7 +63,15 @@ class MovableObject extends DrawableObject {
     }
 
     isRightSide(mo) {
-        return !(this.x + this.offsetLeft < mo.x + mo.width - mo.offsetRight);
+        return !(this.getLeftPos() < mo.getRightPos());
+    }
+
+    getLeftPos() {
+        return this.x + this.offsetLeft;
+    }
+
+    getRightPos() {
+        return this.x + this.width - this.offsetRight;
     }
 
     hit() {
@@ -94,6 +116,14 @@ class MovableObject extends DrawableObject {
 
     moveLeft() {
         this.x -= this.speed;
+    }
+
+    moveUp() {
+        this.y -= this.speed;
+    }
+
+    moveDown() {
+        this.y += this.speed;
     }
 
     jump() {

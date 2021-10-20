@@ -38,8 +38,7 @@ const level1 = new Level(
     ],
     getLevelCoins(),
     [
-        new Bottle(100, 40),
-        new Bottle(200, 40),
+        
         new Bottle(300, 40),
         new Bottle(400, 40),
         new Bottle(500, 40),
@@ -47,6 +46,8 @@ const level1 = new Level(
         new Bottle(700, 40),
         new Bottle(800, 40),
         new Bottle(900, 40),
+        new Bottle(1000, 40),
+        new Bottle(1100, 40)
     ]
 );
 
