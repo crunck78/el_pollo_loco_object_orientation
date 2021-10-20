@@ -50,10 +50,10 @@ function getCoinsCollection(firstX, firstY) {
 }
 
 function getLevelCoins() {
-    let collection1 = getCoinsCollection(500, 300);
-    let collection2 = getCoinsCollection(1000, 300);
-    let collection3 = getCoinsCollection(1500, 300);
-    let collection4 = getCoinsCollection(2000, 300);
+    let collection1 = getCoinsCollection(500, 200);
+    let collection2 = getCoinsCollection(1000, 200);
+    let collection3 = getCoinsCollection(1500, 200);
+    let collection4 = getCoinsCollection(2000, 200);
     return collection1.concat(collection2, collection3, collection4);
 }
 

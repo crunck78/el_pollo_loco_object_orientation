@@ -4,6 +4,12 @@ class EndBoss extends Enemy {
     y = 55;
     x = 2500;
     speed = 10;
+
+    offsetTop = 120;
+    offsetBottom = 30;
+    offsetLeft = 30;
+    offsetRight = 30;
+
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G6.png',

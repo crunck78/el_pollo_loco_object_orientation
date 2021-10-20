@@ -4,6 +4,12 @@ class Character extends MovableObject {
     height = 250;
     y = 80;
     speed = 10;
+    groundPos = 160;
+
+    offsetTop = 120;
+    offsetBottom = 30;
+    offsetLeft = 30;
+    offsetRight = 30;
 
     idleTime = 5001; // ms
     lastIdle = new Date().getTime();

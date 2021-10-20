@@ -8,6 +8,11 @@ class DrawableObject {
     currentImage = 0;
     distance = 1;
 
+    offsetTop = 0;
+    offsetLeft = 0;
+    offsetRight = 0;
+    offsetBottom = 0;
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -18,7 +23,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) {
+        if (this instanceof Character || this instanceof Enemy || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

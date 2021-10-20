@@ -28,13 +28,28 @@ class MovableObject extends DrawableObject {
     }
 
     isIntersectingY(mo) {
-        return this.y + this.height > mo.y &&
-            this.y < mo.y + mo.height;
+        return !this.isAbove(mo) &&
+            !this.isBelow(mo);
+    }
+
+    isAbove(mo) {
+        return !(this.y + this.height - this.offsetBottom > mo.y + mo.offsetTop);
+    }
+
+    isBelow(mo) {
+        return !(this.y + this.offsetTop < mo.y + mo.height - mo.offsetBottom);
     }
 
     isIntersectingX(mo) {
-        return this.x + this.width > mo.x &&
-            this.x < mo.x;
+        return !(this.isLeftSide(mo) || this.isRightSide(mo));
+    }
+
+    isLeftSide(mo) {
+        return !(this.x + this.width - this.offsetRight > mo.x + mo.offsetLeft);
+    }
+
+    isRightSide(mo) {
+        return !(this.x + this.offsetLeft < mo.x + mo.width - mo.offsetRight);
     }
 
     hit() {

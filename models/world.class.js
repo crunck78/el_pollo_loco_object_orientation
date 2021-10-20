@@ -34,11 +34,11 @@ class World {
 
     checkThrowObjects() {
         if (this.canThrow()) {
-           this.throwObj();
+            this.throwObj();
         }
     }
 
-    throwObj(){
+    throwObj() {
         this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
         let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
         this.throwableObjects.push(bottle);
@@ -60,11 +60,23 @@ class World {
         this.throwableObjects.forEach(throwObj => this.checkThrowEnemyCollision(throwObj, enemy));
     }
 
+    checkEnemyCharacterCollision(enemy) {
+        if (!this.character.isDead() && !enemy.isDead() && this.character.isColliding(enemy) && !this.character.isHurt()) {
+            if (this.character.isLanding()) {
+                enemy.kill();
+                setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
+            } else {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        }
+    }
+
     checkThrowEnemyCollision(throwObj, enemy) {
         if (!enemy.isDead() && throwObj.isColliding(enemy)) {
             enemy.kill();
-            throwObj.break();
             setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
+            throwObj.break();
             setTimeout(this.deleteThrow.bind(this, throwObj), 2000);
         }
     }
@@ -77,14 +89,6 @@ class World {
     deleteEnemy(enemy) {
         let position = this.level.enemies.indexOf(enemy);
         this.level.enemies.splice(position, 1);
-    }
-
-    checkEnemyCharacterCollision(enemy) {
-        if (!this.character.isDead() && !enemy.isDead() && this.character.isColliding(enemy) && !this.character.isHurt()) {
-            console.log("HIT");
-            this.character.hit();
-            this.statusBar.setPercentage(this.character.energy);
-        }
     }
 
     checkCollisionsWihtCollectibles(collectibles) {
