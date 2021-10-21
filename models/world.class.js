@@ -19,7 +19,7 @@ class World {
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.setWorld();
-        this.run();
+        //this.run();
     }
 
     setWorld() {
@@ -27,8 +27,17 @@ class World {
     }
 
     run() {
+        this.character.animate();
+        this.level.animateAll();
         this.startCheckWorld();
         this.startDraw();
+    }
+
+    stop(){
+        this.character.stopAnimate();
+        this.level.stopAnimateAll();
+        this.stopCheckWorld();
+        this.stopDraw();
     }
 
     startCheckWorld(){
@@ -48,9 +57,10 @@ class World {
     }
 
     checkWorld() {
+        //console.log("CHECK WORLD IS RUNNING");
         this.checkThrowObjects();
         this.checkCollisions();
-        requestAnimationFrame(this.checkWorld.bind(this));
+        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
     }
 
     checkThrowObjects() {

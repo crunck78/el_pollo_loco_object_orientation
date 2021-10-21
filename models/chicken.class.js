@@ -14,12 +14,16 @@ class Chicken extends Enemy {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_DEAD);
-        this.animate();
     }
 
     animate() {
-        setInterval(super.changeDirection.bind(this), 5000);
+        super.startDirectionChange();
         super.animate();
+    }
+
+    stopAnimate(){
+        super.stopDirectionChange();
+        super.stopAnimate();
     }
 
     play() {

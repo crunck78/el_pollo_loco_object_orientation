@@ -5,6 +5,8 @@ class EndBoss extends Enemy {
     x = 2500;
     speed = 10;
 
+    groundPos = 60;
+
     offsetTop = 0;
     offsetBottom = 30;
     offsetLeft = 30;
@@ -43,7 +45,7 @@ class EndBoss extends Enemy {
     ];
     IMAGES_DEAD = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G24.png',
-        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',     
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
     constructor() {
@@ -53,18 +55,22 @@ class EndBoss extends Enemy {
         super.loadImages(this.IMAGES_ATTACK);
         super.loadImages(this.IMAGES_HIT);
         super.loadImages(this.IMAGES_DEAD);
-        this.animate();
     }
 
     animate() {
-        setInterval(super.changeDirection.bind(this), 5000);
+        super.startDirectionChange();
         super.animate();
     }
 
-    play(){
-        if(super.isDead()){
+    stopAnimate(){
+        super.stopDirectionChange();
+        super.stopAnimate();
+    }
+
+    play() {
+        if (super.isDead()) {
             super.playAnimation(this.IMAGES_DEAD);
-        } else{
+        } else {
             super.playAnimation(this.IMAGES_WALKING);
         }
     }

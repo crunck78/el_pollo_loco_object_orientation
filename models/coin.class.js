@@ -19,9 +19,6 @@ class Coin extends MovableObject {
         super.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
-       
-        super.animate();
-        //super.applyGravity();
     }
 
     play() {

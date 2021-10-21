@@ -7,7 +7,6 @@ class Cloud extends MovableObject {
         super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
         this.width = width;
         this.height = height;
-        super.animate();
     }
 
     move(){

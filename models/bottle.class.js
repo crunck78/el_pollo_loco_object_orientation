@@ -18,8 +18,16 @@ class Bottle extends MovableObject{
         super.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
+    }
+
+    animate(){
         super.applyGravity();
         super.animate();
+    }
+
+    stopAnimate(){
+        super.removeGravity();
+        super.stopAnimate();
     }
 
     play(){

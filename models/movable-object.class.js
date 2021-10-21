@@ -1,53 +1,86 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
+
     speedY = 0;
     acceleration = 2.5;
+    gravityTime = 1000 / 60;
+
+    playTime = 154;
+    moveTime = 1000 / 60;
+    changeDirectionTime = 5000;
+
     energy = 100;
     lastHit = 0;
     groundPos = 180;
 
     playInterval;
     moveInterval;
+    gravitateInterval;
+    changeDirectionInterval;
 
-    applyGravity() {
-        setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                // if (this.isJumping()) { console.log("Is Jumping"); }
-                // if (this.isLanding()) { console.log("Is Landing"); }
-                // if (this.isInAir()) { console.log("Is in the Air"); }
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-        }, 1000 / 25);
+    changeDirection() {
+        this.otherDirection = !this.otherDirection;
     }
 
-    animate(){
+    startDirectionChange(){
+        this.changeDirectionInterval = setInterval(this.changeDirection.bind(this), this.changeDirectionTime);
+    }
+
+    stopDirectionChange(){
+        clearInterval(this.changeDirectionInterval);
+    }
+
+    applyGravity() {
+        this.gravitateInterval = setInterval(this.gravitate.bind(this), this.gravityTime);
+    }
+
+    gravitate() {
+        //console.log("Gravity is Running!");
+        if (this.isAboveGround() || this.speedY > 0) {
+            // if (this.isJumping()) { console.log("Is Jumping"); }
+            // if (this.isLanding()) { console.log("Is Landing"); }
+            // if (this.isInAir()) { console.log("Is in the Air"); }
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        }
+    }
+
+    removeGravity() {
+        clearInterval(this.gravitateInterval);
+    }
+
+    animate() {
         this.startMove();
         this.startPlay();
     }
 
-    startPlay(){
-        this.playInterval = setInterval(this.play.bind(this), 154); //TODO different intervals
+    stopAnimate(){
+        this.stopMove();
+        this.stopPlay();
     }
 
-    stopPlay(){
+    startPlay() {
+        this.playInterval = setInterval(this.play.bind(this), this.playTime); //TODO different intervals
+    }
+
+    stopPlay() {
         clearInterval(this.playInterval);
     }
 
-    startMove(){
-        this.moveInerval = setInterval(this.move.bind(this), 1000 / 60);
+    startMove() {
+        this.moveInterval = setInterval(this.move.bind(this), this.moveTime);
     }
 
-    stopMove(){
+    stopMove() {
         clearInterval(this.moveInterval);
     }
 
-    move(){
+    move() {
         throw new Error('You have to implement the method move!');
     }
 
-    play(){
+    play() {
         throw new Error('You have to implement the method play!');
     }
 
@@ -72,7 +105,7 @@ class MovableObject extends DrawableObject {
         return !(this.getTopPos() < mo.getBottomPos());
     }
 
-    isStamping(mo){
+    isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
         return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 2.6; //Tolerance
@@ -139,6 +172,7 @@ class MovableObject extends DrawableObject {
     }
 
     changeDirection() {
+        //console.log("Change Direction Runs!");
         this.otherDirection = !this.otherDirection;
     }
 
@@ -160,7 +194,7 @@ class MovableObject extends DrawableObject {
 
     jump() {
         this.currentImage = 0;
-        this.speedY = 30;
+        this.speedY = 20;
     }
 
     isJumping() {

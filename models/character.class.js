@@ -80,8 +80,16 @@ class Character extends MovableObject {
         super.loadImages(this.IMAGES_HURT);
         super.loadImages(this.IMAGES_IDLE);
         super.loadImages(this.IMAGES_LONG_IDLE);
+    }
+
+    animate(){
         super.applyGravity();
         super.animate();
+    }
+
+    stopAnimate(){
+        super.removeGravity();
+        super.stopAnimate();
     }
 
     move() {

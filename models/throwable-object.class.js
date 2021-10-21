@@ -1,8 +1,8 @@
 class ThrowableObject extends MovableObject {
     height = 100;
     width = 60;
-    speedY = 30;
-    speed = 10;
+    speedY = 20;
+    speed = 30;
     groundPos = 380;
 
     offsetTop = 10;
@@ -32,17 +32,21 @@ class ThrowableObject extends MovableObject {
         super.loadImages(this.IMAGE_SPLASH);
         super.x = x;
         super.y = y;
-        super.applyGravity();
-        this.animate();
     }
 
-    break(){
+    break() {
         //first resolve ... but it can be better
         this.groundPos = this.y + 40; //looks like it breaks on the object ist collide with
     }
 
     animate() {
-       super.animate();
+        super.applyGravity();
+        super.animate();
+    }
+
+    stopAnimate(){
+        super.removeGravity();
+        super.stopAnimate();
     }
 
     play() {
@@ -57,12 +61,12 @@ class ThrowableObject extends MovableObject {
     move() {
         if (super.isAboveGround()) {
             super.moveRight();
-        }else{
+        } else {
             setTimeout(this.stopAnimate.bind(this), 600);
         }
     }
 
-    stopAnimate(){
+    stopAnimate() {
         super.stopMove();
         super.stopPlay();
     }
