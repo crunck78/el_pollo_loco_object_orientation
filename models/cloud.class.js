@@ -7,10 +7,14 @@ class Cloud extends MovableObject {
         super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
         this.width = width;
         this.height = height;
-        this.animate();
+        super.animate();
     }
 
-    animate() {
-        setInterval(() => { super.moveLeft() }, 1000 / 60);
+    move(){
+        super.moveLeft();
+    }
+
+    play(){
+        
     }
 }

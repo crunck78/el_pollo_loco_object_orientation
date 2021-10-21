@@ -7,6 +7,9 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     groundPos = 180;
 
+    playInterval;
+    moveInterval;
+
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -17,6 +20,35 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+    }
+
+    animate(){
+        this.startMove();
+        this.startPlay();
+    }
+
+    startPlay(){
+        this.playInterval = setInterval(this.play.bind(this), 154); //TODO different intervals
+    }
+
+    stopPlay(){
+        clearInterval(this.playInterval);
+    }
+
+    startMove(){
+        this.moveInerval = setInterval(this.move.bind(this), 1000 / 60);
+    }
+
+    stopMove(){
+        clearInterval(this.moveInterval);
+    }
+
+    move(){
+        throw new Error('You have to implement the method move!');
+    }
+
+    play(){
+        throw new Error('You have to implement the method play!');
     }
 
     isAboveGround() {

@@ -20,13 +20,8 @@ class Coin extends MovableObject {
         this.x = x;
         this.y = y;
        
-        this.animate();
+        super.animate();
         //super.applyGravity();
-    }
-
-    animate() {
-        setInterval(this.play.bind(this), 200);
-        //setInterval(this.move.bind(this), 200);
     }
 
     play() {
@@ -34,8 +29,6 @@ class Coin extends MovableObject {
     }
 
     move(){
-        if(!super.isAboveGround()){
-            super.jump();
-        }
+
     }
 }

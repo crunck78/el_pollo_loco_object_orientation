@@ -18,15 +18,8 @@ class Chicken extends Enemy {
     }
 
     animate() {
-        setInterval(this.changeDirection.bind(this), 5000);
-        setInterval(super.move.bind(this), 100);
-        setInterval(this.play.bind(this), 200);
-    }
-
-    changeDirection(){
-        if(!super.isDead()){
-            super.changeDirection();
-        }
+        setInterval(super.changeDirection.bind(this), 5000);
+        super.animate();
     }
 
     play() {

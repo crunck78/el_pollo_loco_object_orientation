@@ -81,14 +81,8 @@ class Character extends MovableObject {
         super.loadImages(this.IMAGES_IDLE);
         super.loadImages(this.IMAGES_LONG_IDLE);
         super.applyGravity();
-        this.animate();
+        super.animate();
     }
-
-    animate() {
-        setInterval(this.move.bind(this), 1000 / 60);
-        setInterval(this.play.bind(this), 154);
-    }
-    
 
     move() {
         this.walking_sound.pause();

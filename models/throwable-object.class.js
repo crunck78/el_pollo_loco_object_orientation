@@ -33,7 +33,7 @@ class ThrowableObject extends MovableObject {
         super.x = x;
         super.y = y;
         super.applyGravity();
-        this.throw();
+        this.animate();
     }
 
     break(){
@@ -41,22 +41,8 @@ class ThrowableObject extends MovableObject {
         this.groundPos = this.y + 40; //looks like it breaks on the object ist collide with
     }
 
-    throw() {
-        this.moveInterval = setInterval(this.move.bind(this), 25);
-        this.playInterval = setInterval(this.play.bind(this), 100);
-    }
-
-    move() {
-        if (super.isAboveGround()) {
-            super.moveRight();
-        }else{
-            setTimeout(this.clearThrow.bind(this), 600);
-        }
-    }
-
-    clearThrow(){
-        clearInterval(this.moveInterval);
-        clearInterval(this.playInterval);
+    animate() {
+       super.animate();
     }
 
     play() {
@@ -66,5 +52,18 @@ class ThrowableObject extends MovableObject {
         else {
             super.playAnimation(this.IMAGE_SPLASH);
         }
+    }
+
+    move() {
+        if (super.isAboveGround()) {
+            super.moveRight();
+        }else{
+            setTimeout(this.stopAnimate.bind(this), 600);
+        }
+    }
+
+    stopAnimate(){
+        super.stopMove();
+        super.stopPlay();
     }
 }

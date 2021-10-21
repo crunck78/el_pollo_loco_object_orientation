@@ -11,6 +11,9 @@ class World {
     bottlesBar = new BottlesBar();
     clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
 
+    requestDraw;
+    requestCheckWorld;
+
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -24,8 +27,24 @@ class World {
     }
 
     run() {
-        requestAnimationFrame(this.checkWorld.bind(this));
-        requestAnimationFrame(this.draw.bind(this));
+        this.startCheckWorld();
+        this.startDraw();
+    }
+
+    startCheckWorld(){
+        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
+    }
+
+    stopCheckWorld(){
+        cancelAnimationFrame(this.requestCheckWorld);
+    }
+
+    startDraw(){
+        this.requestDraw = requestAnimationFrame(this.draw.bind(this));
+    }
+
+    stopDraw(){
+        cancelAnimationFrame(this.requestDraw);
     }
 
     checkWorld() {
@@ -156,7 +175,7 @@ class World {
         this.addToMap(this.coinsBar);
         this.addToMap(this.bottlesBar);
         // --------- Space for fixed Objects End ---------
-        requestAnimationFrame(this.draw.bind(this));
+       this.requestDraw = requestAnimationFrame(this.draw.bind(this));
     }
 
     addObjectsToMap(objects) {

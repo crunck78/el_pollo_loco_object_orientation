@@ -58,8 +58,7 @@ class EndBoss extends Enemy {
 
     animate() {
         setInterval(super.changeDirection.bind(this), 5000);
-        setInterval(super.move.bind(this), 100);
-        setInterval(this.play.bind(this), 200);
+        super.animate();
     }
 
     play(){

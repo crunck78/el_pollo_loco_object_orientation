@@ -10,4 +10,10 @@ class Enemy extends MovableObject{
             }
         }
     }
+
+    changeDirection(){
+        if(!super.isDead()){
+            super.changeDirection();
+        }
+    }
 }

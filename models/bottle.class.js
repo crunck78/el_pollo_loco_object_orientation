@@ -19,12 +19,14 @@ class Bottle extends MovableObject{
         this.x = x;
         this.y = y;
         super.applyGravity();
-        this.animate();
+        super.animate();
     }
 
-    animate() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES);
-        }, 200);
+    play(){
+        this.playAnimation(this.IMAGES);
+    }
+
+    move(){
+        
     }
 }
