@@ -1,53 +1,38 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
-
-    speedY = 0;
-    acceleration = 2.5;
-    gravityTime = 1000 / 60;
-
-    playTime = 154;
-    moveTime = 1000 / 60;
-    changeDirectionTime = 5000;
-
     energy = 100;
     lastHit = 0;
     groundPos = 180;
 
-    playInterval;
-    moveInterval;
-    gravitateInterval;
-    changeDirectionInterval;
+    speedY = 0;
+    jumpVelocity = 20;
+    acceleration = 1;
 
-    changeDirection() {
-        this.otherDirection = !this.otherDirection;
-    }
+    changeDirectionTime = 5000;
 
-    startDirectionChange(){
-        this.changeDirectionInterval = setInterval(this.changeDirection.bind(this), this.changeDirectionTime);
-    }
+    requestPlay;
+    playTime;
+    playAnimationElapse = 154;
 
-    stopDirectionChange(){
-        clearInterval(this.changeDirectionInterval);
-    }
+    requestMove;
+    moveTime;
 
-    applyGravity() {
-        this.gravitateInterval = setInterval(this.gravitate.bind(this), this.gravityTime);
-    }
+    requestGravity;
+    gravityTime;
 
-    gravitate() {
-        //console.log("Gravity is Running!");
-        if (this.isAboveGround() || this.speedY > 0) {
-            // if (this.isJumping()) { console.log("Is Jumping"); }
-            // if (this.isLanding()) { console.log("Is Landing"); }
-            // if (this.isInAir()) { console.log("Is in the Air"); }
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration;
+    playAnimation(timeStamp, images) {
+        if (this.playAnimationTime === undefined) {
+            this.playAnimationTime = timeStamp;
         }
-    }
-
-    removeGravity() {
-        clearInterval(this.gravitateInterval);
+        const elapse = timeStamp - this.playAnimationTime;
+        if (elapse > this.playAnimationElapse) {
+            this.playAnimationTime = timeStamp;
+            let i = this.currentImage % images.length;
+            let path = images[i];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        }
     }
 
     animate() {
@@ -55,68 +40,141 @@ class MovableObject extends DrawableObject {
         this.startPlay();
     }
 
-    stopAnimate(){
+    startMove() {
+        this.requestMove = requestAnimationFrame(this.move.bind(this));
+    }
+
+    startPlay() {
+        this.requestPlay = requestAnimationFrame(this.play.bind(this));
+    }
+
+    stopAnimate() {
         this.stopMove();
         this.stopPlay();
     }
 
-    startPlay() {
-        this.playInterval = setInterval(this.play.bind(this), this.playTime); //TODO different intervals
+    stopMove() {
+        cancelAnimationFrame(this.requestMove);
     }
 
     stopPlay() {
-        clearInterval(this.playInterval);
+        cancelAnimationFrame(this.requestPlay);
     }
 
-    startMove() {
-        this.moveInterval = setInterval(this.move.bind(this), this.moveTime);
+    move(timeStamp) {
+        if (this.moveTime === undefined) {
+            this.moveTime = timeStamp;
+        }
+        this.requestMove = requestAnimationFrame(this.move.bind(this));
     }
 
-    stopMove() {
-        clearInterval(this.moveInterval);
+    play(timeStamp) {
+        if (this.playTime === undefined) {
+            this.playTime = timeStamp;
+        }
+        this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
-    move() {
-        throw new Error('You have to implement the method move!');
+    startDirectionChange() {
+        this.changeDirectionInterval = setInterval(this.changeDirection.bind(this), this.changeDirectionTime);
     }
 
-    play() {
-        throw new Error('You have to implement the method play!');
+    stopDirectionChange() {
+        clearInterval(this.changeDirectionInterval);
+    }
+
+    changeDirection() {
+        this.otherDirection = !this.otherDirection;
+    }
+
+    startGravity() {
+        this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
+    }
+
+    stopGravity() {
+        cancelAnimationFrame(this.requestGravity);
+    }
+
+    gravity(timeStamp) {
+        if (this.gravityTime === undefined) {
+            this.gravityTime = timeStamp;
+        }
+
+        const elapse = timeStamp - this.gravityTime;
+        if (elapse > FRAMES_TIME) {
+            this.gravityTime = timeStamp;
+            //DO NOT DELETE.....
+            // if (this.isLaunching()) {
+            //     console.log("Is Launching");
+            //     this.handleLaunching();
+            // }
+            // if (this.isInAir()) { console.log("Is in the Air"); }
+            // if (this.isJumping()) { console.log("Is Jumping"); }
+            // if (this.isMitAir()) { console.log("Is Mid Air"); }
+            // if (this.isLanding()) { console.log("Is Landing"); }
+            // console.log("Gravity is Running!");
+            if (this.isAboveGround() || this.speedY > 0) {
+
+
+                //calculate what will come next and predict landing
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+
+                if (this.isLanded()) {
+                    //console.log("Has Landed");
+                    this.handleLanding();
+                }
+            }
+        }
+        this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
     }
 
     isAboveGround() {
         return this.y < this.groundPos;
     }
 
+    isLaunching() {
+        return this.launching !== undefined && this.launching;
+        return !this.isAboveGround() && (this.speedY > 0 || this.speedY == this.jumpVelocity);
+    }
+
+    launch() {
+        this.currentImage = 0; // presumes that launch only fires after 
+        this.lauching = true;
+        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false }, 250); // give time for lauch animation
+    }
+
+    isInAir() {
+        return this.isJumping() || this.isLanding();
+    }
+
+    isJumping() {
+        return this.speedY > 0 && this.isAboveGround();
+    }
+
+    isMitAir() {
+        return this.isAboveGround() && !(this.isJumping() || this.isLanding());
+    }
+
+    isLanding() {
+        return this.speedY < 0 && this.isAboveGround();
+    }
+
+    isLanded() {
+        //We only want to find when it hits the ground
+        return this.speedY <= 0 && !this.isAboveGround(); // Only valid inside gravity after calculation
+    }
+
+    handleLanding() {
+
+    }
+
+    handleLaunching() {
+
+    }
+
     isColliding(mo) {
         return this.isIntersectingX(mo) && this.isIntersectingY(mo);
-    }
-
-    isIntersectingY(mo) {
-        return !this.isAbove(mo) &&
-            !this.isBelow(mo);
-    }
-
-    isAbove(mo) {
-        return !(this.getBottomPos() > mo.getTopPos());
-    }
-
-    isBelow(mo) {
-        return !(this.getTopPos() < mo.getBottomPos());
-    }
-
-    isStamping(mo) {
-        //most  likely to stamp an enemy
-        // not exactly but does the job ... is just a soft simulation, not real life
-        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 2.6; //Tolerance
-    }
-
-    getTopPos() {
-        return this.y + this.offsetTop;
-    }
-
-    getBottomPos() {
-        return this.y + this.height - this.offsetBottom;
     }
 
     isIntersectingX(mo) {
@@ -124,7 +182,7 @@ class MovableObject extends DrawableObject {
     }
 
     isLeftSide(mo) {
-        return !(this.x + this.width - this.offsetRight > mo.x + mo.offsetLeft);
+        return !(this.getRightPos() > mo.getLeftPos());
     }
 
     isRightSide(mo) {
@@ -139,7 +197,44 @@ class MovableObject extends DrawableObject {
         return this.x + this.width - this.offsetRight;
     }
 
+    isIntersectingY(mo) {
+        return !(this.isAbove(mo) || this.isBelow(mo));
+    }
+
+    isAbove(mo) {
+        return !(this.getBottomPos() > mo.getTopPos());
+    }
+
+    isBelow(mo) {
+        return !(this.getTopPos() < mo.getBottomPos());
+    }
+
+    getTopPos() {
+        return this.y + this.offsetTop;
+    }
+
+    getBottomPos() {
+        return this.y + this.height - this.offsetBottom;
+    }
+
+    isStamping(mo) {
+        //most  likely to stamp an enemy
+        // not exactly but does the job ... is just a soft simulation, not real life
+        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 4; //Tolerance
+    }
+
+    canHit() {
+        //Logic and Time Controled?
+    }
+
+    isHit() {
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
+
     hit() {
+        this.currentImage = 0;
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
@@ -148,32 +243,28 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
-        return timepassed < 1;
-    }
-
-    isDead() {
+    isKilled() {
         return this.energy == 0;
     }
 
     kill() {
+        this.currentImage = 0;
         this.energy = 0;
     }
 
-    playAnimation(images) {
-        // let i = 7 % 6; => 1, Rest 1 
-        let i = this.currentImage % images.length;
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
+    isAttacking() {
+        //TIME CONTROLED
+        throw new Error('You have to implement the method canAttack!');
     }
 
-    changeDirection() {
-        //console.log("Change Direction Runs!");
-        this.otherDirection = !this.otherDirection;
+    canAttack() {
+        //TIME CONTROLED
+        throw new Error('You have to implement the method canAttack!');
+    }
+
+    attack() {
+        // throw new Error('You have to implement the method attack!');
+        this.currentImage = 0;
     }
 
     moveRight() {
@@ -190,22 +281,5 @@ class MovableObject extends DrawableObject {
 
     moveDown() {
         this.y += this.speed;
-    }
-
-    jump() {
-        this.currentImage = 0;
-        this.speedY = 20;
-    }
-
-    isJumping() {
-        return this.speedY > 0 && this.isAboveGround();
-    }
-
-    isLanding() {
-        return this.speedY < 0 && this.isAboveGround();
-    }
-
-    isInAir() {
-        return this.isJumping() || this.isLanding();
     }
 }

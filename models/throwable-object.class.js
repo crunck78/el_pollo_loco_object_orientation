@@ -1,14 +1,18 @@
 class ThrowableObject extends MovableObject {
     height = 100;
     width = 60;
-    speedY = 20;
-    speed = 30;
+    speedY = 30;
+    speed = 15;
     groundPos = 380;
+    acceleration = 2.5;
+    playTime = 200;
 
     offsetTop = 10;
     offsetLeft = 10;
     offsetRight = 10;
     offsetBottom = 10;
+
+    playAnimationElapse = 60;
 
     IMAGE_ROTATION_BOTTLE = [
         'img/6.botella/Rotación/Mesa de trabajo 1 copia 3.png',
@@ -26,44 +30,57 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
+    // Created as a Bottle is been throw
     constructor(x, y) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         super.loadImages(this.IMAGE_ROTATION_BOTTLE);
         super.loadImages(this.IMAGE_SPLASH);
         super.x = x;
         super.y = y;
+        this.animate();
     }
 
     break() {
         //first resolve ... but it can be better
-        this.groundPos = this.y + 40; //looks like it breaks on the object ist collide with
+        this.groundPos = this.y + 40; //to look like it breaks on the object ist collide with
     }
 
     animate() {
-        super.applyGravity();
+        super.startGravity();
         super.animate();
     }
 
-    stopAnimate(){
-        super.removeGravity();
+    stopAnimate() {
+        super.stopGravity();
         super.stopAnimate();
     }
 
-    play() {
-        if (super.isAboveGround()) {
-            super.playAnimation(this.IMAGE_ROTATION_BOTTLE);
+    play(timeStamp) {
+        const elapse = timeStamp - this.playTime;
+        if (elapse > FRAMES_TIME) {
+            this.playTime = timeStamp;
+            if (super.isAboveGround()) {
+                super.playAnimation(timeStamp, this.IMAGE_ROTATION_BOTTLE);
+            }
+            else {
+                super.playAnimation(timeStamp, this.IMAGE_SPLASH);
+            }
         }
-        else {
-            super.playAnimation(this.IMAGE_SPLASH);
-        }
+        super.play(timeStamp);
     }
 
-    move() {
-        if (super.isAboveGround()) {
-            super.moveRight();
-        } else {
-            setTimeout(this.stopAnimate.bind(this), 600);
+    move(timeStamp) {
+        const elapse = timeStamp - this.moveTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveTime = timeStamp;
+            if (super.isAboveGround()) {
+                super.moveRight();
+            } else {
+                super.stopMove();
+                setTimeout(this.stopAnimate.bind(this), 500);
+            }
         }
+        super.move(timeStamp);
     }
 
     stopAnimate() {

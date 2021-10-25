@@ -21,11 +21,20 @@ class Coin extends MovableObject {
         this.y = y;
     }
 
-    play() {
-        super.playAnimation(this.IMAGES);
+    play(timeStamp) {
+        const elapse = timeStamp - this.playTime;
+        if (elapse > FRAMES_TIME) {
+            this.playTime = timeStamp;
+            super.playAnimation(timeStamp, this.IMAGES);
+        }
+        super.play(timeStamp);
     }
 
-    move(){
-
+    move(timeStamp) {
+        const elapse = timeStamp - this.moveTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveTime = timeStamp;
+        }
+        super.move(timeStamp);
     }
 }

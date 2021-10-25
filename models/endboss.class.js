@@ -62,16 +62,29 @@ class EndBoss extends Enemy {
         super.animate();
     }
 
-    stopAnimate(){
+    stopAnimate() {
         super.stopDirectionChange();
         super.stopAnimate();
     }
 
-    play() {
-        if (super.isDead()) {
-            super.playAnimation(this.IMAGES_DEAD);
-        } else {
-            super.playAnimation(this.IMAGES_WALKING);
+    play(timeStamp) {
+        const elapse = timeStamp - this.playTime;
+        if (elapse > FRAMES_TIME) {
+            this.playTime = timeStamp;
+            if (super.isKilled()) {
+                super.playAnimation(timeStamp, this.IMAGES_DEAD);
+            } else {
+                super.playAnimation(timeStamp, this.IMAGES_WALKING);
+            }
         }
+        super.play(timeStamp);
     }
+
+    // move(timeStamp) {
+    //     const elapse = timeStamp - this.moveTime;
+    //     if (elapse > FRAMES_TIME) {
+    //         this.moveTime = timeStamp;
+    //     }
+    //     super.move(timeStamp);
+    // }
 }

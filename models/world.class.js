@@ -1,9 +1,9 @@
 class World {
     ctx;
     canvas;
-    keyboard;
+    keyboard = new Keyboard();
     camera_x = 0;
-    level = level1;
+    level = getLevel1();
     throwableObjects = [];
     character = new Character();
     hitPointsCharBar = new HitPointsCharBar();
@@ -12,14 +12,15 @@ class World {
     clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
 
     requestDraw;
+    drawTime;
     requestCheckWorld;
+    checkWorldTime
 
-    constructor(canvas, keyboard) {
+    constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
-        this.keyboard = keyboard;
         this.setWorld();
-        //this.run();
+        this.run();
     }
 
     setWorld() {
@@ -33,54 +34,39 @@ class World {
         this.startDraw();
     }
 
-    stop(){
+    stop() {
         this.character.stopAnimate();
         this.level.stopAnimateAll();
         this.stopCheckWorld();
         this.stopDraw();
     }
 
-    startCheckWorld(){
+    startCheckWorld() {
         this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
     }
 
-    stopCheckWorld(){
+    stopCheckWorld() {
         cancelAnimationFrame(this.requestCheckWorld);
     }
 
-    startDraw(){
+    startDraw() {
         this.requestDraw = requestAnimationFrame(this.draw.bind(this));
     }
 
-    stopDraw(){
+    stopDraw() {
         cancelAnimationFrame(this.requestDraw);
     }
 
-    checkWorld() {
-        //console.log("CHECK WORLD IS RUNNING");
-        this.checkThrowObjects();
-        this.checkCollisions();
-        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
-    }
-
-    checkThrowObjects() {
-        if (this.canThrow()) {
-            this.throwObj();
+    checkWorld(timeStamp) {
+        if (this.checkWorldTime === undefined) {
+            this.checkWorldTime = timeStamp
         }
-    }
-
-    throwObj() {
-        this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
-        let bottle = new ThrowableObject(this.character.x, this.character.y + 100);
-        this.throwableObjects.push(bottle);
-        this.character.bottles -= 20;
-        this.bottlesBar.setPercentage(this.character.bottles);
-    }
-
-    canThrow() {
-        return this.keyboard.D &&
-            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
-            this.character.bottles > 20;
+        const elapse = timeStamp - this.checkWorldTime;
+        if (elapse > FRAMES_TIME) {
+            this.checkWorldTime = timeStamp;
+            this.checkCollisions();
+        }
+        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
     }
 
     checkCollisions() {
@@ -95,18 +81,22 @@ class World {
     }
 
     checkEnemyCharacterCollision(enemy) {
-        if (!(this.character.isDead() || enemy.isDead() || this.character.isHurt()) && this.character.isColliding(enemy)) {
+        if (!(this.character.isKilled() || enemy.isKilled() || this.character.isHit()) && this.character.isColliding(enemy)) {
             if (this.character.isStamping(enemy)) {
                 this.destroyEnemy(enemy);
             } else {
-                this.character.hit();
-                this.hitPointsCharBar.setPercentage(this.character.energy);
+                this.hitCharater();
             }
         }
     }
 
+    hitCharater() {
+        this.character.hit();
+        this.hitPointsCharBar.setPercentage(this.character.energy);
+    }
+
     checkThrowEnemyCollision(throwObj, enemy) {
-        if (!enemy.isDead() && throwObj.isColliding(enemy)) {
+        if (!enemy.isKilled() && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
             this.destroyEnemy(enemy);
             this.destroyThrowable(throwObj);
         }
@@ -114,7 +104,7 @@ class World {
 
     destroyThrowable(throwObj) {
         throwObj.break();
-        setTimeout(this.deleteThrow.bind(this, throwObj), 2000);
+        setTimeout(this.deleteThrow.bind(this, throwObj), 1000);
     }
 
     destroyEnemy(enemy) {
@@ -162,7 +152,19 @@ class World {
         this.bottlesBar.setPercentage(this.character.bottles);
     }
 
-    draw() {
+    draw(timeStamp) {
+        if (this.drawTime === undefined) {
+            this.drawTime = timeStamp;
+        }
+        const elapse = timeStamp - this.drawTime;
+        if(elapse > FRAMES_TIME){
+            this.drawTime = timeStamp;
+            this.drawGameInProgress();
+        }
+        this.requestDraw = requestAnimationFrame(this.draw.bind(this));
+    }
+
+    drawGameInProgress() {
         // --------- Space for fixed Objects ---------
         this.addToMap(this.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
@@ -185,7 +187,6 @@ class World {
         this.addToMap(this.coinsBar);
         this.addToMap(this.bottlesBar);
         // --------- Space for fixed Objects End ---------
-       this.requestDraw = requestAnimationFrame(this.draw.bind(this));
     }
 
     addObjectsToMap(objects) {

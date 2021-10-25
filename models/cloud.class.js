@@ -9,11 +9,20 @@ class Cloud extends MovableObject {
         this.height = height;
     }
 
-    move(){
-        super.moveLeft();
+    move(timeStamp) {
+        const elapse = timeStamp - this.moveTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveTime = timeStamp;
+            super.moveLeft();
+        }
+        super.move(timeStamp);
     }
 
-    play(){
-        
+    play(timeStamp) {
+        const elapse = timeStamp - this.moveTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveTime = timeStamp;
+        }
+        super.play(timeStamp);
     }
 }
