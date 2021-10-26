@@ -13,7 +13,7 @@ class MovableObject extends DrawableObject {
 
     requestPlay;
     playTime;
-    playAnimationElapse = 154;
+    playAnimationElapse = 160;
 
     requestMove;
     moveTime;
@@ -157,12 +157,13 @@ class MovableObject extends DrawableObject {
     }
 
     isLanding() {
-        return this.speedY < 0 && this.isAboveGround();
+        return this.speedY < 0 && this.isAboveGround(); // && this.landing !== undefined &&  this.landing;
     }
 
     isLanded() {
         //We only want to find when it hits the ground
-        return this.speedY <= 0 && !this.isAboveGround(); // Only valid inside gravity after calculation
+        //return this.speedY + this.acceleration + this.y < this.groundPos;
+        return this.speedY <= 0 && !this.isAboveGround();// && this.landed !== undefined && this.landed; // Only valid inside gravity after calculation
     }
 
     handleLanding() {

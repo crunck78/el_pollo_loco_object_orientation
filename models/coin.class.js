@@ -34,6 +34,7 @@ class Coin extends MovableObject {
         const elapse = timeStamp - this.moveTime;
         if (elapse > FRAMES_TIME) {
             this.moveTime = timeStamp;
+            //HERE MOVE LOGIC
         }
         super.move(timeStamp);
     }

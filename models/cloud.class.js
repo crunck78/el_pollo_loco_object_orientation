@@ -22,6 +22,7 @@ class Cloud extends MovableObject {
         const elapse = timeStamp - this.moveTime;
         if (elapse > FRAMES_TIME) {
             this.moveTime = timeStamp;
+            //HERE PLAY ANIMATIONS LOGIC
         }
         super.play(timeStamp);
     }

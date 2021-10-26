@@ -177,6 +177,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
+        //this.addToMap(this.level.enemies.find(enemy=> enemy instanceof EndBoss).hitPointsBar)
         this.addToMap(this.character);
         this.addObjectsToMap(this.throwableObjects);
 

@@ -42,6 +42,8 @@ class ThrowableObject extends MovableObject {
 
     break() {
         //first resolve ... but it can be better
+        //setting groundPos to y the throwable object lands on the ground 
+        //or isAboveGround() is false
         this.groundPos = this.y + 40; //to look like it breaks on the object ist collide with
     }
 
@@ -77,7 +79,8 @@ class ThrowableObject extends MovableObject {
                 super.moveRight();
             } else {
                 super.stopMove();
-                setTimeout(this.stopAnimate.bind(this), 500);
+                this.playAnimationElapse = 100;
+                setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGE_SPLASH.length);
             }
         }
         super.move(timeStamp);

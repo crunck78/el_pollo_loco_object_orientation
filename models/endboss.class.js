@@ -1,8 +1,14 @@
 class EndBoss extends Enemy {
+
+    
+
     height = 400;
     width = 250;
     y = 55;
     x = 2500;
+
+    hitPointsBar = new HitPointsBossBar(this.x, this.y);
+
     speed = 10;
 
     groundPos = 60;
@@ -80,11 +86,13 @@ class EndBoss extends Enemy {
         super.play(timeStamp);
     }
 
-    // move(timeStamp) {
-    //     const elapse = timeStamp - this.moveTime;
-    //     if (elapse > FRAMES_TIME) {
-    //         this.moveTime = timeStamp;
-    //     }
-    //     super.move(timeStamp);
-    // }
+    move(timeStamp) {
+        const elapse = timeStamp - this.moveTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveTime = timeStamp;
+            this.hitPointsBar.x = this.x;
+            this.hitPointsBar.y = this.y;
+        }
+        super.move(timeStamp);
+    }
 }
