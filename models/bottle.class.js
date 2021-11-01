@@ -33,18 +33,24 @@ class Bottle extends MovableObject {
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playBottleTime === undefined){
+            this.playBottleTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playBottleTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playBottleTime = timeStamp;
             this.playAnimation(timeStamp, this.IMAGES);
         }
         super.play(timeStamp);
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveBottleTime === undefined){
+            this.moveBottleTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveBottleTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveBottleTime = timeStamp;
             //HERE MOVE LOGIC
         }
         super.move(timeStamp);

@@ -6,6 +6,7 @@ class ThrowableObject extends MovableObject {
     groundPos = 380;
     acceleration = 2.5;
     playTime = 200;
+    energy = 5;
 
     offsetTop = 10;
     offsetLeft = 10;
@@ -58,9 +59,12 @@ class ThrowableObject extends MovableObject {
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playThrowObjecTime === undefined){
+            this.playThrowObjecTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playThrowObjecTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playThrowObjecTime = timeStamp;
             if (super.isAboveGround()) {
                 super.playAnimation(timeStamp, this.IMAGE_ROTATION_BOTTLE);
             }
@@ -72,9 +76,12 @@ class ThrowableObject extends MovableObject {
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveThrowObjectTime === undefined){
+            this.moveThrowObjectTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveThrowObjectTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveThrowObjectTime = timeStamp;
             if (super.isAboveGround()) {
                 super.moveRight();
             } else {
@@ -86,8 +93,8 @@ class ThrowableObject extends MovableObject {
         super.move(timeStamp);
     }
 
-    stopAnimate() {
-        super.stopMove();
-        super.stopPlay();
+    hit(){
+        super.hit();
+        this.break();
     }
 }

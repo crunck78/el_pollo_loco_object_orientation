@@ -1,13 +1,11 @@
 class EndBoss extends Enemy {
 
-    
+    energy = 25;
 
     height = 400;
     width = 250;
     y = 55;
     x = 2500;
-
-    hitPointsBar = new HitPointsBossBar(this.x, this.y);
 
     speed = 10;
 
@@ -17,6 +15,8 @@ class EndBoss extends Enemy {
     offsetBottom = 30;
     offsetLeft = 30;
     offsetRight = 30;
+
+    playAnimationElapse = 200;
 
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -54,8 +54,23 @@ class EndBoss extends Enemy {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
+
+    IMAGES_HIT_POINTS_BAR = [
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/0_ .png',
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/20__1.png',
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/40_ .png',
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/60_ .png',
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/80_ .png',
+        'img/7.Marcadores/Barra/Marcador vida/Naranja/100_ .png'
+    ];
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages();
+        this.hitPointsBar = new StatusBar(this.x, this.y, this.IMAGES_HIT_POINTS_BAR);
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    loadImages(){
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_ALERT);
         super.loadImages(this.IMAGES_ATTACK);
@@ -64,35 +79,74 @@ class EndBoss extends Enemy {
     }
 
     animate() {
-        super.startDirectionChange();
+        // super.startDirectionChange();
         super.animate();
     }
 
     stopAnimate() {
-        super.stopDirectionChange();
+        // super.stopDirectionChange();
         super.stopAnimate();
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playBossTime === undefined){
+            this.playBossTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playBossTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playBossTime = timeStamp;
             if (super.isKilled()) {
                 super.playAnimation(timeStamp, this.IMAGES_DEAD);
-            } else {
+            } else if(super.isHit()){
+                super.playAnimation(timeStamp, this.IMAGES_HIT);
+            } else if(super.isAlert()){
+                super.playAnimation(timeStamp, this.IMAGES_ALERT);
+            } else if(this.isAttacking()){
+                super.playAnimation(timeStamp, this.IMAGES_ATTACK);
+            } else if(super.isMoving()) {
                 super.playAnimation(timeStamp, this.IMAGES_WALKING);
+            } else {
+                super.playAnimation(timeStamp, this.IMAGES_ALERT);
             }
         }
         super.play(timeStamp);
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveBossTime === undefined){
+            this.moveBossTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveBossTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveBossTime = timeStamp;
             this.hitPointsBar.x = this.x;
             this.hitPointsBar.y = this.y;
         }
         super.move(timeStamp);
+    }
+
+    isAttacking(){
+        //TODO
+        return false;
+    }
+
+    isMovingRight(){
+        //TODO
+        return false;
+    }
+
+    isMovingLeft(){
+        //TODO
+        return false;
+    }
+
+    kill(){
+        super.kill();
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    hit(){
+        super.hit();
+        this.hitPointsBar.setPercentage(this.energy);
     }
 }

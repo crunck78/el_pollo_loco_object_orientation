@@ -12,11 +12,11 @@ class MovableObject extends DrawableObject {
     changeDirectionTime = 5000;
 
     requestPlay;
-    playTime;
+    playObjectTime;
     playAnimationElapse = 160;
 
     requestMove;
-    moveTime;
+    moveOjectTime;
 
     requestGravity;
     gravityTime;
@@ -62,15 +62,15 @@ class MovableObject extends DrawableObject {
     }
 
     move(timeStamp) {
-        if (this.moveTime === undefined) {
-            this.moveTime = timeStamp;
+        if (this.moveOjectTime === undefined) {
+            this.moveOjectTime = timeStamp;
         }
         this.requestMove = requestAnimationFrame(this.move.bind(this));
     }
 
     play(timeStamp) {
-        if (this.playTime === undefined) {
-            this.playTime = timeStamp;
+        if (this.playObjectTime === undefined) {
+            this.playObjectTime = timeStamp;
         }
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
@@ -114,16 +114,13 @@ class MovableObject extends DrawableObject {
             // if (this.isLanding()) { console.log("Is Landing"); }
             // console.log("Gravity is Running!");
             if (this.isAboveGround() || this.speedY > 0) {
-
-
                 //calculate what will come next and predict landing
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-
-                if (this.isLanded()) {
-                    //console.log("Has Landed");
-                    this.handleLanding();
-                }
+                // if (this.isLanded()) {
+                //     //console.log("Has Landed");
+                //     this.handleLanding();
+                // }
             }
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
@@ -255,7 +252,7 @@ class MovableObject extends DrawableObject {
 
     isAttacking() {
         //TIME CONTROLED
-        throw new Error('You have to implement the method canAttack!');
+        throw new Error('You have to implement the method isAttack!');
     }
 
     canAttack() {
@@ -266,6 +263,18 @@ class MovableObject extends DrawableObject {
     attack() {
         // throw new Error('You have to implement the method attack!');
         this.currentImage = 0;
+    }
+
+    isMoving(){
+        return this.isMovingRight() || this.isMovingLeft();
+    }
+
+    isMovingLeft(){
+        throw new Error('You have to implement the method isMovingLeft!');
+    }
+
+    isMovingRight(){
+        throw new Error('You have to implement the method isMovingRight!');
     }
 
     moveRight() {

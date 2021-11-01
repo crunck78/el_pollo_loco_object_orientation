@@ -1,4 +1,5 @@
 class DrawableObject {
+    ctx = document.getElementById('canvas').getContext('2d');
     x = 120;
     y = 280;
     height = 150;
@@ -23,7 +24,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Enemy || this instanceof Character) {
+        if (this instanceof Enemy || this instanceof Character || this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

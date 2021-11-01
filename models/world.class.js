@@ -1,41 +1,23 @@
 class World {
     ctx;
-    canvas;
-    keyboard = new Keyboard();
-    camera_x = 0;
-    level = getLevel1();
-    throwableObjects = [];
-    character = new Character();
-    hitPointsCharBar = new HitPointsCharBar();
-    coinsBar = new CoinsBar();
-    bottlesBar = new BottlesBar();
-    clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
-
     requestDraw;
     drawTime;
     requestCheckWorld;
-    checkWorldTime
-
-    constructor(canvas) {
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.setWorld();
+    checkWorldTime;
+    static ctx;
+    constructor() {
+        this.level = getLevel1();
         this.run();
-    }
-
-    setWorld() {
-        this.character.world = this;
+        this.camera_x = 0;
     }
 
     run() {
-        this.character.animate();
         this.level.animateAll();
         this.startCheckWorld();
         this.startDraw();
     }
 
     stop() {
-        this.character.stopAnimate();
         this.level.stopAnimateAll();
         this.stopCheckWorld();
         this.stopDraw();
@@ -64,6 +46,7 @@ class World {
         const elapse = timeStamp - this.checkWorldTime;
         if (elapse > FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
+            this.camera_x = -this.level.character.x + 120;
             this.checkCollisions();
         }
         this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
@@ -77,65 +60,49 @@ class World {
 
     checkEnemyCollisions(enemy) {
         this.checkEnemyCharacterCollision(enemy);
-        this.throwableObjects.forEach(throwObj => this.checkThrowEnemyCollision(throwObj, enemy));
+        this.level.character.throwBottles.forEach(throwObj => this.checkThrowEnemyCollision(throwObj, enemy));
     }
 
     checkEnemyCharacterCollision(enemy) {
-        if (!(this.character.isKilled() || enemy.isKilled() || this.character.isHit()) && this.character.isColliding(enemy)) {
-            if (this.character.isStamping(enemy)) {
-                this.destroyEnemy(enemy);
+        if (!(this.level.character.isKilled() || enemy.isKilled() || this.level.character.isHit()) && this.level.character.isColliding(enemy)) {
+            if (this.level.character.isStamping(enemy)) {
+                enemy.hit();
             } else {
-                this.hitCharater();
+                this.level.character.hit();
             }
         }
     }
 
-    hitCharater() {
-        this.character.hit();
-        this.hitPointsCharBar.setPercentage(this.character.energy);
-    }
-
     checkThrowEnemyCollision(throwObj, enemy) {
-        if (!enemy.isKilled() && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
-            this.destroyEnemy(enemy);
-            this.destroyThrowable(throwObj);
+        if (!(enemy.isKilled() || enemy.isHit()) && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
+            enemy.hit();
+            throwObj.hit();
         }
     }
 
-    destroyThrowable(throwObj) {
-        throwObj.break();
-        setTimeout(this.deleteThrow.bind(this, throwObj), 1000);
+    splice(mo) {
+        setTimeout(this.delete.bind(this, mo), 2000);
     }
 
-    destroyEnemy(enemy) {
-        enemy.kill();
-        setTimeout(this.deleteEnemy.bind(this, enemy), 2000);
-    }
-
-    deleteThrow(to) {
-        let position = this.throwableObjects.indexOf(to);
-        this.throwableObjects.splice(position, 1);
-    }
-
-    deleteEnemy(enemy) {
-        let position = this.level.enemies.indexOf(enemy);
-        this.level.enemies.splice(position, 1);
+    delete(mo) {
+        let position = this.worldObjects.indexOf(mo);
+        this.worldObjects.splice(position, 1);
     }
 
     checkCollisionsWihtCollectibles(collectibles) {
         collectibles.forEach((collectible, index) => {
-            if (this.character.isColliding(collectible) && this.hasCollect(collectible)) {
+            if (this.level.character.isColliding(collectible) && this.hasCollect(collectible)) {
                 collectibles.splice(index, 1);
             }
         });
     }
 
     hasCollect(collectible) {
-        if (collectible instanceof Coin && this.character.coins < 100) {
+        if (collectible instanceof Coin && this.level.character.coins < 100) {
             this.collectCoin();
             return true;
         }
-        if (collectible instanceof Bottle && this.character.bottles < 100) {
+        if (collectible instanceof Bottle && this.level.character.bottles < 100) {
             this.collectBottle();
             return true;
         }
@@ -143,13 +110,13 @@ class World {
     }
 
     collectCoin() {
-        this.character.coins += 20;
-        this.coinsBar.setPercentage(this.character.coins);
+        this.level.character.coins += 20;
+        this.level.character.coinsBar.setPercentage(this.level.character.coins);
     }
 
     collectBottle() {
-        this.character.bottles += 20;
-        this.bottlesBar.setPercentage(this.character.bottles);
+        this.level.character.bottles += 20;
+        this.level.character.bottlesBar.setPercentage(this.level.character.bottles);
     }
 
     draw(timeStamp) {
@@ -157,7 +124,7 @@ class World {
             this.drawTime = timeStamp;
         }
         const elapse = timeStamp - this.drawTime;
-        if(elapse > FRAMES_TIME){
+        if (elapse > FRAMES_TIME) {
             this.drawTime = timeStamp;
             this.drawGameInProgress();
         }
@@ -166,28 +133,32 @@ class World {
 
     drawGameInProgress() {
         // --------- Space for fixed Objects ---------
-        this.addToMap(this.clearRect);
+        this.addToMap(this.level.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         // --------- Space for fixed Objects ---------
 
-        this.ctx.translate(this.camera_x, 0);
+        World.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.character.throwBottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
-        //this.addToMap(this.level.enemies.find(enemy=> enemy instanceof EndBoss).hitPointsBar)
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.throwableObjects);
+        // TODO FIX IF BOSS GETS DELETED
+        this.addToMap(this.level.endBoss.hitPointsBar);
+        this.addToMap(this.level.character);
 
-        this.ctx.translate(-this.camera_x, 0);
+        World.ctx.translate(-this.camera_x, 0);
 
         // --------- Space for fixed Objects ---------
-        this.addToMap(this.hitPointsCharBar);
-        this.addToMap(this.coinsBar);
-        this.addToMap(this.bottlesBar);
+        this.addToMap(this.level.character.hitPointsBar);
+        this.addToMap(this.level.character.coinsBar);
+        this.addToMap(this.level.character.bottlesBar);
         // --------- Space for fixed Objects End ---------
+    }
+
+    isGameOver() {
+        return this.level.character.isKilled() || this.level.endBoss.isKilled();
     }
 
     addObjectsToMap(objects) {
@@ -201,12 +172,12 @@ class World {
             this.flipImage(mo);
         }
         if (mo instanceof BackgroundObject) {
-            this.ctx.translate(this.camera_x * mo.distance, 0);
+            World.ctx.translate(this.camera_x * mo.distance, 0);
         }
-        mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        mo.draw(World.ctx);
+        mo.drawFrame(World.ctx);
         if (mo instanceof BackgroundObject) {
-            this.ctx.translate(-this.camera_x * mo.distance, 0);
+            World.ctx.translate(-this.camera_x * mo.distance, 0);
         }
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -214,14 +185,14 @@ class World {
     }
 
     flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
+        World.ctx.save();
+        World.ctx.translate(mo.width, 0);
+        World.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
     }
 
     flipImageBack(mo) {
         mo.x = mo.x * -1;
-        this.ctx.restore();
+        World.ctx.restore();
     }
 }

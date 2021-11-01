@@ -16,6 +16,7 @@ class Character extends MovableObject {
 
     bottles = 0;
     coins = 0;
+    throwBottles = [];
 
     IMAGES_DEAD = [
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-51.png',
@@ -94,9 +95,46 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-20.png',
     ];
 
+    IMAGES_HIT_POINTS_BAR = [
+        'img/7.Marcadores/Barra/Marcador vida/azul/0_.png',
+        'img/7.Marcadores/Barra/Marcador vida/azul/20_.png',
+        'img/7.Marcadores/Barra/Marcador vida/azul/40_.png',
+        'img/7.Marcadores/Barra/Marcador vida/azul/60_.png',
+        'img/7.Marcadores/Barra/Marcador vida/azul/80_.png',
+        'img/7.Marcadores/Barra/Marcador vida/azul/100_.png'
+    ];
+
+    IMAGES_COINS_BAR = [
+        'img/7.Marcadores/Barra/Marcador moneda/azul/0_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/azul/20_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/azul/40_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/azul/60_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/azul/80_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/azul/100_.png'
+    ];
+
+    IMAGES_BOTTLES_BAR = [
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/0_.png',
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/20_.png',
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/40_.png',
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/60_.png',
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/80_.png',
+        'img/7.Marcadores/Barra/Marcador_botella/Azul/100_.png'
+    ];
+
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
+        this.loadImages();
+        this.keyboard = new Keyboard();
+        this.hitPointsBar = new StatusBar(30, 0, this.IMAGES_HIT_POINTS_BAR);
+        this.hitPointsBar.setPercentage(this.energy);
+        this.coinsBar = new StatusBar(30, 40, this.IMAGES_COINS_BAR);
+        this.coinsBar.setPercentage(this.coins);
+        this.bottlesBar = new StatusBar(30, 80, this.IMAGES_BOTTLES_BAR);
+        this.bottlesBar.setPercentage(this.bottles);
+    }
 
+    loadImages(){
         super.loadImages(this.IMAGES_DEAD);
         super.loadImages(this.IMAGES_HIT);
         super.loadImages(this.IMAGES_ATTACK);
@@ -121,9 +159,12 @@ class Character extends MovableObject {
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveCharTime === undefined){
+            this.moveCharTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveCharTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveCharTime = timeStamp;
             this.walking_sound.pause();
             if (!super.isKilled()) {
                 if (this.canMoveRight()) {
@@ -138,22 +179,21 @@ class Character extends MovableObject {
                 if (this.canAttack()) {
                     this.attack();
                 }
-                this.world.camera_x = -this.x + 120;
             }
         }
         super.move(timeStamp);
     }
 
-    isMoving() {
-        return this.isMovingRight() || this.isMovingLeft();
-    }
+    // isMoving() {
+    //     return this.isMovingRight() || this.isMovingLeft();
+    // }
 
     canMoveRight() {
-        return this.isMovingRight() && this.x < this.world.level.level_end_x;
+        return this.isMovingRight() && this.x < Level.level_end_x;
     }
 
     isMovingRight() {
-        return this.world.keyboard.RIGHT; // Poor Control should be fixed
+        return this.keyboard.RIGHT; // Poor Control should be fixed
     }
 
     moveRight() {
@@ -168,7 +208,7 @@ class Character extends MovableObject {
     }
 
     isMovingLeft() {
-        return this.world.keyboard.LEFT; // Poor Control should be fixed
+        return this.keyboard.LEFT; // Poor Control should be fixed
     }
 
     moveLeft() {
@@ -179,7 +219,7 @@ class Character extends MovableObject {
     }
 
     canLaunch() {
-        return (this.world.keyboard.SPACE && !(this.isAboveGround() || this.launching));
+        return (this.keyboard.SPACE && !(this.isAboveGround() || this.launching));
     }
 
     launch() {
@@ -189,8 +229,8 @@ class Character extends MovableObject {
     }
 
     canAttack() {
-        return this.world.keyboard.D &&
-            this.world.keyboard.THROW_REQUEST_START > this.world.keyboard.THROW_REQUEST_STOP &&
+        return this.keyboard.D &&
+            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
             this.bottles > 20;
     }
 
@@ -201,17 +241,20 @@ class Character extends MovableObject {
     attack() {
         this.lastIdle = 0;
         this.attacking = true;
-        this.world.keyboard.THROW_REQUEST_STOP = new Date().getTime();
+        this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
         let bottle = new ThrowableObject(this.x, this.y + 100);
-        this.world.throwableObjects.push(bottle);
+        this.throwBottles.push(bottle)
         this.bottles -= 20;
-        this.world.bottlesBar.setPercentage(this.bottles);
+        this.bottlesBar.setPercentage(this.bottles);
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playCharTime === undefined){
+            this.playCharTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playCharTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playCharTime = timeStamp;
             this.playCharacter(timeStamp);
         }
         super.play(timeStamp);
@@ -239,7 +282,7 @@ class Character extends MovableObject {
             if(super.isLanded()){
                 this.playLanded(timeStamp);
             }
-        } else if (this.isMoving()) {
+        } else if (super.isMoving()) {
             this.playMove(timeStamp);
         } else {
             this.playStand(timeStamp);
@@ -314,10 +357,12 @@ class Character extends MovableObject {
     hit() {
         this.lastIdle = 0;
         super.hit();
+        this.hitPointsBar.setPercentage(this.energy);
     }
 
     kill() {
         this.lastIdle = 0;
         super.kill();
+        this.hitPointsBar.setPercentage(this.energy);
     }
 }

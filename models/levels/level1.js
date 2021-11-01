@@ -47,7 +47,25 @@ function getLevel1(){
             new Bottle(800, 40),
             new Bottle(900, 40),
             new Bottle(1000, 40),
-            new Bottle(1100, 40)
+            new Bottle(1100, 40),
+            new Bottle(1200, 40),
+            new Bottle(1300, 40),
+            new Bottle(1400, 40),
+            new Bottle(1500, 40),
+            new Bottle(1600, 40),
+            new Bottle(1700, 40),
+            new Bottle(1800, 40),
+            new Bottle(1900, 40),
+            new Bottle(2000, 40),
+            new Bottle(2100, 40),
+            new Bottle(2200, 40),
+            new Bottle(2300, 40),
+            new Bottle(2400, 40),
+            new Bottle(2500, 40),
+            new Bottle(2600, 40),
+            new Bottle(2700, 40),
+            new Bottle(2800, 40),
+            new Bottle(2900, 40)
         ]
     );
 }

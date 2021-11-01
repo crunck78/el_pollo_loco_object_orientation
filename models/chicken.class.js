@@ -1,6 +1,7 @@
 class Chicken extends Enemy {
     height = 55;
     width = 70;
+    energy = 5;
     y = 360;
     x = 1000 + Math.random() * 500;
     speed = 0.15 + Math.random() * 0.5;
@@ -27,9 +28,12 @@ class Chicken extends Enemy {
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playChickenTime === undefined){
+            this.playChickenTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playChickenTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playChickenTime = timeStamp;
             if (super.isKilled()) {
                 super.playAnimation(timeStamp, this.IMAGES_DEAD);
             } else {
@@ -37,5 +41,24 @@ class Chicken extends Enemy {
             }
         }
         super.play(timeStamp);
+    }
+
+    move(timeStamp) {
+        if(this.moveChickenTime === undefined){
+            this.moveChickenTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveChickenTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveChickenTime = timeStamp;
+            if (!super.isKilled()) {
+                if (this.otherDirection) { //interesting ... super methods call behave as i expacted ...  but super fileds call does not work
+                    super.moveRight();
+                }
+                else {
+                    super.moveLeft();
+                }
+            }
+        }
+        super.move(timeStamp);
     }
 }

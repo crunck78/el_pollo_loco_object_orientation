@@ -1,8 +1,7 @@
-let canvas;
 let world;
 const FRAMES_TIME = 16;
 
 function init(){
-    canvas = document.getElementById('canvas');
-    world = new World(canvas);
+    World.ctx =  document.getElementById('canvas').getContext('2d');
+    world = new World();
 }

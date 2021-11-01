@@ -22,18 +22,24 @@ class Coin extends MovableObject {
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.playTime;
+        if(this.playCoinTime === undefined){
+            this.playCoinTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playCoinTime;
         if (elapse > FRAMES_TIME) {
-            this.playTime = timeStamp;
+            this.playCoinTime = timeStamp;
             super.playAnimation(timeStamp, this.IMAGES);
         }
         super.play(timeStamp);
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveCoinTime === undefined){
+            this.moveCoinTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveCoinTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveCoinTime = timeStamp;
             //HERE MOVE LOGIC
         }
         super.move(timeStamp);

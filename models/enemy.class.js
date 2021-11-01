@@ -11,16 +11,19 @@ class Enemy extends MovableObject {
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveEnemyTime === undefined){
+            this.moveEnemyTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveEnemyTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveEnemyTime = timeStamp;
             if (!super.isKilled()) {
-                if (this.otherDirection) { //interesting ... super methods call behave as i expacted ...  but super fileds call does not work
-                    super.moveRight();
-                }
-                else {
-                    super.moveLeft();
-                }
+                // if (this.otherDirection) { //interesting ... super methods call behave as i expacted ...  but super fileds call does not work
+                //     super.moveRight();
+                // }
+                // else {
+                //     super.moveLeft();
+                // }
             }
         }
         super.move(timeStamp);
@@ -30,5 +33,10 @@ class Enemy extends MovableObject {
         if (!super.isKilled()) {
             super.changeDirection();
         }
+    }
+
+    isAlert(){
+        //TODO
+        return false;
     }
 }

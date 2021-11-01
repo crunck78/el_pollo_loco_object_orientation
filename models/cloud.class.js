@@ -10,18 +10,24 @@ class Cloud extends MovableObject {
     }
 
     move(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.moveCloudTime === undefined){
+            this.moveCloudTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveCloudTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.moveCloudTime = timeStamp;
             super.moveLeft();
         }
         super.move(timeStamp);
     }
 
     play(timeStamp) {
-        const elapse = timeStamp - this.moveTime;
+        if(this.playCloudTime === undefined){
+            this.playCloudTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playCloudTime;
         if (elapse > FRAMES_TIME) {
-            this.moveTime = timeStamp;
+            this.playCloudTime = timeStamp;
             //HERE PLAY ANIMATIONS LOGIC
         }
         super.play(timeStamp);
