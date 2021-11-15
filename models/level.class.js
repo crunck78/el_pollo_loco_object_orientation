@@ -1,6 +1,6 @@
-class Level{
-    static level_end_x = 2200;
-    constructor(enemies, clouds, backgroundObjects, coins, bottles){
+class Level {
+    static level_end_x;
+    constructor(enemies, clouds, backgroundObjects, coins, bottles) {
         this.character = new Character();
         this.enemies = enemies;
         this.clouds = clouds;
@@ -9,14 +9,7 @@ class Level{
         this.bottles = bottles;
         this.endBoss = this.enemies.find(enemy => enemy instanceof EndBoss);
         this.clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
-        // World.allObject = [
-        //     ...this.enemies,
-        //     ...this.clouds, 
-        //     ...this.backgroundObjects, 
-        //     ...this.coins, 
-        //     ...this.bottles,
-        //     ...[this.character, this.clearRect]
-        // ];
+        this.allObjects = this.getAllObjects();
         // World.collisionObjects = [
         //     ...this.enemies,
         //     ...this.coins,
@@ -25,7 +18,8 @@ class Level{
         // ].push(this.character);
     }
 
-    animateAll(){
+    animateAll() {
+        Level.AUDIOS['background'].play();
         this.character.animate();
         this.animateCollection(this.enemies);
         this.animateCollection(this.coins);
@@ -33,13 +27,14 @@ class Level{
         this.animateCollection(this.clouds);
     }
 
-    animateCollection(array){
+    animateCollection(array) {
         array.forEach(element => {
             element.animate();
         });
     }
 
-    stopAnimateAll(){
+    stopAnimateAll() {
+        Level.AUDIOS['background'].pause();
         this.character.stopAnimate();
         this.stopAnimateCollection(this.enemies);
         this.stopAnimateCollection(this.coins);
@@ -47,9 +42,29 @@ class Level{
         this.stopAnimateCollection(this.clouds);
     }
 
-    stopAnimateCollection(array){
+    stopAnimateCollection(array) {
         array.forEach(element => {
             element.stopAnimate();
         });
     }
+
+    getAllObjects(){
+        return[
+            ...this.enemies,
+            ...this.clouds,
+            ...this.backgroundObjects,
+            ...this.coins,
+            ...this.bottles,
+            ...[this.character, this.clearRect]
+        ];
+    }
+
+    muteSounds(){
+        Level.AUDIOS['background'].volume = 0;
+    }
+
+    unmuteSounds(){
+        Level.AUDIOS['background'].volume = 100;
+    }
+
 }

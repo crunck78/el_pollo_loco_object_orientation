@@ -1,5 +1,15 @@
 class EndBoss extends Enemy {
 
+    offset = {
+        top: 0,
+        bottom: 30,
+        left: 30,
+        right: 30
+    }
+
+    movingLeft = false;
+    movingRight = false;
+
     energy = 25;
 
     height = 400;
@@ -8,15 +18,14 @@ class EndBoss extends Enemy {
     x = 2500;
 
     speed = 10;
-
     groundPos = 60;
 
-    offsetTop = 0;
-    offsetBottom = 30;
-    offsetLeft = 30;
-    offsetRight = 30;
-
     playAnimationElapse = 200;
+
+    AUDIOS = {
+        hit: new Audio('audio/chicken.mp3'),
+        kill: new Audio('audio/chicken.mp3')
+    }
 
     IMAGES_ALERT = [
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
@@ -70,7 +79,7 @@ class EndBoss extends Enemy {
         this.hitPointsBar.setPercentage(this.energy);
     }
 
-    loadImages(){
+    loadImages() {
         super.loadImages(this.IMAGES_WALKING);
         super.loadImages(this.IMAGES_ALERT);
         super.loadImages(this.IMAGES_ATTACK);
@@ -89,22 +98,22 @@ class EndBoss extends Enemy {
     }
 
     play(timeStamp) {
-        if(this.playBossTime === undefined){
+        if (this.playBossTime === undefined) {
             this.playBossTime = timeStamp;
         }
         const elapse = timeStamp - this.playBossTime;
         if (elapse > FRAMES_TIME) {
             this.playBossTime = timeStamp;
             if (super.isKilled()) {
-                super.playAnimation(timeStamp, this.IMAGES_DEAD);
-            } else if(super.isHit()){
-                super.playAnimation(timeStamp, this.IMAGES_HIT);
-            } else if(super.isAlert()){
-                super.playAnimation(timeStamp, this.IMAGES_ALERT);
-            } else if(this.isAttacking()){
-                super.playAnimation(timeStamp, this.IMAGES_ATTACK);
-            } else if(super.isMoving()) {
-                super.playAnimation(timeStamp, this.IMAGES_WALKING);
+                this.playDead(timeStamp);
+            } else if (super.isHit()) {
+                this.playHit(timeStamp);
+            } else if (super.isAlert()) {
+                this.playAlert(timeStamp);
+            } else if (super.isAttacking()) {
+                this.playAttack(timeStamp);
+            } else if (super.isMoving()) {
+                this.playMove(timeStamp);
             } else {
                 super.playAnimation(timeStamp, this.IMAGES_ALERT);
             }
@@ -112,8 +121,29 @@ class EndBoss extends Enemy {
         super.play(timeStamp);
     }
 
+    playDead(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES_DEAD);
+    }
+
+    playHit(timeStamp) {
+        this.AUDIOS['hit'].play();
+        super.playAnimation(timeStamp, this.IMAGES_HIT);
+    }
+
+    playAlert(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES_ALERT);
+    }
+
+    playAttack(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES_ATTACK);
+    }
+
+    playMove(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES_WALKING);
+    }
+
     move(timeStamp) {
-        if(this.moveBossTime === undefined){
+        if (this.moveBossTime === undefined) {
             this.moveBossTime = timeStamp;
         }
         const elapse = timeStamp - this.moveBossTime;
@@ -121,31 +151,43 @@ class EndBoss extends Enemy {
             this.moveBossTime = timeStamp;
             this.hitPointsBar.x = this.x;
             this.hitPointsBar.y = this.y;
+            if (!super.isKilled()) {
+                if (this.canAttack()) {
+                    this.attack();
+                }
+                if (this.canMoveRight()) {
+                    this.moveRight();
+                }
+                if (this.canMoveLeft()) {
+                    this.moveLeft();
+                }
+            }
         }
         super.move(timeStamp);
     }
 
-    isAttacking(){
-        //TODO
+    canMoveRight() {
         return false;
     }
 
-    isMovingRight(){
-        //TODO
+    isMovingRight() {
+        return this.movingRight;
+    }
+
+    canMoveLeft() {
         return false;
     }
 
-    isMovingLeft(){
-        //TODO
-        return false;
+    isMovingLeft() {
+        return this.movingLeft;
     }
 
-    kill(){
+    kill() {
         super.kill();
         this.hitPointsBar.setPercentage(this.energy);
     }
 
-    hit(){
+    hit() {
         super.hit();
         this.hitPointsBar.setPercentage(this.energy);
     }

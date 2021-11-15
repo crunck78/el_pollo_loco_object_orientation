@@ -31,13 +31,18 @@ class ThrowableObject extends MovableObject {
         'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 12.png'
     ];
 
+    AUDIOS = {
+        break : new Audio('audio/glassBreak.mp3')
+    }
+
     // Created as a Bottle is been throw
-    constructor(x, y) {
+    constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         super.loadImages(this.IMAGE_ROTATION_BOTTLE);
         super.loadImages(this.IMAGE_SPLASH);
         super.x = x;
         super.y = y;
+        super.otherDirection = otherDirection;
         this.animate();
     }
 
@@ -69,6 +74,7 @@ class ThrowableObject extends MovableObject {
                 super.playAnimation(timeStamp, this.IMAGE_ROTATION_BOTTLE);
             }
             else {
+                this.AUDIOS['break'].play();
                 super.playAnimation(timeStamp, this.IMAGE_SPLASH);
             }
         }
@@ -83,7 +89,11 @@ class ThrowableObject extends MovableObject {
         if (elapse > FRAMES_TIME) {
             this.moveThrowObjectTime = timeStamp;
             if (super.isAboveGround()) {
-                super.moveRight();
+                if(this.otherDirection){
+                    super.moveLeft();
+                }else{
+                    super.moveRight();
+                }
             } else {
                 super.stopMove();
                 this.playAnimationElapse = 100;
@@ -92,6 +102,28 @@ class ThrowableObject extends MovableObject {
         }
         super.move(timeStamp);
     }
+
+    // animate(){
+    //     setInterval(()=>{
+    //         this.playAnimation();
+    //     }, 100);
+
+    //     this.startMove();
+    // }
+
+    // startMove(){
+    //     this.moveInterval = setInterval(()=>{
+    //         if(this.isAboveGround()){
+    //             this.moveLeft();
+    //         }else{
+    //             this.stopMove();
+    //         }
+    //     }, 100);
+    // }
+
+    // stopMove(){
+    //     clearInterval(this.moveInterval);
+    // }
 
     hit(){
         super.hit();

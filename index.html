@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
+    <script src="js/assets.js"></script>
     <script src="models/keyboard.class.js"></script>
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -29,6 +30,12 @@
 <body onload="init()">
     <!-- <h1 id="title">El Pollo Loco</h1> -->
     <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="hud">
+        <!-- <img width="720" height="480" src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png"> -->
+        <button onclick="runGame()">Start</button>
+        <button onclick="stopGame()">Pause</button>
+        <button onclick="muteSounds()">Mute Sounds</button>
+    </div>
 </body>
 
 </html>

@@ -1,5 +1,7 @@
 class Enemy extends MovableObject {
 
+    alertDistance = 200;
+
     animate() {
         super.startGravity();
         super.animate();
@@ -11,7 +13,7 @@ class Enemy extends MovableObject {
     }
 
     move(timeStamp) {
-        if(this.moveEnemyTime === undefined){
+        if (this.moveEnemyTime === undefined) {
             this.moveEnemyTime = timeStamp;
         }
         const elapse = timeStamp - this.moveEnemyTime;
@@ -35,8 +37,35 @@ class Enemy extends MovableObject {
         }
     }
 
-    isAlert(){
-        //TODO
-        return false;
+    canAttack(){
+        return !this.isAttacking() && !this.isLaunching();
+    }
+
+    isAttacking(){
+        let timepassed = new Date().getTime() - this.lastAttack;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
+    
+    attack(){
+        if(!super.isInAir() && this.isAlert()){
+            super.launch();
+            //this.lastAttack = new Date().getTime();
+        }
+    }
+
+    isAlert() {
+        let timepassed = new Date().getTime() - this.lastAlert;
+        timepassed = timepassed / 1000;
+        return timepassed < 1;
+    }
+
+    alert(char) {
+        if(char instanceof Character){
+            if(!(this.isKilled() ||this.isAlert() || this.isAttacking()) && super.distanceFromX(char) < this.alertDistance){
+                this.lastAlert = new Date().getTime();
+                setTimeout(()=>{this.attack()}, 1000);
+            }
+        }
     }
 }

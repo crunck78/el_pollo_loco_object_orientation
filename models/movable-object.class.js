@@ -163,14 +163,6 @@ class MovableObject extends DrawableObject {
         return this.speedY <= 0 && !this.isAboveGround();// && this.landed !== undefined && this.landed; // Only valid inside gravity after calculation
     }
 
-    handleLanding() {
-
-    }
-
-    handleLaunching() {
-
-    }
-
     isColliding(mo) {
         return this.isIntersectingX(mo) && this.isIntersectingY(mo);
     }
@@ -188,11 +180,11 @@ class MovableObject extends DrawableObject {
     }
 
     getLeftPos() {
-        return this.x + this.offsetLeft;
+        return this.x + this.offset.left;
     }
 
     getRightPos() {
-        return this.x + this.width - this.offsetRight;
+        return this.x + this.width - this.offset.right;
     }
 
     isIntersectingY(mo) {
@@ -208,11 +200,11 @@ class MovableObject extends DrawableObject {
     }
 
     getTopPos() {
-        return this.y + this.offsetTop;
+        return this.y + this.offset.top;
     }
 
     getBottomPos() {
-        return this.y + this.height - this.offsetBottom;
+        return this.y + this.height - this.offset.bottom;
     }
 
     isStamping(mo) {
@@ -233,7 +225,7 @@ class MovableObject extends DrawableObject {
 
     hit() {
         this.currentImage = 0;
-        this.energy -= 5;
+        this.energy -= 20;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -291,5 +283,17 @@ class MovableObject extends DrawableObject {
 
     moveDown() {
         this.y += this.speed;
+    }
+
+    distanceFromX(mo){
+        if(this.isLeftSide(mo)){
+            return mo.getLeftPos() - this.getRightPos();
+        }
+
+        if(this.isRightSide(mo)){
+            return this.getLeftPos() - mo.getRightPos();
+        }
+
+        return 0; // means they are intersectingX
     }
 }

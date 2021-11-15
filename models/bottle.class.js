@@ -4,10 +4,12 @@ class Bottle extends MovableObject {
 
     groundPos = 340;
 
-    offsetTop = 10;
-    offsetLeft = 10;
-    offsetRight = 10;
-    offsetBottom = 10;
+    offset = {
+        top: 10,
+        bottom: 10,
+        left: 10,
+        right: 10
+    }
 
     playAnimationElapse = 300;
 

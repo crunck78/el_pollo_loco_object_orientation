@@ -5,10 +5,12 @@ class Coin extends MovableObject {
     groundPos = 200;
     speed = 10;
 
-    offsetTop = 20;
-    offsetLeft = 20;
-    offsetRight = 20;
-    offsetBottom = 20;
+    offset = {
+        top: 20,
+        bottom: 20,
+        left: 20,
+        right: 20
+    }
 
     IMAGES = [
         'img/8.Coin/Moneda1.png',
@@ -22,7 +24,7 @@ class Coin extends MovableObject {
     }
 
     play(timeStamp) {
-        if(this.playCoinTime === undefined){
+        if (this.playCoinTime === undefined) {
             this.playCoinTime = timeStamp;
         }
         const elapse = timeStamp - this.playCoinTime;
@@ -34,7 +36,7 @@ class Coin extends MovableObject {
     }
 
     move(timeStamp) {
-        if(this.moveCoinTime === undefined){
+        if (this.moveCoinTime === undefined) {
             this.moveCoinTime = timeStamp;
         }
         const elapse = timeStamp - this.moveCoinTime;

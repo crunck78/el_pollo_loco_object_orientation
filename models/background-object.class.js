@@ -4,7 +4,7 @@ class BackgroundObject extends DrawableObject {
     y = 0;
     constructor(imagePath, x, distance = 1) {
         super().loadImage(imagePath);
-        super.x = x;
-        super.distance = distance;
+        this.x = x;
+        this.distance = distance;
     }
 }

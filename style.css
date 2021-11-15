@@ -5,6 +5,17 @@ body {
     margin: 0;
 }
 
+#hud{
+    position: absolute;
+    top: 0;
+}
+
+#hud img{
+    display: block;
+    object-fit: contain;
+    object-position: top;
+}
+
 canvas {
     background-color: black;
     display: block;
@@ -12,14 +23,14 @@ canvas {
 
 /* Smartphones ----------- */
 @media only screen and (max-width: 720px) {
-    canvas {
+    canvas, #hud img {
         width: 100%;
     }
 }
 
 /* Smartphones ----------- */
 @media only screen and (max-height: 480px) {
-    canvas {
+    canvas, #hud img {
         height: 100vh;
     }
 }

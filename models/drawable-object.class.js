@@ -1,6 +1,6 @@
 class DrawableObject {
     ctx = document.getElementById('canvas').getContext('2d');
-    x = 120;
+    x = 2200;
     y = 280;
     height = 150;
     width = 100;
@@ -9,10 +9,12 @@ class DrawableObject {
     currentImage = 0;
     distance = 1;
 
-    offsetTop = 0;
-    offsetLeft = 0;
-    offsetRight = 0;
-    offsetBottom = 0;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
     loadImage(path) {
         this.img = new Image();
@@ -24,7 +26,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Enemy || this instanceof Character || this instanceof Coin) {
+        if (this instanceof Character ||this instanceof Coin) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

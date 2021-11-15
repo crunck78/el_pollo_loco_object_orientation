@@ -1,14 +1,12 @@
 class World {
-    ctx;
     requestDraw;
     drawTime;
     requestCheckWorld;
     checkWorldTime;
+    camera_x = 0;
     static ctx;
     constructor() {
         this.level = getLevel1();
-        this.run();
-        this.camera_x = 0;
     }
 
     run() {
@@ -46,10 +44,16 @@ class World {
         const elapse = timeStamp - this.checkWorldTime;
         if (elapse > FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
+            
             this.camera_x = -this.level.character.x + 120;
+            this.checkAlertEnemies();
             this.checkCollisions();
         }
         this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
+    }
+
+    checkAlertEnemies() {
+       this.level.endBoss.alert(this.level.character);
     }
 
     checkCollisions() {
@@ -67,6 +71,10 @@ class World {
         if (!(this.level.character.isKilled() || enemy.isKilled() || this.level.character.isHit()) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 enemy.hit();
+                if (enemy.isKilled()) {
+                    enemy.AUDIOS['stamp'].play();
+                    this.splice(this.level.enemies, enemy);
+                }
             } else {
                 this.level.character.hit();
             }
@@ -76,17 +84,22 @@ class World {
     checkThrowEnemyCollision(throwObj, enemy) {
         if (!(enemy.isKilled() || enemy.isHit()) && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
             enemy.hit();
+            if (enemy.isKilled()) {
+                enemy.AUDIOS['kill'].play();
+                this.splice(this.level.enemies, enemy);
+            }
             throwObj.hit();
+            this.splice(this.level.character.throwBottles, throwObj);
         }
     }
 
-    splice(mo) {
-        setTimeout(this.delete.bind(this, mo), 2000);
+    splice(array, mo) {
+        setTimeout(this.delete.bind(this, array, mo), 2000);
     }
 
-    delete(mo) {
-        let position = this.worldObjects.indexOf(mo);
-        this.worldObjects.splice(position, 1);
+    delete(array, mo) {
+        let position = array.indexOf(mo);
+        array.splice(position, 1);
     }
 
     checkCollisionsWihtCollectibles(collectibles) {
@@ -110,12 +123,14 @@ class World {
     }
 
     collectCoin() {
-        this.level.character.coins += 20;
+        this.level.character.AUDIOS["coin"].play();
+        this.level.character.coins += 5;
         this.level.character.coinsBar.setPercentage(this.level.character.coins);
     }
 
     collectBottle() {
-        this.level.character.bottles += 20;
+        this.level.character.AUDIOS["bottle"].play();
+        this.level.character.bottles += 5;
         this.level.character.bottlesBar.setPercentage(this.level.character.bottles);
     }
 
@@ -140,11 +155,11 @@ class World {
 
         World.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.level.character.throwBottles);
+
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
-        // TODO FIX IF BOSS GETS DELETED
+        this.addObjectsToMap(this.level.character.throwBottles);
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
 
@@ -168,19 +183,21 @@ class World {
     }
 
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
-        }
-        if (mo instanceof BackgroundObject) {
-            World.ctx.translate(this.camera_x * mo.distance, 0);
-        }
-        mo.draw(World.ctx);
-        mo.drawFrame(World.ctx);
-        if (mo instanceof BackgroundObject) {
-            World.ctx.translate(-this.camera_x * mo.distance, 0);
-        }
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
+        if (this.insideCanvas(mo)) {
+            if (mo.otherDirection) {
+                this.flipImage(mo);
+            }
+            if (mo instanceof BackgroundObject) {
+                World.ctx.translate(this.camera_x * mo.distance, 0);
+            }
+            mo.draw(World.ctx);
+            mo.drawFrame(World.ctx);
+            if (mo instanceof BackgroundObject) {
+                World.ctx.translate(-this.camera_x * mo.distance, 0);
+            }
+            if (mo.otherDirection) {
+                this.flipImageBack(mo);
+            }
         }
     }
 
@@ -194,5 +211,20 @@ class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         World.ctx.restore();
+    }
+
+    insideCanvas(mo) {
+        //Only for Objects translatet by Camera Movement
+        //TODO
+        return true;
+        return mo.x + mo.width + this.camera_x > 0 && mo.x + this.camera_x < 720;
+    }
+
+    muteSounds() {
+        this.level.muteSounds();
+    }
+
+    unmuteSounds() {
+        this.level.unmuteSounds();
     }
 }
