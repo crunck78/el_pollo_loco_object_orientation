@@ -2,7 +2,7 @@ class Character extends MovableObject {
     height = 250;
     y = 80;
     speed = 5;
-    groundPos = 160;
+    groundPos = 160; //GROUND_LEVEL
 
     lastIdle = new Date().getTime();
 
@@ -111,7 +111,7 @@ class Character extends MovableObject {
     }
 
     launch() {
-        this.lastIdle = 0;
+        this.lastIdle = 0; 
         this.launching = true;
         super.launch();
     }

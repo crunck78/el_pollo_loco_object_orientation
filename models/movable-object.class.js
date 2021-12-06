@@ -138,7 +138,7 @@ class MovableObject extends DrawableObject {
     launch() {
         this.currentImage = 0; // presumes that launch only fires after 
         this.lauching = true;
-        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false }, 250); // give time for lauch animation
+        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false }, 250); // give time for launch animation
     }
 
     isInAir() {
@@ -210,7 +210,7 @@ class MovableObject extends DrawableObject {
     isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
-        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 4; //Tolerance
+        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 11; //Tolerance
     }
 
     canHit() {
