@@ -1,4 +1,4 @@
-function getLevel1(){
+function getLevel1() {
     Level.level_end_x = 2200;
     Level.AUDIOS = {
         background: new Audio('audio/background.mp3')
@@ -15,27 +15,27 @@ function getLevel1(){
             new Cloud(800, 400)
         ],
         [
-    
+
             // new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', -720),
             new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', -720, 0.5),
             new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', -720, 0.7),
             new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', -720),
-    
+
             // new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0),
             new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 0, 0.5),
             new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 0, 0.7),
             new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0),
-    
+
             // new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 720),
             new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 720, 0.5),
             new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 720, 0.7),
             new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 720),
-    
+
             // new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 720 * 2),
             new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 720 * 2, 0.5),
             new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 720 * 2, 0.7),
             new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 720 * 2),
-    
+
             // new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 720 * 3),
             new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 720 * 3, 0.5),
             new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 720 * 3, 0.7),
@@ -85,11 +85,12 @@ function getCoinsCollection(firstX, firstY) {
 }
 
 function getLevelCoins() {
+    let collections = [];
     let collection1 = getCoinsCollection(500, 200);
     let collection2 = getCoinsCollection(1000, 200);
     let collection3 = getCoinsCollection(1500, 200);
     let collection4 = getCoinsCollection(2000, 200);
-    return collection1.concat(collection2, collection3, collection4);
+    return collections.concat(collection2, collection3, collection4);
 }
 
 function getLevelChickens() {
