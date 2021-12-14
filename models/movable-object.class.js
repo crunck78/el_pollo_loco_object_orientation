@@ -99,8 +99,10 @@ class MovableObject extends DrawableObject {
         if (this.gravityTime === undefined) {
             this.gravityTime = timeStamp;
         }
-        const elapse = timeStamp - this.gravityTime;
-        if (elapse > FRAMES_TIME) {
+        const elapse = Math.floor(Math.max(timeStamp) - Math.max(this.gravityTime));
+        //console.log("Gravity Elapse: ", elapse);
+        if (elapse >= FRAMES_TIME) {
+            //console.log("Gravity Elapse: ", elapse);
             this.gravityTime = timeStamp;
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
@@ -194,7 +196,8 @@ class MovableObject extends DrawableObject {
     isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
-        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 11; //Tolerance
+        console.log(this.getBottomPos() - mo.getTopPos());
+        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 13; //Tolerance
     }
 
     canHit() {

@@ -42,9 +42,9 @@ class World {
             this.checkWorldTime = timeStamp
         }
         const elapse = timeStamp - this.checkWorldTime;
-        if (elapse > FRAMES_TIME) {
+        if (elapse >= FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
-            
+            //console.log(elapse);
             this.camera_x = -this.level.character.x + 120;
             this.checkAlertEnemies();
             this.checkCollisions();

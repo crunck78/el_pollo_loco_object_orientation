@@ -27,11 +27,16 @@ class Keyboard{
                 this.SPACE = true;
             }
             if(e.keyCode == 68){
-                // if(this.THROW_REQUEST_STOP > this.THROW_REQUEST_START && !this.D){
-                //     this.THROW_REQUEST_START = new Date().getTime();
+                if(this.THROW_REQUEST_STOP > this.THROW_REQUEST_START && !this.D ){
+                    if((new Date().getTime() - this.THROW_REQUEST_START) > 1000){
+                        this.THROW_REQUEST_START = new Date().getTime();
+                    }
                     this.D = true;
-                //}
+                }
             }
+            // if(e.keyCode == 68 ){  
+            //     this.D = !e.repeat;
+            // }
         });
         
         window.addEventListener('keyup', (e)=>{
@@ -56,8 +61,8 @@ class Keyboard{
             }
         
             if(e.keyCode == 68){
+                this.THROW_REQUEST_STOP = new Date().getTime();
                 this.D = false;
-                //this.THROW_REQUEST_STOP = new Date().getTime();
             }
         });
     }

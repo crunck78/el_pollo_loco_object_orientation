@@ -2,7 +2,7 @@ class Character extends MovableObject {
     height = 250;
     y = 80;
     speed = 5;
-    groundPos = 160; //GROUND_LEVEL
+    groundPos = 160;
 
     lastIdle = new Date().getTime();
     lastAttack = 0;
@@ -122,22 +122,21 @@ class Character extends MovableObject {
 
     canAttack() {
         return this.keyboard.D &&
-            (new Date().getTime() - this.lastAttack) > 1000 &&
-            //this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
+            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
             this.bottles > 0 &&
-            !this.isAboveGround();
+            !(this.isAboveGround() || this.isHit());
     }
 
     attack() {
         this.AUDIOS['throw'].play();
-        this.lastIdle = 0;
-        this.attacking = true;
-        this.lastAttack = new Date().getTime();
-        //this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
+        this.lastIdle = 0; //prevents instant idle
+        this.attacking = true; //triggers playAttacking animation
+        this.keyboard.THROW_REQUEST_STOP = new Date().getTime(); //stops attacking if attack button is been hold down
         let bottle = new ThrowableObject(this.x, this.y + 100, this.otherDirection);
         this.throwBottles.push(bottle);
         this.bottles -= 5;
         this.bottlesBar.setPercentage(this.bottles);
+        setTimeout(()=>{ this.attacking = false; }, 250); //stops playAttacking after timeout
     }
 
     isAttacking() {
@@ -227,7 +226,7 @@ class Character extends MovableObject {
 
     playAttack(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['attack']);
-        setTimeout(() => this.attacking = false, 250);
+        //setTimeout(() => this.attacking = false, 250);
     }
 
     playLaunch(timeStamp) {
