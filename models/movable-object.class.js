@@ -99,28 +99,12 @@ class MovableObject extends DrawableObject {
         if (this.gravityTime === undefined) {
             this.gravityTime = timeStamp;
         }
-
         const elapse = timeStamp - this.gravityTime;
         if (elapse > FRAMES_TIME) {
             this.gravityTime = timeStamp;
-            //DO NOT DELETE.....
-            // if (this.isLaunching()) {
-            //     console.log("Is Launching");
-            //     this.handleLaunching();
-            // }
-            // if (this.isInAir()) { console.log("Is in the Air"); }
-            // if (this.isJumping()) { console.log("Is Jumping"); }
-            // if (this.isMitAir()) { console.log("Is Mid Air"); }
-            // if (this.isLanding()) { console.log("Is Landing"); }
-            // console.log("Gravity is Running!");
             if (this.isAboveGround() || this.speedY > 0) {
-                //calculate what will come next and predict landing
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                // if (this.isLanded()) {
-                //     //console.log("Has Landed");
-                //     this.handleLanding();
-                // }
             }
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
@@ -132,13 +116,12 @@ class MovableObject extends DrawableObject {
 
     isLaunching() {
         return this.launching !== undefined && this.launching;
-        return !this.isAboveGround() && (this.speedY > 0 || this.speedY == this.jumpVelocity);
     }
 
     launch() {
-        this.currentImage = 0; // presumes that launch only fires after 
-        this.lauching = true;
-        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false }, 250); // give time for launch animation
+        this.currentImage = 0;
+        this.launching = true;
+        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false; this.groundPos = 160; }, 250); // give time for launch animation
     }
 
     isInAir() {
@@ -160,7 +143,8 @@ class MovableObject extends DrawableObject {
     isLanded() {
         //We only want to find when it hits the ground
         //return this.speedY + this.acceleration + this.y < this.groundPos;
-        return this.speedY <= 0 && !this.isAboveGround();// && this.landed !== undefined && this.landed; // Only valid inside gravity after calculation
+        //return this.speedY <= 0 && !this.isAboveGround();
+        return this.landed !== undefined && this.landed;
     }
 
     isColliding(mo) {
@@ -214,13 +198,13 @@ class MovableObject extends DrawableObject {
     }
 
     canHit() {
-        //Logic and Time Controled?
+        //Logic and Time Controlled?
     }
 
     isHit() {
-        let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000;
-        return timepassed < 1;
+        let timePassed = new Date().getTime() - this.lastHit;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
     }
 
     hit() {
@@ -243,12 +227,12 @@ class MovableObject extends DrawableObject {
     }
 
     isAttacking() {
-        //TIME CONTROLED
+        //TIME CONTROLLED
         throw new Error('You have to implement the method isAttack!');
     }
 
     canAttack() {
-        //TIME CONTROLED
+        //TIME CONTROLLED
         throw new Error('You have to implement the method canAttack!');
     }
 
@@ -257,15 +241,15 @@ class MovableObject extends DrawableObject {
         this.currentImage = 0;
     }
 
-    isMoving(){
+    isMoving() {
         return this.isMovingRight() || this.isMovingLeft();
     }
 
-    isMovingLeft(){
+    isMovingLeft() {
         throw new Error('You have to implement the method isMovingLeft!');
     }
 
-    isMovingRight(){
+    isMovingRight() {
         throw new Error('You have to implement the method isMovingRight!');
     }
 
@@ -285,12 +269,12 @@ class MovableObject extends DrawableObject {
         this.y += this.speed;
     }
 
-    distanceFromX(mo){
-        if(this.isLeftSide(mo)){
+    distanceFromX(mo) {
+        if (this.isLeftSide(mo)) {
             return mo.getLeftPos() - this.getRightPos();
         }
 
-        if(this.isRightSide(mo)){
+        if (this.isRightSide(mo)) {
             return this.getLeftPos() - mo.getRightPos();
         }
 

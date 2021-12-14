@@ -71,10 +71,10 @@ class World {
         if (!(this.level.character.isKilled() || enemy.isKilled() || this.level.character.isHit()) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 enemy.hit();
-                //TODO: create a interval setter for groundPos allway sets the ground position 
-                this.level.character.groundPos = this.level.character.y - 20;
+                //TODO: create a interval setter for groundPos that sets the ground position 
+                this.level.character.groundPos = this.level.character.y - 50;
+                this.level.character.speedY = 0;
                 this.level.character.launch();
-                this.level.character.groundPos = 160;
                 if (enemy.isKilled()) {
                     enemy.AUDIOS['stamp'].play();
                     this.splice(this.level.enemies, enemy);

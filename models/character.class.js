@@ -5,6 +5,7 @@ class Character extends MovableObject {
     groundPos = 160; //GROUND_LEVEL
 
     lastIdle = new Date().getTime();
+    lastAttack = 0;
 
     bottles = 100;
     coins = 0;
@@ -28,7 +29,7 @@ class Character extends MovableObject {
         this.initX = super.x;
     }
 
-    createStatusBars(){
+    createStatusBars() {
         this.hitPointsBar = new StatusBar(30, 0, CHARACTER_ASSETS['IMAGES_HIT_POINTS_BAR']);
         this.hitPointsBar.setPercentage(this.energy);
         this.coinsBar = new StatusBar(30, 40, CHARACTER_ASSETS['IMAGES_COINS_BAR']);
@@ -75,7 +76,9 @@ class Character extends MovableObject {
     }
 
     canMoveRight() {
-        return this.isMovingRight() && this.x < Level.level_end_x;
+        return this.isMovingRight() &&
+            this.x < Level.level_end_x &&
+            !(this.isLaunching() || this.isAttacking());
     }
 
     moveRight() {
@@ -89,11 +92,13 @@ class Character extends MovableObject {
     }
 
     canMoveLeft() {
-        return this.isMovingLeft() && this.x > 120; // initial start x position
+        return this.isMovingLeft() &&
+            this.x > 120 && // initial start x position
+            !(this.isLaunching() || this.isAttacking());
     }
 
     isMovingRight() {
-        return this.keyboard.RIGHT; // Poor Control should be fixed
+        return this.keyboard.RIGHT; // Poor Control should be fixed, this does not mean is moving right
     }
 
     moveLeft() {
@@ -103,7 +108,7 @@ class Character extends MovableObject {
     }
 
     isMovingLeft() {
-        return this.keyboard.LEFT; // Poor Control should be fixed
+        return this.keyboard.LEFT; // Poor Control should be fixed, this does not mean is moving left
     }
 
     canLaunch() {
@@ -111,22 +116,24 @@ class Character extends MovableObject {
     }
 
     launch() {
-        this.lastIdle = 0; 
-        this.launching = true;
+        this.lastIdle = 0;
         super.launch();
     }
 
     canAttack() {
         return this.keyboard.D &&
-            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
-            this.bottles > 0;
+            (new Date().getTime() - this.lastAttack) > 1000 &&
+            //this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
+            this.bottles > 0 &&
+            !this.isAboveGround();
     }
 
     attack() {
         this.AUDIOS['throw'].play();
         this.lastIdle = 0;
         this.attacking = true;
-        this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
+        this.lastAttack = new Date().getTime();
+        //this.keyboard.THROW_REQUEST_STOP = new Date().getTime();
         let bottle = new ThrowableObject(this.x, this.y + 100, this.otherDirection);
         this.throwBottles.push(bottle);
         this.bottles -= 5;
@@ -153,7 +160,7 @@ class Character extends MovableObject {
         if (super.isKilled()) { this.playDead(timeStamp); }
         else if (super.isHit()) { this.playHit(timeStamp); }
         else if (this.isAttacking()) { this.playAttack(timeStamp); }
-        else if (super.isLaunching()) { this.playLuanch(timeStamp); }
+        else if (super.isLaunching()) { this.playLaunch(timeStamp); }
         else if (super.isAboveGround() || this.speedY > 0) { this.playAboveGround(timeStamp); }
         else if (super.isMoving()) { this.playMove(timeStamp); }
         else { this.playStand(timeStamp); }
@@ -168,7 +175,7 @@ class Character extends MovableObject {
         super.playAnimation(timeStamp, this.IMAGES['hit']);
     }
 
-    playLuanch(timeStamp) {
+    playLaunch(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['launch']);
         setTimeout(() => this.launching = false, 250);
     }
@@ -177,7 +184,7 @@ class Character extends MovableObject {
         if (super.isJumping()) { this.playJump(timeStamp); }
         if (super.isMitAir()) { this.playMitAir(timeStamp); }
         if (super.isLanding()) { this.playLanding(timeStamp); }
-        if (super.isLanded()) { this.playLanded(timeStamp); }
+        if (super.isLanded()) { this.playLanded(timeStamp); } //TODO
     }
 
     playJump(timeStamp) {
@@ -223,7 +230,7 @@ class Character extends MovableObject {
         setTimeout(() => this.attacking = false, 250);
     }
 
-    playLuanch(timeStamp) {
+    playLaunch(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['launch']);
     }
 

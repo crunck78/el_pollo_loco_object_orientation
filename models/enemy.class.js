@@ -42,9 +42,9 @@ class Enemy extends MovableObject {
     }
 
     isAttacking(){
-        let timepassed = new Date().getTime() - this.lastAttack;
-        timepassed = timepassed / 1000;
-        return timepassed < 1;
+        let timePassed = new Date().getTime() - this.lastAttack;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
     }
     
     attack(){
@@ -55,9 +55,9 @@ class Enemy extends MovableObject {
     }
 
     isAlert() {
-        let timepassed = new Date().getTime() - this.lastAlert;
-        timepassed = timepassed / 1000;
-        return timepassed < 1;
+        let timePassed = new Date().getTime() - this.lastAlert;
+        timePassed = timePassed / 1000;
+        return timePassed < 1;
     }
 
     alert(char) {
