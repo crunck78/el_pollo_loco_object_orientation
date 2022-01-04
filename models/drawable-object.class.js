@@ -83,7 +83,7 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx 
      */
     drawFrames(ctx) {
-        if (this instanceof Character) {
+        if (this instanceof Character || this instanceof Chicken) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
             this.drawCoordinates(ctx);

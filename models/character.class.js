@@ -78,7 +78,7 @@ class Character extends DestroyableObject {
 
     canMoveRight() {
         return this.isMovingRight() &&
-            this.x < 720 * 3 &&
+            this.x < 720 * 4 &&
             !(this.isLaunching() || this.isAttacking());
     }
 
@@ -94,7 +94,7 @@ class Character extends DestroyableObject {
 
     canMoveLeft() {
         return this.isMovingLeft() &&
-            this.x > 120 && // initial start x position
+            this.x > 0 && // initial start x position
             !(this.isLaunching() || this.isAttacking());
     }
 
