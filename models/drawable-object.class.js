@@ -57,9 +57,9 @@ class DrawableObject {
     /**
      * @type {number} - Indicator of the current value of @static @member count
      */
-     id;
+    id;
 
-    constructor(){
+    constructor() {
         this.id = DrawableObject.count;
         DrawableObject.count++;
     }
@@ -82,18 +82,43 @@ class DrawableObject {
     /**
      * @param {CanvasRenderingContext2D} ctx 
      */
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Coin) {
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-
-            ctx.font = '48px serif';
-            ctx.strokeText('x: '  + this.x + ' y: ' + this.y, this.x, this.y);
-           
+    drawFrames(ctx) {
+        if (this instanceof Character) {
+            this.drawImageFrame(ctx);
+            //this.drawContextFrame(ctx);
+            this.drawCoordinates(ctx);
         }
+    }
+
+    /**
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    drawCoordinates(ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        ctx.font = '48px serif';
+        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y);
+    }
+
+    /**
+     * @deprecated
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+    drawContextFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+
+        ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.stroke();
+    }
+
+    drawImageFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'blue';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     /**

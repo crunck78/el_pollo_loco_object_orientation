@@ -200,7 +200,7 @@ class World {
                 this.ctx.translate(this.camera_x * mo.distance, 0);
             }
             mo.draw(this.ctx);
-            mo.drawFrame(this.ctx);
+            mo.drawFrames(this.ctx);
             if (mo instanceof BackgroundObject) {
                 this.ctx.translate(-this.camera_x * mo.distance, 0);
             }
