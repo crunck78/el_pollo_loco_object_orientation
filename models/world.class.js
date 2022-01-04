@@ -4,11 +4,9 @@ class World {
     requestCheckWorld;
     checkWorldTime;
     camera_x = 0;
-    static ctx;
     constructor() {
         this.level = getLevel1();
         this.ctx = document.getElementById('canvas').getContext('2d');
-        Level.level_end_x = this.ctx.canvas.width * 4;
     }
 
     run() {

@@ -1,5 +1,6 @@
 class Level {
-    static level_end_x;
+    level_end_x = 720 * 4;
+    AUDIOS = LEVEL_ASSETS['AUDIOS'];
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
         this.character = new Character();
         this.enemies = enemies;
@@ -17,13 +18,11 @@ class Level {
         //     ...World.throwableObjects,
         // ].push(this.character);
         
-        Level.AUDIOS = {
-            background: new Audio('audio/background.mp3')
-        };
+        
     }
 
     animateAll() {
-        Level.AUDIOS['background'].play();
+        this.AUDIOS['BACKGROUND'].play();
         this.character.animate();
         this.animateCollection(this.enemies);
         this.animateCollection(this.coins);
@@ -38,7 +37,7 @@ class Level {
     }
 
     stopAnimateAll() {
-        Level.AUDIOS['background'].pause();
+        this.AUDIOS['BACKGROUND'].pause();
         this.character.stopAnimate();
         this.stopAnimateCollection(this.enemies);
         this.stopAnimateCollection(this.coins);
@@ -64,11 +63,11 @@ class Level {
     }
 
     muteSounds(){
-        Level.AUDIOS['background'].volume = 0;
+        this.AUDIOS['BACKGROUND'].volume = 0;
     }
 
     unmuteSounds(){
-        Level.AUDIOS['background'].volume = 100;
+        this.AUDIOS['BACKGROUND'].volume = 100;
     }
 
 }

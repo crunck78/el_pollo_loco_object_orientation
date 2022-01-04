@@ -199,3 +199,9 @@ const THROWABLE_OBJECT_ASSETS = {
         ]
     }
 }
+
+const LEVEL_ASSETS = {
+    AUDIOS :{
+        BACKGROUND: new Audio('audio/background.mp3')
+    }
+}
