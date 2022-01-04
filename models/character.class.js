@@ -1,5 +1,6 @@
-class Character extends MovableObject {
+class Character extends DestroyableObject {
     height = 250;
+    x = 120;
     y = 80;
     speed = 5;
     groundPos = 160;
@@ -23,10 +24,10 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
-        this.loadImages();
+        super.loadAllImages();
         this.keyboard = new Keyboard();
         this.createStatusBars();
-        this.initX = super.x;
+        //this.initX = super.x;
     }
 
     createStatusBars() {
@@ -38,11 +39,11 @@ class Character extends MovableObject {
         this.bottlesBar.setPercentage(this.bottles);
     }
 
-    loadImages() {
-        for (const status in this.IMAGES) {
-            super.loadImages(this.IMAGES[status]);
-        }
-    }
+    // loadAllImages() {
+    //     for (const status in this.IMAGES) {
+    //         super.loadImages(this.IMAGES[status]);
+    //     }
+    // }
 
     animate() {
         super.startGravity();
@@ -77,7 +78,7 @@ class Character extends MovableObject {
 
     canMoveRight() {
         return this.isMovingRight() &&
-            this.x < Level.level_end_x &&
+            this.x < Level.level_end_x - 720 &&
             !(this.isLaunching() || this.isAttacking());
     }
 
@@ -128,7 +129,6 @@ class Character extends MovableObject {
     }
 
     attack() {
-        this.AUDIOS['throw'].play();
         this.lastIdle = 0; //prevents instant idle
         this.attacking = true; //triggers playAttacking animation
         this.keyboard.THROW_REQUEST_STOP = new Date().getTime(); //stops attacking if attack button is been hold down
@@ -166,16 +166,16 @@ class Character extends MovableObject {
     }
 
     playDead(timeStamp) {
-        super.playAnimation(timeStamp, this.IMAGES['dead']);
+        super.playAnimation(timeStamp, this.IMAGES['DEAD']);
     }
 
     playHit(timeStamp) {
-        this.AUDIOS['hit'].play();
-        super.playAnimation(timeStamp, this.IMAGES['hit']);
+        this.AUDIOS['HIT'].play();
+        super.playAnimation(timeStamp, this.IMAGES['HIT']);
     }
 
     playLaunch(timeStamp) {
-        super.playAnimation(timeStamp, this.IMAGES['launch']);
+        super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
         setTimeout(() => this.launching = false, 250);
     }
 
@@ -187,29 +187,29 @@ class Character extends MovableObject {
     }
 
     playJump(timeStamp) {
-        this.AUDIOS['jump'].play();
-        super.playAnimation(timeStamp, this.IMAGES['jump']);
+        this.AUDIOS['JUMP'].play();
+        super.playAnimation(timeStamp, this.IMAGES['JUMP']);
     }
 
     playMitAir(timeStamp) {
         // this.landing = false;
         // setTimeout(()=> this.landing = true, 100);
-        super.playAnimation(timeStamp, this.IMAGES['midAir']);
+        super.playAnimation(timeStamp, this.IMAGES['MID_AIR']);
     }
 
     playLanding(timeStamp) {
-        super.playAnimation(timeStamp, this.IMAGES['landing']);
+        super.playAnimation(timeStamp, this.IMAGES['LANDING']);
     }
 
     playLanded(timeStamp) {
         this.AUDIOS['land'].play();
         this.landed = true;
-        super.playAnimation(timeStamp, this.IMAGES['landed']);
+        super.playAnimation(timeStamp, this.IMAGES['LANDED']);
     }
 
     playMove(timeStamp) {
-        this.AUDIOS['move'].play();
-        super.playAnimation(timeStamp, this.IMAGES['walking']);
+        this.AUDIOS['MOVE'].play();
+        super.playAnimation(timeStamp, this.IMAGES['WALKING']);
     }
 
     playStand(timeStamp) {
@@ -218,19 +218,19 @@ class Character extends MovableObject {
         }
         let timePassed = new Date().getTime() - this.lastIdle;
         if (timePassed > 5000) {
-            super.playAnimation(timeStamp, this.IMAGES['longIdle']);
+            super.playAnimation(timeStamp, this.IMAGES['LONG_IDLE']);
         } else {
-            super.playAnimation(timeStamp, this.IMAGES['idle']);
+            super.playAnimation(timeStamp, this.IMAGES['IDLE']);
         }
     }
 
     playAttack(timeStamp) {
-        super.playAnimation(timeStamp, this.IMAGES['attack']);
+        super.playAnimation(timeStamp, this.IMAGES['ATTACK']);
         //setTimeout(() => this.attacking = false, 250);
     }
 
     playLaunch(timeStamp) {
-        super.playAnimation(timeStamp, this.IMAGES['launch']);
+        super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
     }
 
     hit() {
@@ -243,5 +243,13 @@ class Character extends MovableObject {
         this.lastIdle = 0;
         super.kill();
         this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    isStamping(mo) {
+        //most  likely to stamp an enemy
+        // not exactly but does the job ... is just a soft simulation, not real life
+        console.log(this.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
+        return /*this.isLanding() &&*/ this.getBottomPos() - mo.getTopPos() <= 20; //Tolerance 
+        //this.isLanding causes the next mo check if is stamping to hit the character because is not landing anymore.  
     }
 }

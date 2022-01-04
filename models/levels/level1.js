@@ -1,22 +1,18 @@
 function getLevel1() {
-    Level.level_end_x = 2200;
-    Level.AUDIOS = {
-        background: new Audio('audio/background.mp3')
-    };
     return new Level(
         [
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
-            new Chicken(),
+            new Chicken(1100),
+            new Chicken(1200),
+            new Chicken(1300),
+            new Chicken(1400),
+            new Chicken(1500),
+            new Chicken(1600),
+            new Chicken(1700),
+            new Chicken(1800),
+            new Chicken(1900),
+            new Chicken(2000),
+            new Chicken(2100),
+            new Chicken(2200),
             new EndBoss()
         ],
         [

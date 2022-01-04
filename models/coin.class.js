@@ -1,4 +1,4 @@
-class Coin extends MovableObject {
+class Coin extends CollidableObject {
     width = 100;
     height = 100;
 

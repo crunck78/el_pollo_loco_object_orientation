@@ -1,16 +1,31 @@
 class MovableObject extends DrawableObject {
-    speed = 0.15;
-    otherDirection = false;
-    energy = 100;
-    lastHit = 0;
+    /**
+     * @type {number} - Horizontal Speed Movement
+     */
+    speedX = 0.15;
+    
+    /**
+     * @type {number} - Vertical Position for Gravity to Measure distance relative to ground
+     */
     groundPos = 180;
 
+    /**
+     * @type {number} - Vertical Speed Movement
+     */
     speedY = 0;
-    jumpVelocity = 20;
-    acceleration = 1;
+
+    /**
+     * @type {number} - Vertical Velocity
+     */
+    velocityY = 20;
+
+    /**
+     * @type {number} - Vertical Acceleration, Gravity
+     */
+    accelerationY = 1;
 
     changeDirectionTime = 5000;
-
+    
     requestPlay;
     playObjectTime;
     playAnimationElapse = 160;
@@ -106,7 +121,7 @@ class MovableObject extends DrawableObject {
             this.gravityTime = timeStamp;
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
-                this.speedY -= this.acceleration;
+                this.speedY -= this.accelerationY;
             }
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
@@ -123,7 +138,7 @@ class MovableObject extends DrawableObject {
     launch() {
         this.currentImage = 0;
         this.launching = true;
-        setTimeout(() => { this.speedY = this.jumpVelocity; this.launching = false; this.groundPos = 160; }, 250); // give time for launch animation
+        setTimeout(() => { this.speedY = this.velocityY; this.launching = false; this.groundPos = 160; }, 250); // give time for launch animation
     }
 
     isInAir() {
@@ -144,94 +159,14 @@ class MovableObject extends DrawableObject {
 
     isLanded() {
         //We only want to find when it hits the ground
-        //return this.speedY + this.acceleration + this.y < this.groundPos;
+        //return this.speedY + this.accelerationY + this.y < this.groundPos;
         //return this.speedY <= 0 && !this.isAboveGround();
         return this.landed !== undefined && this.landed;
     }
 
-    isColliding(mo) {
-        return this.isIntersectingX(mo) && this.isIntersectingY(mo);
-    }
-
-    isIntersectingX(mo) {
-        return !(this.isLeftSide(mo) || this.isRightSide(mo));
-    }
-
-    isLeftSide(mo) {
-        return !(this.getRightPos() > mo.getLeftPos());
-    }
-
-    isRightSide(mo) {
-        return !(this.getLeftPos() < mo.getRightPos());
-    }
-
-    getLeftPos() {
-        return this.x + this.offset.left;
-    }
-
-    getRightPos() {
-        return this.x + this.width - this.offset.right;
-    }
-
-    isIntersectingY(mo) {
-        return !(this.isAbove(mo) || this.isBelow(mo));
-    }
-
-    isAbove(mo) {
-        return !(this.getBottomPos() > mo.getTopPos());
-    }
-
-    isBelow(mo) {
-        return !(this.getTopPos() < mo.getBottomPos());
-    }
-
-    getTopPos() {
-        return this.y + this.offset.top;
-    }
-
-    getBottomPos() {
-        return this.y + this.height - this.offset.bottom;
-    }
-
-    isStamping(mo) {
-        //most  likely to stamp an enemy
-        // not exactly but does the job ... is just a soft simulation, not real life
-        console.log(this.getBottomPos() - mo.getTopPos());
-        return this.isLanding() && this.getBottomPos() - mo.getTopPos() <= 13; //Tolerance
-    }
-
-    canHit() {
-        //Logic and Time Controlled?
-    }
-
-    isHit() {
-        let timePassed = new Date().getTime() - this.lastHit;
-        timePassed = timePassed / 1000;
-        return timePassed < 1;
-    }
-
-    hit() {
-        this.currentImage = 0;
-        this.energy -= 20;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
-    }
-
-    isKilled() {
-        return this.energy == 0;
-    }
-
-    kill() {
-        this.currentImage = 0;
-        this.energy = 0;
-    }
-
     isAttacking() {
         //TIME CONTROLLED
-        throw new Error('You have to implement the method isAttack!');
+        throw new Error('You have to implement the method isAttacking!');
     }
 
     canAttack() {
@@ -270,17 +205,5 @@ class MovableObject extends DrawableObject {
 
     moveDown() {
         this.y += this.speed;
-    }
-
-    distanceFromX(mo) {
-        if (this.isLeftSide(mo)) {
-            return mo.getLeftPos() - this.getRightPos();
-        }
-
-        if (this.isRightSide(mo)) {
-            return this.getLeftPos() - mo.getRightPos();
-        }
-
-        return 0; // means they are intersectingX
     }
 }

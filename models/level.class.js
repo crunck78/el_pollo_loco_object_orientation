@@ -16,6 +16,10 @@ class Level {
         //     ...this.bottles,
         //     ...World.throwableObjects,
         // ].push(this.character);
+        
+        Level.AUDIOS = {
+            background: new Audio('audio/background.mp3')
+        };
     }
 
     animateAll() {

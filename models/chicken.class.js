@@ -6,22 +6,24 @@ class Chicken extends Enemy {
     x = 1000 + Math.random() * 500;
     speed = 0.15 + Math.random() * 0.5;
 
-    AUDIOS = {
-        stamp: new Audio('audio/rubber_chicken.mp3'),
-        kill: new Audio('audio/chicken.mp3')
+    AUDIOS = CHICKEN_ASSETS['AUDIOS'];
+    IMAGES = CHICKEN_ASSETS['IMAGES'];
+
+   
+    constructor(x) {
+        super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
+        super.loadAllImages();
+
+        if(x){
+            this.x = x;
+        }
     }
 
-    IMAGES_WALKING = [
-        'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
-        'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',
-        'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/3.Ga_paso izquierdo.png'
-    ];
-    IMAGES_DEAD = ['img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/4.G_muerte.png'];
-    constructor() {
-        super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
-        super.loadImages(this.IMAGES_WALKING);
-        super.loadImages(this.IMAGES_DEAD);
-    }
+    // loadAllImages() {
+    //     for (const status in this.IMAGES) {
+    //         super.loadImages(this.IMAGES[status]);
+    //     }
+    // }
 
     animate() {
         super.startDirectionChange();
@@ -41,9 +43,9 @@ class Chicken extends Enemy {
         if (elapse > FRAMES_TIME) {
             this.playChickenTime = timeStamp;
             if (super.isKilled()) {
-                super.playAnimation(timeStamp, this.IMAGES_DEAD);
+                super.playAnimation(timeStamp, this.IMAGES['DEAD']);
             } else {
-                super.playAnimation(timeStamp, this.IMAGES_WALKING);
+                super.playAnimation(timeStamp, this.IMAGES['WALKING']);
             }
         }
         super.play(timeStamp);

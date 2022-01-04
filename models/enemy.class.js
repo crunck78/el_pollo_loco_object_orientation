@@ -1,4 +1,4 @@
-class Enemy extends MovableObject {
+class Enemy extends DestroyableObject {
 
     alertDistance = 200;
 
@@ -20,7 +20,7 @@ class Enemy extends MovableObject {
         if (elapse > FRAMES_TIME) {
             this.moveEnemyTime = timeStamp;
             if (!super.isKilled()) {
-                // if (this.otherDirection) { //interesting ... super methods call behave as i expacted ...  but super fileds call does not work
+                // if (this.otherDirection) { //interesting ... super methods call behave as i expected ...  but super fields call does not work
                 //     super.moveRight();
                 // }
                 // else {

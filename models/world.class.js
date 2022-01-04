@@ -7,6 +7,8 @@ class World {
     static ctx;
     constructor() {
         this.level = getLevel1();
+        this.ctx = document.getElementById('canvas').getContext('2d');
+        Level.level_end_x = this.ctx.canvas.width * 4;
     }
 
     run() {
@@ -45,6 +47,11 @@ class World {
         if (elapse >= FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
             //console.log(elapse);
+            // if(this.level.character.canMoveLeft() || this.level.character.canMoveRight()){
+            //     if (this.level.character.x > this.ctx.canvas.width * 0.5 && this.level.character.x < Level.level_end_x - this.ctx.canvas.width * 0.5) {
+            //         this.camera_x = -this.level.character.x;
+            //     }
+            // }
             this.camera_x = -this.level.character.x + 120;
             this.checkAlertEnemies();
             this.checkCollisions();
@@ -53,7 +60,7 @@ class World {
     }
 
     checkAlertEnemies() {
-       this.level.endBoss.alert(this.level.character);
+        this.level.endBoss.alert(this.level.character);
     }
 
     checkCollisions() {
@@ -76,7 +83,7 @@ class World {
                 this.level.character.speedY = 0;
                 this.level.character.launch();
                 if (enemy.isKilled()) {
-                    enemy.AUDIOS['stamp'].play();
+                    enemy.AUDIOS['STAMP'].play();
                     this.splice(this.level.enemies, enemy);
                 }
             } else {
@@ -89,7 +96,7 @@ class World {
         if (!(enemy.isKilled() || enemy.isHit()) && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
             enemy.hit();
             if (enemy.isKilled()) {
-                enemy.AUDIOS['kill'].play();
+                enemy.AUDIOS['KILL'].play();
                 this.splice(this.level.enemies, enemy);
             }
             throwObj.hit();
@@ -127,13 +134,13 @@ class World {
     }
 
     collectCoin() {
-        this.level.character.AUDIOS["coin"].play();
+        this.level.character.AUDIOS['COIN'].play();
         this.level.character.coins += 5;
         this.level.character.coinsBar.setPercentage(this.level.character.coins);
     }
 
     collectBottle() {
-        this.level.character.AUDIOS["bottle"].play();
+        this.level.character.AUDIOS['BOTTLE'].play();
         this.level.character.bottles += 5;
         this.level.character.bottlesBar.setPercentage(this.level.character.bottles);
     }
@@ -157,7 +164,7 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         // --------- Space for fixed Objects ---------
 
-        World.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(this.camera_x, 0);
 
 
         this.addObjectsToMap(this.level.coins);
@@ -167,7 +174,7 @@ class World {
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
 
-        World.ctx.translate(-this.camera_x, 0);
+        this.ctx.translate(-this.camera_x, 0);
 
         // --------- Space for fixed Objects ---------
         this.addToMap(this.level.character.hitPointsBar);
@@ -192,12 +199,12 @@ class World {
                 this.flipImage(mo);
             }
             if (mo instanceof BackgroundObject) {
-                World.ctx.translate(this.camera_x * mo.distance, 0);
+                this.ctx.translate(this.camera_x * mo.distance, 0);
             }
-            mo.draw(World.ctx);
-            mo.drawFrame(World.ctx);
+            mo.draw(this.ctx);
+            mo.drawFrame(this.ctx);
             if (mo instanceof BackgroundObject) {
-                World.ctx.translate(-this.camera_x * mo.distance, 0);
+                this.ctx.translate(-this.camera_x * mo.distance, 0);
             }
             if (mo.otherDirection) {
                 this.flipImageBack(mo);
@@ -206,15 +213,15 @@ class World {
     }
 
     flipImage(mo) {
-        World.ctx.save();
-        World.ctx.translate(mo.width, 0);
-        World.ctx.scale(-1, 1);
+        this.ctx.save();
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
     }
 
     flipImageBack(mo) {
         mo.x = mo.x * -1;
-        World.ctx.restore();
+        this.ctx.restore();
     }
 
     insideCanvas(mo) {
