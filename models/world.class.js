@@ -45,16 +45,17 @@ class World {
         if (elapse >= FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
             console.log(elapse);
-            if(this.level.character.canMoveLeft() || this.level.character.canMoveRight()){
-                if (this.level.character.x > this.ctx.canvas.width * 0.5 && this.level.character.x < this.level.level_end_x - this.ctx.canvas.width * 0.5) {
-                    this.camera_x = -this.level.character.x + this.ctx.canvas.width * 0.5;
-                }
-            }
-            //this.camera_x = -this.level.character.x + 120;
+            this.checkCamera();
             this.checkAlertEnemies();
             this.checkCollisions();
         }
         this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
+    }
+
+    checkCamera(){
+        if (this.level.character.x + this.level.character.width * 0.5 > this.ctx.canvas.width * 0.5 && this.level.character.x + this.level.character.width * 0.5 < this.level.level_end_x - this.ctx.canvas.width * 0.5) {
+            this.camera_x = -(this.level.character.x + this.level.character.width * 0.5 - this.ctx.canvas.width * 0.5);
+        }
     }
 
     checkAlertEnemies() {

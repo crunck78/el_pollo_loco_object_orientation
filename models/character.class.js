@@ -1,6 +1,6 @@
 class Character extends DestroyableObject {
     height = 250;
-    x = 120;
+    x = 0;
     y = 80;
     speed = 5;
     groundPos = 160;
