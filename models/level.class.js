@@ -3,12 +3,15 @@ class Level {
     AUDIOS = LEVEL_ASSETS['AUDIOS'];
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
         this.character = new Character();
+        this.endBoss = new EndBoss();
         this.enemies = enemies;
+        this.enemies.push(this.endBoss);
         this.clouds = clouds;
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
         this.bottles = bottles;
-        this.endBoss = this.enemies.find(enemy => enemy instanceof EndBoss);
+       
+        
         this.clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
         this.allObjects = this.getAllObjects();
         // World.collisionObjects = [

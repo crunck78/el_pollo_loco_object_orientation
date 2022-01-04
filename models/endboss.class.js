@@ -10,7 +10,7 @@ class EndBoss extends Enemy {
     movingLeft = false;
     movingRight = false;
 
-    energy = 25;
+    energy = 100;
 
     height = 400;
     width = 250;
@@ -20,23 +20,17 @@ class EndBoss extends Enemy {
     speed = 10;
     groundPos = 60;
 
-    playAnimationElapse = 200;
+    playAnimationElapse = 400;
 
    AUDIOS = END_BOSS['AUDIOS'];
    IMAGES = END_BOSS['IMAGES'];
 
     constructor() {
-        super().loadImage(this.IMAGES['WALKING'][0]);
+        super().loadImage(this.IMAGES['IDLE'][0]);
         super.loadAllImages();
         this.hitPointsBar = new StatusBar(this.x, this.y, this.IMAGES['IMAGES_HIT_POINTS_BAR']);
         this.hitPointsBar.setPercentage(this.energy);
     }
-
-    // loadAllImages() {
-    //     for (const status in this.IMAGES) {
-    //         super.loadImages(this.IMAGES[status]);
-    //     }
-    // }
 
     animate() {
         // super.startDirectionChange();
@@ -66,7 +60,7 @@ class EndBoss extends Enemy {
             } else if (super.isMoving()) {
                 this.playMove(timeStamp);
             } else {
-                super.playAnimation(timeStamp, this.IMAGES['ALERT']);
+                super.playAnimation(timeStamp, this.IMAGES['IDLE']);
             }
         }
         super.play(timeStamp);
@@ -103,15 +97,15 @@ class EndBoss extends Enemy {
             this.hitPointsBar.x = this.x;
             this.hitPointsBar.y = this.y;
             if (!super.isKilled()) {
-                if (this.canAttack()) {
-                    this.attack();
+                if (super.canAttack()) {
+                    super.attack();
                 }
-                if (this.canMoveRight()) {
-                    this.moveRight();
-                }
-                if (this.canMoveLeft()) {
-                    this.moveLeft();
-                }
+                // if (this.canMoveRight()) {
+                //     super.moveRight();
+                // }
+                // if (this.canMoveLeft()) {
+                //     super.moveLeft();
+                // }
             }
         }
         super.move(timeStamp);

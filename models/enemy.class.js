@@ -38,7 +38,8 @@ class Enemy extends DestroyableObject {
     }
 
     canAttack(){
-        return !this.isAttacking() && !this.isLaunching();
+        return false;
+        return !(this.isAttacking() || super.isLaunching()) && this.isAlert();
     }
 
     isAttacking(){
@@ -48,10 +49,10 @@ class Enemy extends DestroyableObject {
     }
     
     attack(){
-        if(!super.isInAir() && this.isAlert()){
-            super.launch();
-            //this.lastAttack = new Date().getTime();
-        }
+        // if(!(super.isLaunching() ) && this.isAlert()){
+        //     super.launch();
+        //     //this.lastAttack = new Date().getTime();
+        // }
     }
 
     isAlert() {
@@ -61,11 +62,11 @@ class Enemy extends DestroyableObject {
     }
 
     alert(char) {
-        if(char instanceof Character){
-            if(!(this.isKilled() ||this.isAlert() || this.isAttacking()) && super.distanceFromX(char) < this.alertDistance){
-                this.lastAlert = new Date().getTime();
-                setTimeout(()=>{this.attack()}, 1000);
-            }
-        }
+        // if(char instanceof Character){
+        //     if(!(super.isKilled() || this.isAlert() || this.isAttacking()) && super.distanceFromX(char) < this.alertDistance){
+        //         this.lastAlert = new Date().getTime();
+        //         setTimeout(()=>{this.attack()}, 1000);
+        //     }
+        // }
     }
 }

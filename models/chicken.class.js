@@ -19,12 +19,6 @@ class Chicken extends Enemy {
         }
     }
 
-    // loadAllImages() {
-    //     for (const status in this.IMAGES) {
-    //         super.loadImages(this.IMAGES[status]);
-    //     }
-    // }
-
     animate() {
         super.startDirectionChange();
         super.animate();

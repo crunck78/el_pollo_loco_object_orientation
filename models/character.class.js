@@ -1,6 +1,6 @@
 class Character extends DestroyableObject {
     height = 250;
-    x = 0;
+    x = 2400;
     y = 80;
     speed = 5;
     groundPos = 160;
@@ -39,12 +39,6 @@ class Character extends DestroyableObject {
         this.bottlesBar.setPercentage(this.bottles);
     }
 
-    // loadAllImages() {
-    //     for (const status in this.IMAGES) {
-    //         super.loadImages(this.IMAGES[status]);
-    //     }
-    // }
-
     animate() {
         super.startGravity();
         super.animate();
@@ -79,7 +73,7 @@ class Character extends DestroyableObject {
     canMoveRight() {
         return this.isMovingRight() &&
             this.x < 720 * 4 &&
-            !(this.isLaunching() || this.isAttacking());
+            !(super.isLaunching() || this.isAttacking());
     }
 
     moveRight() {
@@ -95,7 +89,7 @@ class Character extends DestroyableObject {
     canMoveLeft() {
         return this.isMovingLeft() &&
             this.x > 0 && // initial start x position
-            !(this.isLaunching() || this.isAttacking());
+            !(super.isLaunching() || this.isAttacking());
     }
 
     isMovingRight() {
@@ -113,7 +107,7 @@ class Character extends DestroyableObject {
     }
 
     canLaunch() {
-        return (this.keyboard.SPACE && !(this.isAboveGround() || this.launching));
+        return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching));
     }
 
     launch() {
@@ -125,7 +119,7 @@ class Character extends DestroyableObject {
         return this.keyboard.D &&
             this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
             this.bottles > 0 &&
-            !(this.isAboveGround() || this.isHit());
+            !(super.isAboveGround() || super.isHit());
     }
 
     attack() {
@@ -248,8 +242,8 @@ class Character extends DestroyableObject {
     isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
-        console.log(this.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
-        return /*this.isLanding() &&*/ this.getBottomPos() - mo.getTopPos() <= 20; //Tolerance 
+        console.log(super.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
+        return /*this.isLanding() &&*/ super.getBottomPos() - mo.getTopPos() <= 20; //Tolerance 
         //this.isLanding causes the next mo check if is stamping to hit the character because is not landing anymore.  
     }
 }

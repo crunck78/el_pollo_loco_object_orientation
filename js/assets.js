@@ -104,13 +104,13 @@ const CHARACTER_ASSETS = {
 };
 
 const END_BOSS = {
-    AUDIOS : {
+    AUDIOS: {
         HIT: new Audio('audio/chicken.mp3'),
         KILL: new Audio('audio/chicken.mp3')
     },
 
-    IMAGES : {
-        ALERT : [
+    IMAGES: {
+        ALERT: [
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G6.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G7.png',
@@ -120,13 +120,13 @@ const END_BOSS = {
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G11.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G12.png'
         ],
-        WALKING : [
+        WALKING: [
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G1.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G2.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G3.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G4.png'
         ],
-        ATTACK : [
+        ATTACK: [
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G13.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G14.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G15.png',
@@ -136,18 +136,25 @@ const END_BOSS = {
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G19.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G20.png'
         ],
-        HIT : [
+        HIT: [
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G21.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G22.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G23.png'
         ],
-        DEAD : [
+        DEAD: [
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G24.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',
             'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
         ],
-    
-        IMAGES_HIT_POINTS_BAR : [
+
+        IDLE: [
+            //'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G4.png',
+            'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G6.png',
+            'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G9.png',
+            //'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G20.png'
+        ],
+
+        IMAGES_HIT_POINTS_BAR: [
             'img/7.Marcadores/Barra/Marcador vida/Naranja/0_ .png',
             'img/7.Marcadores/Barra/Marcador vida/Naranja/20__1.png',
             'img/7.Marcadores/Barra/Marcador vida/Naranja/40_ .png',
@@ -176,20 +183,20 @@ const CHICKEN_ASSETS = {
 }
 
 const THROWABLE_OBJECT_ASSETS = {
-    AUDIOS : {
-        BREAK : new Audio('audio/glassBreak.mp3'),
+    AUDIOS: {
+        BREAK: new Audio('audio/glassBreak.mp3'),
         THROW: new Audio('audio/throw.mp3'),
     },
 
-    IMAGES : {
-        ROTATION_BOTTLE : [
+    IMAGES: {
+        ROTATION_BOTTLE: [
             'img/6.botella/Rotación/Mesa de trabajo 1 copia 3.png',
             'img/6.botella/Rotación/Mesa de trabajo 1 copia 4.png',
             'img/6.botella/Rotación/Mesa de trabajo 1 copia 5.png',
             'img/6.botella/Rotación/Mesa de trabajo 1 copia 6.png'
         ],
-    
-        SPLASH : [
+
+        SPLASH: [
             'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 7.png',
             'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 8.png',
             'img/6.botella/Rotación/Splash de salsa/Mesa de trabajo 1 copia 9.png',
@@ -201,7 +208,7 @@ const THROWABLE_OBJECT_ASSETS = {
 }
 
 const LEVEL_ASSETS = {
-    AUDIOS :{
+    AUDIOS: {
         BACKGROUND: new Audio('audio/background.mp3')
     }
 }

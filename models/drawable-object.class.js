@@ -83,10 +83,10 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx 
      */
     drawFrames(ctx) {
-        if (false) {
+        if (this instanceof Character || this instanceof EndBoss) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
-            //this.drawCoordinates(ctx);
+            this.drawCoordinates(ctx);
         }
     }
 

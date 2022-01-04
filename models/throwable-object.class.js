@@ -1,7 +1,7 @@
 class ThrowableObject extends DestroyableObject {
     height = 100;
     width = 60;
-    speedY = 20;
+    speedY = 10;
     speed = 10;
     groundPos = 380;
     acceleration = 2.5;
@@ -25,9 +25,9 @@ class ThrowableObject extends DestroyableObject {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         super.loadImages(this.IMAGES['ROTATION_BOTTLE']);
         super.loadImages(this.IMAGES['SPLASH']);
-        super.x = x;
-        super.y = y;
-        super.otherDirection = otherDirection;
+        this.x = x;
+        this.y = y;
+        this.otherDirection = otherDirection;
         this.AUDIOS['THROW'].play();
         this.animate();
     }

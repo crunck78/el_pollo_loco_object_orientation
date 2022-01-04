@@ -41,7 +41,7 @@ class Bottle extends CollidableObject {
         const elapse = timeStamp - this.playBottleTime;
         if (elapse > FRAMES_TIME) {
             this.playBottleTime = timeStamp;
-            this.playAnimation(timeStamp, this.IMAGES);
+            super.playAnimation(timeStamp, this.IMAGES);
         }
         super.play(timeStamp);
     }
