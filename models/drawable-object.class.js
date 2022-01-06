@@ -34,7 +34,7 @@ class DrawableObject {
     img = new Image();
 
     /**
-     * @type { object } - Key - Value Construct , where the key is the Path to a Image Resource
+     * @type { {} } - Key - Value Construct , where the key is the Path to a Image Resource
      *                      and the Value is a Image Element that loads the respective Image Resource
      */
     imageCache = {};
@@ -93,11 +93,12 @@ class DrawableObject {
     /**
      * @param {CanvasRenderingContext2D} ctx 
      */
-    drawCoordinates(ctx) {
+    drawImageFrame(ctx) {
         ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        ctx.font = '48px serif';
-        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y);
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'blue';
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
     }
 
     /**
@@ -113,12 +114,14 @@ class DrawableObject {
         ctx.stroke();
     }
 
-    drawImageFrame(ctx) {
+    /**
+     * @param {CanvasRenderingContext2D} ctx 
+     */
+     drawCoordinates(ctx) {
         ctx.beginPath();
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = 'blue';
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        ctx.strokeStyle = 'black';
+        ctx.font = '48px serif';
+        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y);
     }
 
     /**
@@ -132,9 +135,13 @@ class DrawableObject {
         });
     }
 
-    loadAllImages() {
-        for (const status in this.IMAGES) {
-            this.loadImages(this.IMAGES[status]);
+    /**
+     * @param {object} images - object's all images
+     * Ex. : images['WALKING'] = ['img/walking1.png', 'img/walking2.png'];
+     */
+    loadAllImages(images) {
+        for (const status in images) {
+            this.loadImages(images[status]);
         }
     }
 }

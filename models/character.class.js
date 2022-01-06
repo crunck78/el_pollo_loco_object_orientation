@@ -1,9 +1,9 @@
 class Character extends DestroyableObject {
     height = 250;
-    x = 2400;
+    x = 1000;
     y = 80;
     speed = 5;
-    groundPos = 160;
+    groundPos = 171;
 
     lastIdle = new Date().getTime();
     lastAttack = 0;
@@ -24,7 +24,7 @@ class Character extends DestroyableObject {
 
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
-        super.loadAllImages();
+        super.loadAllImages(this.IMAGES);
         this.keyboard = new Keyboard();
         this.createStatusBars();
         //this.initX = super.x;
@@ -73,7 +73,7 @@ class Character extends DestroyableObject {
     canMoveRight() {
         return this.isMovingRight() &&
             this.x < 720 * 4 &&
-            !(super.isLaunching() || this.isAttacking());
+            !(super.isLaunching() || this.isAttacking() || this.isLanded());
     }
 
     moveRight() {
@@ -89,7 +89,7 @@ class Character extends DestroyableObject {
     canMoveLeft() {
         return this.isMovingLeft() &&
             this.x > 0 && // initial start x position
-            !(super.isLaunching() || this.isAttacking());
+            !(super.isLaunching() || this.isAttacking() || this.isLanded());
     }
 
     isMovingRight() {
@@ -107,7 +107,7 @@ class Character extends DestroyableObject {
     }
 
     canLaunch() {
-        return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching));
+        return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching || this.landed));
     }
 
     launch() {
@@ -115,11 +115,16 @@ class Character extends DestroyableObject {
         super.launch();
     }
 
+    land(){
+        this.lastIdle = 0;
+        super.land();
+    }
+
     canAttack() {
         return this.keyboard.D &&
             this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
             this.bottles > 0 &&
-            !(super.isAboveGround() || super.isHit());
+            !(super.isAboveGround() || super.isHit() || super.isLanded());
     }
 
     attack() {
@@ -153,6 +158,7 @@ class Character extends DestroyableObject {
         if (super.isKilled()) { this.playDead(timeStamp); }
         else if (super.isHit()) { this.playHit(timeStamp); }
         else if (this.isAttacking()) { this.playAttack(timeStamp); }
+        else if (super.isLanded()) { this.playLanded(timeStamp); }
         else if (super.isLaunching()) { this.playLaunch(timeStamp); }
         else if (super.isAboveGround() || this.speedY > 0) { this.playAboveGround(timeStamp); }
         else if (super.isMoving()) { this.playMove(timeStamp); }
@@ -174,10 +180,10 @@ class Character extends DestroyableObject {
     }
 
     playAboveGround(timeStamp) {
+        
         if (super.isJumping()) { this.playJump(timeStamp); }
         if (super.isMitAir()) { this.playMitAir(timeStamp); }
         if (super.isLanding()) { this.playLanding(timeStamp); }
-        if (super.isLanded()) { this.playLanded(timeStamp); } //TODO
     }
 
     playJump(timeStamp) {
@@ -196,7 +202,7 @@ class Character extends DestroyableObject {
     }
 
     playLanded(timeStamp) {
-        this.AUDIOS['land'].play();
+        this.AUDIOS['LAND'].play();
         this.landed = true;
         super.playAnimation(timeStamp, this.IMAGES['LANDED']);
     }

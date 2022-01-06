@@ -23,8 +23,6 @@ class MovableObject extends DrawableObject {
      * @type {number} - Vertical Acceleration, Gravity
      */
     accelerationY = 1;
-
-    changeDirectionTime = 5000;
     
     requestPlay;
     playObjectTime;
@@ -32,9 +30,11 @@ class MovableObject extends DrawableObject {
 
     requestMove;
     moveOjectTime;
+    moveAnimationElapse = 160;
 
     requestGravity;
     gravityTime;
+    gravityAnimationElapse = 160;
 
     playAnimation(timeStamp, images) {
         if (this.playAnimationTime === undefined) {
@@ -50,6 +50,9 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Start move and play animation Frame
+     */
     animate() {
         this.startMove();
         this.startPlay();
@@ -63,6 +66,9 @@ class MovableObject extends DrawableObject {
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
+    /**
+     * Stop move and play animation Frame
+     */
     stopAnimate() {
         this.stopMove();
         this.stopPlay();
@@ -76,6 +82,9 @@ class MovableObject extends DrawableObject {
         cancelAnimationFrame(this.requestPlay);
     }
 
+    /**
+     * @param {number} timeStamp 
+     */
     move(timeStamp) {
         if (this.moveOjectTime === undefined) {
             this.moveOjectTime = timeStamp;
@@ -83,23 +92,15 @@ class MovableObject extends DrawableObject {
         this.requestMove = requestAnimationFrame(this.move.bind(this));
     }
 
+    /**
+     * 
+     * @param {number} timeStamp 
+     */
     play(timeStamp) {
         if (this.playObjectTime === undefined) {
             this.playObjectTime = timeStamp;
         }
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
-    }
-
-    startDirectionChange() {
-        this.changeDirectionInterval = setInterval(this.changeDirection.bind(this), this.changeDirectionTime);
-    }
-
-    stopDirectionChange() {
-        clearInterval(this.changeDirectionInterval);
-    }
-
-    changeDirection() {
-        this.otherDirection = !this.otherDirection;
     }
 
     startGravity() {
@@ -115,13 +116,15 @@ class MovableObject extends DrawableObject {
             this.gravityTime = timeStamp;
         }
         const elapse = Math.floor(Math.max(timeStamp) - Math.max(this.gravityTime));
-        //console.log("Gravity Elapse: ", elapse);
         if (elapse >= FRAMES_TIME) {
-            //console.log("Gravity Elapse: ", elapse);
             this.gravityTime = timeStamp;
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.accelerationY;
+
+                if(!(this.isAboveGround() || this.speedY > 0)){
+                   this.land(); //Works for Character. Fix for others Classes to!!!
+                }
             }
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
@@ -135,10 +138,13 @@ class MovableObject extends DrawableObject {
         return this.launching !== undefined && this.launching;
     }
 
+    /**
+     * FIX GROUND POS TO WORK FOR ALL CLASSES OR MOVE METHOD TO CHARACTER
+     */
     launch() {
         this.currentImage = 0;
         this.launching = true;
-        setTimeout(() => { this.speedY = this.velocityY; this.launching = false; this.groundPos = 160; }, 250); // give time for launch animation
+        setTimeout(() => { this.jump(); this.launching = false; this.groundPos = 171; }, 250); // give time for launch animation
     }
 
     isInAir() {
@@ -149,12 +155,23 @@ class MovableObject extends DrawableObject {
         return this.speedY > 0 && this.isAboveGround();
     }
 
+    jump(){
+        this.speedY = this.velocityY;
+    }
+
     isMitAir() {
         return this.isAboveGround() && !(this.isJumping() || this.isLanding());
     }
 
     isLanding() {
         return this.speedY < 0 && this.isAboveGround(); // && this.landing !== undefined &&  this.landing;
+    }
+
+    land() {
+        this.y = this.groundPos;
+        this.currentImage = 0;
+        this.landed = true;
+        setTimeout(() => { this.landed = false; }, 250); // give time for landing animation
     }
 
     isLanded() {

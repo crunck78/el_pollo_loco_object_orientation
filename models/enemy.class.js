@@ -1,6 +1,8 @@
-class Enemy extends DestroyableObject {
+class Enemy extends NPC {
 
     alertDistance = 200;
+    alerted = false;
+    attacking = false;
 
     animate() {
         super.startGravity();
@@ -37,36 +39,39 @@ class Enemy extends DestroyableObject {
         }
     }
 
-    canAttack(){
+    canAttack() {
         return false;
         return !(this.isAttacking() || super.isLaunching()) && this.isAlert();
     }
 
-    isAttacking(){
-        let timePassed = new Date().getTime() - this.lastAttack;
-        timePassed = timePassed / 1000;
-        return timePassed < 1;
+    isAttacking() {
+        // let timePassed = new Date().getTime() - this.lastAttack;
+        // timePassed = timePassed / 1000;
+        // return timePassed < (8 * 300) / 1000;
+        return this.attacking;
     }
-    
-    attack(){
-        // if(!(super.isLaunching() ) && this.isAlert()){
-        //     super.launch();
-        //     //this.lastAttack = new Date().getTime();
+
+    attack(timeStamp) {
+        this.attacking = true;
+        // this.lastAttack = new Date().getTime();
+        // if(!super.isAboveGround()){
+        //     super.jump();
         // }
+        console.log("ATTACK");
+        setTimeout(() => { this.attacking = false }, (8 * 300));
     }
 
     isAlert() {
-        let timePassed = new Date().getTime() - this.lastAlert;
-        timePassed = timePassed / 1000;
-        return timePassed < 1;
+        // let timePassed = new Date().getTime() - this.lastAlert;
+        // timePassed = timePassed / 1000;
+        // return timePassed < (8 * 300) / 1000;
+        return this.alerted;
     }
 
-    alert(char) {
-        // if(char instanceof Character){
-        //     if(!(super.isKilled() || this.isAlert() || this.isAttacking()) && super.distanceFromX(char) < this.alertDistance){
-        //         this.lastAlert = new Date().getTime();
-        //         setTimeout(()=>{this.attack()}, 1000);
-        //     }
-        // }
+    alert(timeStamp) {
+        this.alerted = true;
+        // this.lastAlert = new Date().getTime();
+        console.log("ALERT");
+        setTimeout(() => { this.attack(); this.alerted = false; }, (8 * 300));
     }
 }

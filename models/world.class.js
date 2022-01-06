@@ -44,7 +44,7 @@ class World {
         const elapse = timeStamp - this.checkWorldTime;
         if (elapse >= FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
-            console.log(elapse);
+            // console.log(elapse);
             this.checkCamera();
             this.checkAlertEnemies();
             this.checkCollisions();
@@ -59,7 +59,10 @@ class World {
     }
 
     checkAlertEnemies() {
-        this.level.endBoss.alert(this.level.character);
+        if(this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
+            && !(this.level.endBoss.isAlert() || this.level.endBoss.isAttacking())){
+            this.level.endBoss.alert();
+        }
     }
 
     checkCollisions() {
@@ -161,10 +164,9 @@ class World {
         this.addToMap(this.level.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        // --------- Space for fixed Objects ---------
+        // --------- Space for fixed Objects End ---------
 
         this.ctx.translate(this.camera_x, 0);
-
 
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
