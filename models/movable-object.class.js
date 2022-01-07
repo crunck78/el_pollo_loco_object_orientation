@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
      * @type {number} - Horizontal Speed Movement
      */
     speedX = 0.15;
-    
+
     /**
      * @type {number} - Vertical Position for Gravity to Measure distance relative to ground
      */
@@ -23,19 +23,50 @@ class MovableObject extends DrawableObject {
      * @type {number} - Vertical Acceleration, Gravity
      */
     accelerationY = 1;
-    
+
+    /**
+     * @type {number}
+     */
     requestPlay;
+    /**
+     * @type {number}
+     */
     playObjectTime;
+    /**
+     * @type {number}
+     */
     playAnimationElapse = 160;
 
+    /**
+     * @type {number}
+     */
     requestMove;
+    /**
+     * @type {number}
+     */
     moveOjectTime;
+    /**
+     * @type {number}
+     */
     moveAnimationElapse = 160;
 
+    /**
+     * @type {number}
+     */
     requestGravity;
+    /**
+     * @type {number}
+     */
     gravityTime;
+    /**
+     * @type {number}
+     */
     gravityAnimationElapse = 160;
 
+    /**
+     * @param {number} timeStamp 
+     * @param {string[]} images 
+     */
     playAnimation(timeStamp, images) {
         if (this.playAnimationTime === undefined) {
             this.playAnimationTime = timeStamp;
@@ -50,9 +81,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    /**
-     * Start move and play animation Frame
-     */
     animate() {
         this.startMove();
         this.startPlay();
@@ -66,9 +94,6 @@ class MovableObject extends DrawableObject {
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
-    /**
-     * Stop move and play animation Frame
-     */
     stopAnimate() {
         this.stopMove();
         this.stopPlay();
@@ -93,7 +118,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * 
      * @param {number} timeStamp 
      */
     play(timeStamp) {
@@ -111,23 +135,30 @@ class MovableObject extends DrawableObject {
         cancelAnimationFrame(this.requestGravity);
     }
 
+    /**
+     * 
+     * @param {number} timeStamp 
+     */
     gravity(timeStamp) {
         if (this.gravityTime === undefined) {
             this.gravityTime = timeStamp;
         }
-        const elapse = Math.floor(Math.max(timeStamp) - Math.max(this.gravityTime));
-        if (elapse >= FRAMES_TIME) {
+        const elapse = timeStamp - this.gravityTime;
+        if (elapse > FRAMES_TIME) {
             this.gravityTime = timeStamp;
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.accelerationY;
-
-                if(!(this.isAboveGround() || this.speedY > 0)){
-                   this.land(); //Works for Character. Fix for others Classes to!!!
-                }
-            }
+            this.applyGravity();
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
+    }
+
+    applyGravity() {
+        if (this.isAboveGround() || this.speedY > 0) {
+            this.y -= this.speedY;
+            this.speedY -= this.accelerationY;
+            if (!(this.isAboveGround() || this.speedY > 0)) {
+                this.land();
+            }
+        }
     }
 
     isAboveGround() {
@@ -155,7 +186,7 @@ class MovableObject extends DrawableObject {
         return this.speedY > 0 && this.isAboveGround();
     }
 
-    jump(){
+    jump() {
         this.speedY = this.velocityY;
     }
 
@@ -175,9 +206,6 @@ class MovableObject extends DrawableObject {
     }
 
     isLanded() {
-        //We only want to find when it hits the ground
-        //return this.speedY + this.accelerationY + this.y < this.groundPos;
-        //return this.speedY <= 0 && !this.isAboveGround();
         return this.landed !== undefined && this.landed;
     }
 

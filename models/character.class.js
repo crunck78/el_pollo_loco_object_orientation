@@ -88,7 +88,7 @@ class Character extends DestroyableObject {
 
     canMoveLeft() {
         return this.isMovingLeft() &&
-            this.x > 0 && // initial start x position
+            this.x > 0 &&
             !(super.isLaunching() || this.isAttacking() || this.isLanded());
     }
 
@@ -107,7 +107,7 @@ class Character extends DestroyableObject {
     }
 
     canLaunch() {
-        return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching || this.landed));
+        return (this.keyboard.SPACE && !(super.isAboveGround() || super.isLaunching() || this.isLanded()));
     }
 
     launch() {
@@ -180,7 +180,6 @@ class Character extends DestroyableObject {
     }
 
     playAboveGround(timeStamp) {
-        
         if (super.isJumping()) { this.playJump(timeStamp); }
         if (super.isMitAir()) { this.playMitAir(timeStamp); }
         if (super.isLanding()) { this.playLanding(timeStamp); }
@@ -249,7 +248,7 @@ class Character extends DestroyableObject {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
         console.log(super.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
-        return /*this.isLanding() &&*/ super.getBottomPos() - mo.getTopPos() <= 20; //Tolerance 
+        return /*this.isLanding() &&*/ super.getBottomPos() - mo.getTopPos() <= 20; //Tolerance may vary on different browsers and or machines config 
         //this.isLanding causes the next mo check if is stamping to hit the character because is not landing anymore.  
     }
 }

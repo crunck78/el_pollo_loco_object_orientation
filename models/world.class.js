@@ -11,21 +11,21 @@ class World {
 
     run() {
         this.level.animateAll();
-        this.startCheckWorld();
+        this.startCheck();
         this.startDraw();
     }
 
     stop() {
         this.level.stopAnimateAll();
-        this.stopCheckWorld();
+        this.stopCheck();
         this.stopDraw();
     }
 
-    startCheckWorld() {
-        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
+    startCheck() {
+        this.requestCheckWorld = requestAnimationFrame(this.check.bind(this));
     }
 
-    stopCheckWorld() {
+    stopCheck() {
         cancelAnimationFrame(this.requestCheckWorld);
     }
 
@@ -37,30 +37,34 @@ class World {
         cancelAnimationFrame(this.requestDraw);
     }
 
-    checkWorld(timeStamp) {
+    check(timeStamp) {
         if (this.checkWorldTime === undefined) {
             this.checkWorldTime = timeStamp
         }
         const elapse = timeStamp - this.checkWorldTime;
         if (elapse >= FRAMES_TIME) {
             this.checkWorldTime = timeStamp;
-            // console.log(elapse);
-            this.checkCamera();
-            this.checkAlertEnemies();
-            this.checkCollisions();
+            this.checkWorld(timeStamp);
         }
-        this.requestCheckWorld = requestAnimationFrame(this.checkWorld.bind(this));
+        this.requestCheckWorld = requestAnimationFrame(this.check.bind(this));
     }
 
-    checkCamera(){
+    checkWorld(timeStamp) {
+        // console.log(elapse);
+        this.checkCamera();
+        this.checkAlertEnemies();
+        this.checkCollisions();
+    }
+
+    checkCamera() {
         if (this.level.character.x + this.level.character.width * 0.5 > this.ctx.canvas.width * 0.5 && this.level.character.x + this.level.character.width * 0.5 < this.level.level_end_x - this.ctx.canvas.width * 0.5) {
             this.camera_x = -(this.level.character.x + this.level.character.width * 0.5 - this.ctx.canvas.width * 0.5);
         }
     }
 
     checkAlertEnemies() {
-        if(this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
-            && !(this.level.endBoss.isAlert() || this.level.endBoss.isAttacking())){
+        if (this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
+            && !(this.level.endBoss.isAlert() || this.level.endBoss.isAttacking())) {
             this.level.endBoss.alert();
         }
     }

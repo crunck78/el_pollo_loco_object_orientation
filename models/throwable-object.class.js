@@ -7,7 +7,7 @@ class ThrowableObject extends DestroyableObject {
     acceleration = 2.5;
     playTime = 200;
     energy = 5;
-    
+
     offset = {
         top: 10,
         left: 10,
@@ -34,7 +34,7 @@ class ThrowableObject extends DestroyableObject {
 
     break() {
         //first resolve ... but it can be better
-        //setting groundPos to y the throwable object lands on the ground 
+        //setting groundPos to y the throwable object gravity does not apply 
         //or isAboveGround() is false
         this.groundPos = this.y + 40; //to look like it breaks on the object ist collide with
     }
@@ -56,12 +56,12 @@ class ThrowableObject extends DestroyableObject {
         const elapse = timeStamp - this.playThrowObjecTime;
         if (elapse > FRAMES_TIME) {
             this.playThrowObjecTime = timeStamp;
-            this.playThrowObject(timeStamp); 
+            this.playThrowObject(timeStamp);
         }
         super.play(timeStamp);
     }
 
-    playThrowObject(timeStamp){
+    playThrowObject(timeStamp) {
         if (super.isAboveGround()) {
             super.playAnimation(timeStamp, this.IMAGES['ROTATION_BOTTLE']);
         }
@@ -83,20 +83,17 @@ class ThrowableObject extends DestroyableObject {
         super.move(timeStamp);
     }
 
-    moveThrowObject(timeStamp){
+    moveThrowObject(timeStamp) {
         if (super.isAboveGround()) {
-            if (this.otherDirection) {
-                super.moveLeft();
-            } else {
-                super.moveRight();
-            }
+            if (this.otherDirection) { super.moveLeft(); }
+            else { super.moveRight(); }
         } else {
             super.stopMove();
             this.playAnimationElapse = 100;
             setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
         }
     }
-    
+
     hit() {
         super.hit();
         this.break();

@@ -11,7 +11,6 @@ class Level {
         this.coins = coins;
         this.bottles = bottles;
        
-        
         this.clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
         this.allObjects = this.getAllObjects();
         // World.collisionObjects = [
