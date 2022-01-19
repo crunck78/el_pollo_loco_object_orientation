@@ -2,7 +2,7 @@ class ThrowableObject extends DestroyableObject {
     height = 100;
     width = 60;
     speedY = 10;
-    speed = 10;
+    speedX = 10;
     groundPos = 380;
     acceleration = 2.5;
     playTime = 200;
@@ -50,12 +50,12 @@ class ThrowableObject extends DestroyableObject {
     }
 
     play(timeStamp) {
-        if (this.playThrowObjecTime === undefined) {
-            this.playThrowObjecTime = timeStamp;
+        if (this.playThrowObjectTime === undefined) {
+            this.playThrowObjectTime = timeStamp;
         }
-        const elapse = timeStamp - this.playThrowObjecTime;
+        const elapse = timeStamp - this.playThrowObjectTime;
         if (elapse > FRAMES_TIME) {
-            this.playThrowObjecTime = timeStamp;
+            this.playThrowObjectTime = timeStamp;
             this.playThrowObject(timeStamp);
         }
         super.play(timeStamp);
@@ -88,7 +88,7 @@ class ThrowableObject extends DestroyableObject {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
-            super.stopMove();
+            super.stopMove(); 
             this.playAnimationElapse = 100;
             setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
         }

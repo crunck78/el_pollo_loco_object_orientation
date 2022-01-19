@@ -3,7 +3,7 @@ class Coin extends CollidableObject {
     height = 100;
 
     groundPos = 200;
-    speed = 10;
+    speedX = 10;
 
     offset = {
         top: 20,

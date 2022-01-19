@@ -1,8 +1,8 @@
 class Character extends DestroyableObject {
     height = 250;
-    x = 1000;
+    x = 2000;
     y = 80;
-    speed = 5;
+    speedX = 5;
     groundPos = 171;
 
     lastIdle = new Date().getTime();

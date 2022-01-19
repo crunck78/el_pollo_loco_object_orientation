@@ -3,6 +3,9 @@ class Enemy extends NPC {
     alertDistance = 200;
     alerted = false;
     attacking = false;
+    lastAlertPosition = undefined;
+    lastPosX = undefined;
+    patrolDistance = 500;
 
     animate() {
         super.startGravity();
@@ -22,15 +25,47 @@ class Enemy extends NPC {
         if (elapse > FRAMES_TIME) {
             this.moveEnemyTime = timeStamp;
             if (!super.isKilled()) {
-                // if (this.otherDirection) { //interesting ... super methods call behave as i expected ...  but super fields call does not work
-                //     super.moveRight();
-                // }
-                // else {
-                //     super.moveLeft();
-                // }
+               if(this.canPatrol()) {this.patrol()}
             }
         }
         super.move(timeStamp);
+    }
+
+    canSearch(){
+        return !(this.isAlert() || super.isHit() || this.isAttacking());
+    }
+
+    search(){
+        if(this.lastAlertPosition ){
+
+        }else{
+            this.patrol();
+        }
+    }
+
+    canPatrol(){
+        return !(this.isAlert() || super.isHit() || this.isAttacking());
+    }
+
+    patrol(){
+        if(this.lastAlertPosition){
+            if(this.x < this.lastAlertPosition){ this.moveRight(); }
+            if(this.x > this.lastAlertPosition){ this.moveLeft(); }
+        }
+    }
+
+    moveLeft(){
+        this.otherDirection = false;
+        this.movingRight = false;
+        this.movingLeft = true;
+        super.moveLeft();
+    }
+
+    moveRight(){
+        this.otherDirection = true;
+        this.movingRight = true;
+        this.movingLeft = false;
+        super.moveRight();
     }
 
     changeDirection() {
@@ -39,9 +74,12 @@ class Enemy extends NPC {
         }
     }
 
+    canMove() {
+        return !(this.isAlert() || super.isHit() || this.isAttacking());
+    }
+
     canAttack() {
-        return false;
-        return !(this.isAttacking() || super.isLaunching()) && this.isAlert();
+        return !(this.isAlert() || super.isHit() || this.isAttacking());
     }
 
     isAttacking() {
@@ -57,8 +95,13 @@ class Enemy extends NPC {
         // if(!super.isAboveGround()){
         //     super.jump();
         // }
+        
         console.log("ATTACK");
-        setTimeout(() => { this.attacking = false }, (8 * 300));
+        setTimeout(() => { this.attacking = false }, (8 * 300)); //attack images length times animationElapse pro attack image
+    }
+
+    canAlert(){
+        return !(this.isAlert() || this.isAttacking()) || super.isHit();
     }
 
     isAlert() {
@@ -72,6 +115,6 @@ class Enemy extends NPC {
         this.alerted = true;
         // this.lastAlert = new Date().getTime();
         console.log("ALERT");
-        setTimeout(() => { this.attack(); this.alerted = false; }, (8 * 300));
+        setTimeout(() => { this.alerted = false; this.attack(); }, (8 * 300)); //alert images length times animationElapse pro alert image
     }
 }

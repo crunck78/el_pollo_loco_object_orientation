@@ -4,17 +4,18 @@ class Chicken extends Enemy {
     energy = 5;
     y = 0;
     x = 0;
-    speed = 0.15 + Math.random() * 0.5;
+    speedX = 0.15 + Math.random() * 0.5;
 
     groundPos = 360;
 
     AUDIOS = CHICKEN_ASSETS['AUDIOS'];
     IMAGES = CHICKEN_ASSETS['IMAGES'];
 
-    constructor(x) {
+    constructor(x, y = 0) {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
         super.loadAllImages(this.IMAGES);
         this.x = x ? x : 1000 + Math.random() * 500;
+        this.y = this.groundPos;
     }
 
     animate() {

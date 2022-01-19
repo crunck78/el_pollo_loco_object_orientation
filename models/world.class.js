@@ -1,8 +1,15 @@
 class World {
+
+    cameraSpeedX = 0;
+
     requestDraw;
     drawTime;
+
     requestCheckWorld;
     checkWorldTime;
+    /**
+     * @type {number}
+     */
     camera_x = 0;
     constructor() {
         this.level = getLevel1();
@@ -50,22 +57,38 @@ class World {
     }
 
     checkWorld(timeStamp) {
-        // console.log(elapse);
         this.checkCamera();
         this.checkAlertEnemies();
         this.checkCollisions();
     }
 
+    /**
+     * 
+     */
     checkCamera() {
-        if (this.level.character.x + this.level.character.width * 0.5 > this.ctx.canvas.width * 0.5 && this.level.character.x + this.level.character.width * 0.5 < this.level.level_end_x - this.ctx.canvas.width * 0.5) {
-            this.camera_x = -(this.level.character.x + this.level.character.width * 0.5 - this.ctx.canvas.width * 0.5);
+        let charCenterX = this.level.character.x + this.level.character.width * 0.5;
+        let canvasCenterX = this.ctx.canvas.width * 0.5;
+
+        if ((charCenterX - this.cameraSpeedX) > canvasCenterX && (charCenterX - this.cameraSpeedX) < this.level.level_end_x - canvasCenterX) {
+            if(this.level.character.isMovingRight() && this.level.character.x + this.camera_x >= 0){
+                this.cameraSpeedX -= 3;
+            }
+
+            if(this.level.character.isMovingLeft() && (this.level.character.x + this.level.character.width) + this.camera_x <= this.ctx.canvas.width){
+                this.cameraSpeedX += 3;
+            }
+            this.camera_x = -(charCenterX - canvasCenterX - this.cameraSpeedX);
+            
+            console.log(this.camera_x);
         }
     }
 
     checkAlertEnemies() {
         if (this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
-            && !(this.level.endBoss.isAlert() || this.level.endBoss.isAttacking())) {
+            && this.level.endBoss.canAlert()) {
             this.level.endBoss.alert();
+            this.level.endBoss.lastAlertPosition = this.level.character.x;
+            this.level.endBoss.lastPosX = this.level.endBoss.x;
         }
     }
 
@@ -79,13 +102,13 @@ class World {
         this.checkEnemyCharacterCollision(enemy);
         this.level.character.throwBottles.forEach(throwObj => this.checkThrowEnemyCollision(throwObj, enemy));
     }
-
+    
     checkEnemyCharacterCollision(enemy) {
         if (!(this.level.character.isKilled() || enemy.isKilled() || this.level.character.isHit()) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 enemy.hit();
                 //TODO: create a interval setter for groundPos that sets the ground position 
-                this.level.character.groundPos = this.level.character.y - 50;
+                this.level.character.groundPos = this.level.character.y; //offset required?
                 this.level.character.speedY = 0;
                 this.level.character.launch();
                 if (enemy.isKilled()) {
@@ -175,6 +198,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endBoss.chickens);
         this.addObjectsToMap(this.level.character.throwBottles);
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
@@ -212,22 +236,22 @@ class World {
                 this.ctx.translate(-this.camera_x * mo.distance, 0);
             }
             if (mo.otherDirection) {
-                this.flipImageBack(mo);
+                this.flipImage(mo);
             }
         }
     }
 
     flipImage(mo) {
-        this.ctx.save();
+        //this.ctx.save();
         this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
         mo.x = mo.x * -1;
     }
 
-    flipImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
-    }
+    // flipImageBack(mo) {
+    //     mo.x = mo.x * -1;
+    //     this.ctx.restore();
+    // }
 
     insideCanvas(mo) {
         //Only for Objects translatet by Camera Movement

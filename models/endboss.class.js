@@ -7,9 +7,6 @@ class EndBoss extends Enemy {
         right: 30
     }
 
-    movingLeft = false;
-    movingRight = false;
-
     energy = 100;
 
     height = 400;
@@ -17,10 +14,12 @@ class EndBoss extends Enemy {
     y = 0;
     x = 2600;
 
-    speed = 10;
+    speedX = 1;
     groundPos = 60;
 
     playAnimationElapse = 550;
+
+    chickens = [];
 
     AUDIOS = END_BOSS['AUDIOS'];
     IMAGES = END_BOSS['IMAGES'];
@@ -28,6 +27,7 @@ class EndBoss extends Enemy {
     constructor() {
         super().loadImage(this.IMAGES['IDLE'][0]);
         super.loadAllImages(this.IMAGES);
+        this.lastPosX = this.x;
         this.hitPointsBar = new StatusBar(this.x, this.y, this.IMAGES['IMAGES_HIT_POINTS_BAR']);
         this.hitPointsBar.setPercentage(this.energy);
     }
@@ -114,18 +114,11 @@ class EndBoss extends Enemy {
     }
 
     moveEndBoss(timeStamp) {
+        //hp bar follows endboss
         this.hitPointsBar.x = this.x;
         this.hitPointsBar.y = this.y;
         if (!super.isKilled()) {
-            if (super.canAttack()) {
-                super.attack();
-            }
-            // if (this.canMoveRight()) {
-            //     super.moveRight();
-            // }
-            // if (this.canMoveLeft()) {
-            //     super.moveLeft();
-            // }
+            //Endboss movement logic here
         }
     }
 
@@ -133,16 +126,8 @@ class EndBoss extends Enemy {
         return false;
     }
 
-    isMovingRight() {
-        return this.movingRight;
-    }
-
     canMoveLeft() {
         return false;
-    }
-
-    isMovingLeft() {
-        return this.movingLeft;
     }
 
     kill() {
@@ -152,6 +137,18 @@ class EndBoss extends Enemy {
 
     hit() {
         super.hit();
+        super.alert();
         this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    attack() {
+        setTimeout(() => {
+            let newChicken = new Chicken(this.x);
+            newChicken.animate();
+            this.chickens.push(newChicken);
+            super.attack();
+        }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
+        //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to 
+        //draw a image times the position of fly image in the attack images array 
     }
 }

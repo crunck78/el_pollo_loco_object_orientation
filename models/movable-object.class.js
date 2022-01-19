@@ -33,6 +33,7 @@ class MovableObject extends DrawableObject {
      */
     playObjectTime;
     /**
+     * For How Long should one image be drawn
      * @type {number}
      */
     playAnimationElapse = 160;
@@ -237,18 +238,18 @@ class MovableObject extends DrawableObject {
     }
 
     moveRight() {
-        this.x += this.speed;
+        this.x += this.speedX;
     }
 
     moveLeft() {
-        this.x -= this.speed;
+        this.x -= this.speedX;
     }
 
     moveUp() {
-        this.y -= this.speed;
+        this.y -= this.speedX;
     }
 
     moveDown() {
-        this.y += this.speed;
+        this.y += this.speedX;
     }
 }
