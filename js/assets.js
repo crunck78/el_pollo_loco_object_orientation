@@ -1,5 +1,9 @@
 const CHARACTER_ASSETS = {
 
+    PROPERTIES : {
+    
+    },
+
     AUDIOS: {
         BOTTLE: new Audio('audio/bottle.mp3'),
         COIN: new Audio('audio/coin.mp3'),

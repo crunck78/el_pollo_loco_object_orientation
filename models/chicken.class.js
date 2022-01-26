@@ -19,12 +19,12 @@ class Chicken extends Enemy {
     }
 
     animate() {
-        super.startDirectionChange();
+        //super.startDirectionChange();
         super.animate();
     }
 
     stopAnimate() {
-        super.stopDirectionChange();
+        //super.stopDirectionChange();
         super.stopAnimate();
     }
 

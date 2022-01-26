@@ -25,43 +25,49 @@ class Enemy extends NPC {
         if (elapse > FRAMES_TIME) {
             this.moveEnemyTime = timeStamp;
             if (!super.isKilled()) {
-               if(this.canPatrol()) {this.patrol()}
+                if (this.canPatrol()) { this.patrol() }
             }
         }
         super.move(timeStamp);
     }
 
-    canSearch(){
-        return !(this.isAlert() || super.isHit() || this.isAttacking());
+    // canSearch(){
+    //     return !(this.alerted || super.isHit() || this.attacking);
+    // }
+
+    // search(){
+    //     if(this.lastAlertPosition ){
+
+    //     }else{
+    //         this.patrol();
+    //     }
+    // }
+
+    canPatrol() {
+        return !(this.alerted || super.isHit() || this.attacking);
     }
 
-    search(){
-        if(this.lastAlertPosition ){
+    patrol() {
+        if (this.lastAlertPosition) {
+            if (this.changeDirectionInterval) { this.stopDirectionChange(); }
+            this.movingRight = false;
+            this.movingLeft = false;
+            if (this.x < this.lastAlertPosition) { this.moveRight(); }
+            if (this.x > this.lastAlertPosition) { this.moveLeft(); }
+        } else {
+            if (this.changeDirectionInterval) { this.startDirectionChange(); }
 
-        }else{
-            this.patrol();
         }
     }
 
-    canPatrol(){
-        return !(this.isAlert() || super.isHit() || this.isAttacking());
-    }
-
-    patrol(){
-        if(this.lastAlertPosition){
-            if(this.x < this.lastAlertPosition){ this.moveRight(); }
-            if(this.x > this.lastAlertPosition){ this.moveLeft(); }
-        }
-    }
-
-    moveLeft(){
+    moveLeft() {
         this.otherDirection = false;
         this.movingRight = false;
         this.movingLeft = true;
         super.moveLeft();
     }
 
-    moveRight(){
+    moveRight() {
         this.otherDirection = true;
         this.movingRight = true;
         this.movingLeft = false;
@@ -75,18 +81,11 @@ class Enemy extends NPC {
     }
 
     canMove() {
-        return !(this.isAlert() || super.isHit() || this.isAttacking());
+        return !(this.alerted || super.isHit() || this.attacking);
     }
 
     canAttack() {
-        return !(this.isAlert() || super.isHit() || this.isAttacking());
-    }
-
-    isAttacking() {
-        // let timePassed = new Date().getTime() - this.lastAttack;
-        // timePassed = timePassed / 1000;
-        // return timePassed < (8 * 300) / 1000;
-        return this.attacking;
+        return !(this.alerted || super.isHit() || this.attacking);
     }
 
     attack(timeStamp) {
@@ -95,26 +94,19 @@ class Enemy extends NPC {
         // if(!super.isAboveGround()){
         //     super.jump();
         // }
-        
-        console.log("ATTACK");
+
+        //console.log("ATTACK");
         setTimeout(() => { this.attacking = false }, (8 * 300)); //attack images length times animationElapse pro attack image
     }
 
-    canAlert(){
-        return !(this.isAlert() || this.isAttacking()) || super.isHit();
-    }
-
-    isAlert() {
-        // let timePassed = new Date().getTime() - this.lastAlert;
-        // timePassed = timePassed / 1000;
-        // return timePassed < (8 * 300) / 1000;
-        return this.alerted;
+    canAlert() {
+        return !(this.isKilled() || this.alerted || this.attacking || super.isHit());
     }
 
     alert(timeStamp) {
         this.alerted = true;
         // this.lastAlert = new Date().getTime();
-        console.log("ALERT");
-        setTimeout(() => { this.alerted = false; this.attack(); }, (8 * 300)); //alert images length times animationElapse pro alert image
+        //console.log("ALERT");
+        setTimeout(() => { this.alerted = false; if (this.canAttack()) { this.attack(); } }, (8 * 300)); //alert images length times animationElapse pro alert image
     }
 }

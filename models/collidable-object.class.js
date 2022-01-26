@@ -1,3 +1,6 @@
+/**
+ * An extension of MovableObject that can collide with other CollidablesObjects.
+ */
 class CollidableObject extends MovableObject {
     /**
     * @type {object} - Offsets for Collision Check
@@ -9,38 +12,81 @@ class CollidableObject extends MovableObject {
         bottom: 0
     };
 
+    /**
+     * IF @this is colliding with @param mo
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isColliding(mo) {
         return this.isIntersectingX(mo) && this.isIntersectingY(mo);
     }
 
+    /**
+     * If @this is intersecting @param mo on the horizontal axis. 
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isIntersectingX(mo) {
         return !(this.isLeftSide(mo) || this.isRightSide(mo));
     }
 
+    /**
+     * If @this is intersecting @param mo on the vertical axis. 
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isIntersectingY(mo) {
         return !(this.isAbove(mo) || this.isBelow(mo));
     }
 
+    /**
+     * If @this is on the left side of @param mo relative to viewer
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isLeftSide(mo) {
         return !(this.getRightPos() > mo.getLeftPos());
     }
 
+    /**
+     * If @this is on the right side of @param mo relative to viewer
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isRightSide(mo) {
         return !(this.getLeftPos() < mo.getRightPos());
     }
 
+    /**
+     * If @this is above of @param mo relative to viewer
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isAbove(mo) {
         return !(this.getBottomPos() > mo.getTopPos());
     }
 
+    /**
+     * If @this is below of @param mo relative to viewer
+     * @param {CollidableObject} mo 
+     * @returns {boolean}
+     */
     isBelow(mo) {
         return !(this.getTopPos() < mo.getBottomPos());
     }
 
+    /**
+     * Get @this @member x plus @this @member object.left value
+     * @returns {number}
+     */
     getLeftPos() {
         return this.x + this.offset.left;
     }
 
+    /**
+    * Get @this @member x plus @this @member width minus @this @member object.left value
+    * @returns {number}
+    */
     getRightPos() {
         return this.x + this.width - this.offset.right;
     }

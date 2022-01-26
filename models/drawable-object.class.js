@@ -1,5 +1,5 @@
 /**
- * A Skeleton Construction to be drawn on a 2d Canvas Context
+ * A Construction to be drawn on a 2d Canvas Context
  */
 class DrawableObject {
 
@@ -65,14 +65,6 @@ class DrawableObject {
     }
 
     /**
-     * @param {string} imgPath
-     */
-    loadImage(imgPath) {
-        this.img = new Image();
-        this.img.src = imgPath;
-    }
-
-    /**
      * @param {CanvasRenderingContext2D} ctx
      */
     draw(ctx) {
@@ -80,6 +72,7 @@ class DrawableObject {
     }
 
     /**
+     * Help function
      * @param {CanvasRenderingContext2D} ctx 
      */
     drawFrames(ctx) {
@@ -91,6 +84,7 @@ class DrawableObject {
     }
 
     /**
+     * Help function, to visualize the instance's @member img frame dimensions.
      * @param {CanvasRenderingContext2D} ctx 
      */
     drawImageFrame(ctx) {
@@ -102,7 +96,7 @@ class DrawableObject {
     }
 
     /**
-     * @deprecated
+     * Help function, to visualize the context were this instance's @member img is been drawn.
      * @param {CanvasRenderingContext2D} ctx 
      */
     drawContextFrame(ctx) {
@@ -115,6 +109,8 @@ class DrawableObject {
     }
 
     /**
+     * Help function,
+     * Draws on the given context the instance's coordinates in relate to canvas origin [0, 0]
      * @param {CanvasRenderingContext2D} ctx 
      */
      drawCoordinates(ctx) {
@@ -122,6 +118,14 @@ class DrawableObject {
         ctx.strokeStyle = 'black';
         ctx.font = '48px serif';
         ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y);
+    }
+
+    /**
+     * @param {string} imgPath - Ex.: img/image1.png
+     */
+     loadImage(imgPath) {
+        this.img = new Image();
+        this.img.src = imgPath;
     }
 
     /**

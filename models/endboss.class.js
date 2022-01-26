@@ -14,7 +14,7 @@ class EndBoss extends Enemy {
     y = 0;
     x = 2600;
 
-    speedX = 1;
+    speedX = 3;
     groundPos = 60;
 
     playAnimationElapse = 550;
@@ -55,19 +55,12 @@ class EndBoss extends Enemy {
     }
 
     playEndBoss(timeStamp) {
-        if (super.isKilled()) {
-            this.playDead(timeStamp);
-        } else if (super.isHit()) {
-            this.playHit(timeStamp);
-        } else if (super.isAttacking()) {
-            this.playAttack(timeStamp);
-        } else if (super.isAlert()) {
-            this.playAlert(timeStamp);
-        } else if (super.isMoving()) {
-            this.playMove(timeStamp);
-        } else {
-            this.playIdle(timeStamp);
-        }
+        if (super.isKilled()) this.playDead(timeStamp);
+        else if (super.isHit()) this.playHit(timeStamp);
+        else if (this.attacking) this.playAttack(timeStamp);
+        else if (this.alerted) this.playAlert(timeStamp);
+        else if (super.isMovingHorizontally()) this.playMove(timeStamp);
+        else this.playIdle(timeStamp);
     }
 
     playDead(timeStamp) {
@@ -142,11 +135,12 @@ class EndBoss extends Enemy {
     }
 
     attack() {
+        super.attack();
         setTimeout(() => {
             let newChicken = new Chicken(this.x);
+            newChicken.speedX = 2;
             newChicken.animate();
             this.chickens.push(newChicken);
-            super.attack();
         }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
         //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to 
         //draw a image times the position of fly image in the attack images array 

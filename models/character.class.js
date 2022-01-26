@@ -1,4 +1,4 @@
-class Character extends DestroyableObject {
+class Character extends Creature {
     height = 250;
     x = 2000;
     y = 80;
@@ -21,6 +21,7 @@ class Character extends DestroyableObject {
 
     AUDIOS = CHARACTER_ASSETS['AUDIOS'];
     IMAGES = CHARACTER_ASSETS['IMAGES'];
+    PROPERTIES = CHARACTER_ASSETS['PROPERTIES'];
 
     constructor() {
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
@@ -73,7 +74,7 @@ class Character extends DestroyableObject {
     canMoveRight() {
         return this.isMovingRight() &&
             this.x < 720 * 4 &&
-            !(super.isLaunching() || this.isAttacking() || this.isLanded());
+            !(this.launching || this.attacking || this.landed);
     }
 
     moveRight() {
@@ -82,14 +83,10 @@ class Character extends DestroyableObject {
         super.otherDirection = false;
     }
 
-    isMoving() {
-        return this.isMovingRight() || this.isMovingLeft();
-    }
-
     canMoveLeft() {
         return this.isMovingLeft() &&
             this.x > 0 &&
-            !(super.isLaunching() || this.isAttacking() || this.isLanded());
+            !(this.launching || this.attacking || this.landed);
     }
 
     isMovingRight() {
@@ -107,7 +104,7 @@ class Character extends DestroyableObject {
     }
 
     canLaunch() {
-        return (this.keyboard.SPACE && !(super.isAboveGround() || super.isLaunching() || this.isLanded()));
+        return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching || this.landed));
     }
 
     launch() {
@@ -124,7 +121,7 @@ class Character extends DestroyableObject {
         return this.keyboard.D &&
             this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
             this.bottles > 0 &&
-            !(super.isAboveGround() || super.isHit() || super.isLanded());
+            !(super.isAboveGround() || super.isHit() || this.landed);
     }
 
     attack() {
@@ -136,10 +133,6 @@ class Character extends DestroyableObject {
         this.bottles -= 5;
         this.bottlesBar.setPercentage(this.bottles);
         setTimeout(()=>{ this.attacking = false; }, 250); //stops playAttacking after timeout
-    }
-
-    isAttacking() {
-        return this.attacking;
     }
 
     play(timeStamp) {
@@ -157,11 +150,11 @@ class Character extends DestroyableObject {
     playCharacter(timeStamp) {
         if (super.isKilled()) { this.playDead(timeStamp); }
         else if (super.isHit()) { this.playHit(timeStamp); }
-        else if (this.isAttacking()) { this.playAttack(timeStamp); }
-        else if (super.isLanded()) { this.playLanded(timeStamp); }
-        else if (super.isLaunching()) { this.playLaunch(timeStamp); }
+        else if (this.attacking) { this.playAttack(timeStamp); }
+        else if (this.landed) { this.playLanded(timeStamp); }
+        else if (this.launching) { this.playLaunch(timeStamp); }
         else if (super.isAboveGround() || this.speedY > 0) { this.playAboveGround(timeStamp); }
-        else if (super.isMoving()) { this.playMove(timeStamp); }
+        else if (super.isMovingHorizontally()) { this.playMove(timeStamp); }
         else { this.playStand(timeStamp); }
     }
 
@@ -247,7 +240,7 @@ class Character extends DestroyableObject {
     isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life
-        console.log(super.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
+        // console.log(super.getBottomPos() - mo.getTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
         return /*this.isLanding() &&*/ super.getBottomPos() - mo.getTopPos() <= 20; //Tolerance may vary on different browsers and or machines config 
         //this.isLanding causes the next mo check if is stamping to hit the character because is not landing anymore.  
     }

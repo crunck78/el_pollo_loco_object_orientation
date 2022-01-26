@@ -1,4 +1,4 @@
-class NPC extends DestroyableObject{
+class NPC extends Creature{
     changeDirectionTime = 5000;
     movingLeft = false;
     movingRight = false;
@@ -9,6 +9,7 @@ class NPC extends DestroyableObject{
 
     stopDirectionChange() {
         clearInterval(this.changeDirectionInterval);
+        this.changeDirectionInterval = undefined;
     }
 
     changeDirection() {

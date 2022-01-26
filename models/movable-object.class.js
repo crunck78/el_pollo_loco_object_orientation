@@ -1,3 +1,6 @@
+/**
+ * An extension of DrawableObject Construct that can be animated inside a 2d Canvas Context
+ */
 class MovableObject extends DrawableObject {
     /**
      * @type {number} - Horizontal Speed Movement
@@ -25,48 +28,82 @@ class MovableObject extends DrawableObject {
     accelerationY = 1;
 
     /**
+     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+     *  This is a non-zero value, but you may not make any other assumptions about its value.
+     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
      * @type {number}
      */
     requestPlay;
+
     /**
+     * Measuring time passing variable in ms for running code inside recursive @function play
+     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
      * @type {number}
      */
     playObjectTime;
+
     /**
-     * For How Long should one image be drawn
+     * Measuring time passing variable in ms, for how long should one image be drawn
      * @type {number}
      */
     playAnimationElapse = 160;
 
     /**
+     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+     *  This is a non-zero value, but you may not make any other assumptions about its value.
+     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
      * @type {number}
      */
     requestMove;
+
     /**
+     * Measuring time passing variable in ms for running code inside recursive @function move
+     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
      * @type {number}
      */
     moveOjectTime;
+
     /**
      * @type {number}
      */
     moveAnimationElapse = 160;
 
     /**
+     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+     *  This is a non-zero value, but you may not make any other assumptions about its value.
+     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
      * @type {number}
      */
     requestGravity;
+
     /**
+     * Measuring time passing variable in ms for running code inside recursive @function gravity
+     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
      * @type {number}
      */
     gravityTime;
+
     /**
      * @type {number}
      */
     gravityAnimationElapse = 160;
 
     /**
+     * If @this is performing launch animation
+     * @type {boolean}
+     */
+    launching;
+
+    /**
+     * If @this is performing ground touch animation
+     * @type {boolean}
+     */
+    landed;
+
+    /**
+     * Queries an image from @member imageCache as the next image to be drawn
      * @param {number} timeStamp 
-     * @param {string[]} images 
+     * @param {string[]} images - a collection of image paths that have been loaded with @method loadImages to @member imageCache
      */
     playAnimation(timeStamp, images) {
         if (this.playAnimationTime === undefined) {
@@ -82,33 +119,52 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Wrapper @function animate , starts the recursive @function move and @function play
+     */
     animate() {
         this.startMove();
         this.startPlay();
     }
 
+    /**
+     * Starts the recursive @function move
+     */
     startMove() {
         this.requestMove = requestAnimationFrame(this.move.bind(this));
     }
 
+    /**
+     * Starts the recursive @function play
+     */
     startPlay() {
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
+    /**
+     * Wrapper @function stopAnimate, cancels the recursion @function move and @function play
+     */
     stopAnimate() {
         this.stopMove();
         this.stopPlay();
     }
 
+    /**
+     * Stops the recursive @function move 
+     */
     stopMove() {
         cancelAnimationFrame(this.requestMove);
     }
 
+    /**
+     * Stops the recursive @function play
+     */
     stopPlay() {
         cancelAnimationFrame(this.requestPlay);
     }
 
     /**
+     * This is used to recall the Child Class redefined @method move.
      * @param {number} timeStamp 
      */
     move(timeStamp) {
@@ -119,6 +175,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
+     * This is used to recall the Child Class redefined @method play.
      * @param {number} timeStamp 
      */
     play(timeStamp) {
@@ -128,16 +185,22 @@ class MovableObject extends DrawableObject {
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
+    /**
+     * Starts the recursive @function gravity
+     */
     startGravity() {
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
     }
 
+    /**
+     * Stops the recursive @function gravity
+     */
     stopGravity() {
         cancelAnimationFrame(this.requestGravity);
     }
 
     /**
-     * 
+     * Self recalling function, calling @method applyGravity only after @constant FRAMES_TIME has passed.
      * @param {number} timeStamp 
      */
     gravity(timeStamp) {
@@ -152,6 +215,9 @@ class MovableObject extends DrawableObject {
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
     }
 
+    /**
+     * Simulates Vertical Projectile motion, if @this isAboveGround or @this speedY greater then 0
+     */
     applyGravity() {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
@@ -162,12 +228,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * If @this y is less then @this groundPos
+     * @returns {boolean}
+     */
     isAboveGround() {
         return this.y < this.groundPos;
-    }
-
-    isLaunching() {
-        return this.launching !== undefined && this.launching;
     }
 
     /**
@@ -179,26 +245,50 @@ class MovableObject extends DrawableObject {
         setTimeout(() => { this.jump(); this.launching = false; this.groundPos = 171; }, 250); // give time for launch animation
     }
 
+    /**
+     * If @this is jumping or landing or in mit air.
+     * @returns {boolean}
+     */
     isInAir() {
-        return this.isJumping() || this.isLanding();
+        return this.isJumping() || this.isLanding() || this.isMitAir();
     }
 
+    /**
+    * The time when simulating vertical projectile motion inside @method applyGravity,
+    * the vertical position is increasing in conventional coordinate systems
+    * @returns {boolean}
+    */
     isJumping() {
         return this.speedY > 0 && this.isAboveGround();
     }
 
+    /**
+     * Triggers @method gravity if it is started to call @method applyGravity
+     */
     jump() {
         this.speedY = this.velocityY;
     }
 
+    /**
+     * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity 
+     * @returns {boolean}
+     */
     isMitAir() {
         return this.isAboveGround() && !(this.isJumping() || this.isLanding());
     }
 
+    /**
+     * The time when simulating vertical projectile motion inside @method applyGravity,
+     * the vertical position is decreasing in conventional coordinate systems
+     * @returns {boolean}
+     */
     isLanding() {
         return this.speedY < 0 && this.isAboveGround(); // && this.landing !== undefined &&  this.landing;
     }
 
+    /**
+     * Sets @member landed as true for 250 ms timeout. 
+     */
     land() {
         this.y = this.groundPos;
         this.currentImage = 0;
@@ -206,26 +296,19 @@ class MovableObject extends DrawableObject {
         setTimeout(() => { this.landed = false; }, 250); // give time for landing animation
     }
 
-    isLanded() {
-        return this.landed !== undefined && this.landed;
-    }
-
-    isAttacking() {
-        //TIME CONTROLLED
-        throw new Error('You have to implement the method isAttacking!');
-    }
-
-    canAttack() {
-        //TIME CONTROLLED
-        throw new Error('You have to implement the method canAttack!');
-    }
-
-    attack() {
-        // throw new Error('You have to implement the method attack!');
-        this.currentImage = 0;
-    }
-
+    /**
+     * If @this is moving in any direction lef, right, up or down
+     * @returns {boolean}
+     */
     isMoving() {
+        return this.isMovingVertically() || this.isMovingHorizontally();
+    }
+
+    isMovingVertically(){
+        return this.isMovingUp() || this.isMovingDown();
+    }
+
+    isMovingHorizontally(){
         return this.isMovingRight() || this.isMovingLeft();
     }
 
@@ -237,18 +320,38 @@ class MovableObject extends DrawableObject {
         throw new Error('You have to implement the method isMovingRight!');
     }
 
+    isMovingUp() {
+        throw new Error('You have to implement the method isMovingLeft!');
+    }
+
+    isMovingDown() {
+        throw new Error('You have to implement the method isMovingRight!');
+    }
+
+    /**
+     * Add to @this @member x, @this @member speedX 
+     */
     moveRight() {
         this.x += this.speedX;
     }
 
+    /**
+     * Subtract from @this @member x, @this @member speedX
+     */
     moveLeft() {
         this.x -= this.speedX;
     }
 
+    /**
+     * Subtract from @this @member y, @this @member speedY
+     */
     moveUp() {
         this.y -= this.speedX;
     }
 
+    /**
+     * Add to @this @member y, @this @member speedY
+     */
     moveDown() {
         this.y += this.speedX;
     }

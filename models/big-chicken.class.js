@@ -1,0 +1,3 @@
+class BigCicken extends EndBoss{
+   
+}

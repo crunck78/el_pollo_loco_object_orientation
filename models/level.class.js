@@ -2,8 +2,8 @@ class Level {
     level_end_x = 720 * 4;
     AUDIOS = LEVEL_ASSETS['AUDIOS'];
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
-        this.character = new Character();
-        this.endBoss = new EndBoss();
+        this.character = new Pepe();
+        this.endBoss = new BigCicken();
         this.enemies = enemies;
         this.enemies.push(this.endBoss);
         this.clouds = clouds;
