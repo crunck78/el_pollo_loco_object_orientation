@@ -6,6 +6,7 @@ class Enemy extends NPC {
     lastAlertPosition = undefined;
     lastPosX = undefined;
     patrolDistance = 500;
+    reachedTarget = false;
 
     animate() {
         super.startGravity();
@@ -48,13 +49,30 @@ class Enemy extends NPC {
     }
 
     patrol() {
-        if (this.lastAlertPosition) {
-            if (this.changeDirectionInterval) { this.stopDirectionChange(); }
+        if (this.lastAlertPosition && !this.reachedTarget) { //there is a last alert pos reached it, 
+            if (this.changeDirectionInterval) { this.stopDirectionChange(); } //stop the change direction if its started,
+            // stop movement           
             this.movingRight = false;
             this.movingLeft = false;
-            if (this.x < this.lastAlertPosition) { this.moveRight(); }
-            if (this.x > this.lastAlertPosition) { this.moveLeft(); }
-        } else {
+            if (this.x < this.lastAlertPosition) {
+                this.moveRight(); 
+                if(this.x >= this.lastAlertPosition){
+                    this.reachedTarget = true;
+                    this.lastAlertPosition = undefined;
+                    this.movingRight = false;
+                    this.movingLeft = false;
+                }
+            }
+            else if (this.x > this.lastAlertPosition) {
+                if(this.x <= this.lastAlertPosition){
+                    this.reachedTarget = true;
+                    this.lastAlertPosition = undefined;
+                    this.movingRight = false;
+                    this.movingLeft = false;
+                }
+                this.moveLeft();
+            }
+        } else { // there is no last alert pos, just move around from one point to other, or just stay still or idle or sleep
             if (this.changeDirectionInterval) { this.startDirectionChange(); }
 
         }
@@ -90,20 +108,18 @@ class Enemy extends NPC {
 
     attack(timeStamp) {
         this.attacking = true;
-        // this.lastAttack = new Date().getTime();
-        // if(!super.isAboveGround()){
-        //     super.jump();
-        // }
-
-        //console.log("ATTACK");
         setTimeout(() => { this.attacking = false }, (8 * 300)); //attack images length times animationElapse pro attack image
     }
 
     canAlert() {
-        return !(this.isKilled() || this.alerted || this.attacking || super.isHit());
+        return !(super.isKilled() || this.alerted || this.attacking || super.isHit());
     }
 
-    alert(timeStamp) {
+    alert(target, timeStamp) {
+        this.lastAlertPosition = target.x;
+        this.otherDirection = target.otherDirection; // this is wrong should check if @this is left or right side from target. TODO
+        this.reachedTarget = false;
+        this.lastPosX = this.x;
         this.alerted = true;
         // this.lastAlert = new Date().getTime();
         //console.log("ALERT");

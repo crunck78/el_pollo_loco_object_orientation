@@ -128,9 +128,9 @@ class EndBoss extends Enemy {
         this.hitPointsBar.setPercentage(this.energy);
     }
 
-    hit() {
+    hit(target) {
         super.hit();
-        super.alert();
+        super.alert(target);
         this.hitPointsBar.setPercentage(this.energy);
     }
 
@@ -144,5 +144,12 @@ class EndBoss extends Enemy {
         }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
         //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to 
         //draw a image times the position of fly image in the attack images array 
+
+        setTimeout(() => {
+            let newChicken = new Chicken(this.x);
+            newChicken.speedX = 2;
+            newChicken.animate();
+            this.chickens.push(newChicken);
+        }, 1000);
     }
 }

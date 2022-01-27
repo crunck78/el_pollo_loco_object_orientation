@@ -113,7 +113,7 @@ class World {
      * @param {number} timeStamp 
      */
     checkWorld(timeStamp) {
-        this.checkCamera();
+        this.checkCameraTest();
         this.checkAlertEnemies();
         this.checkCollisions();
     }
@@ -125,10 +125,10 @@ class World {
         let charCenterX = this.level.character.x + this.level.character.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
         if ((charCenterX - this.cameraSpeedX) > canvasCenterX && (charCenterX - this.cameraSpeedX) < this.level.level_end_x - canvasCenterX) {
-            if (this.level.character.isMovingRight() && this.level.character.x + this.camera_x >= 0) {
+            if (this.level.character.isMovingRight() && this.level.character.x + this.camera_x >= 120) {
                 this.cameraSpeedX -= 3;
             }
-            if (this.level.character.isMovingLeft() && (this.level.character.x + this.level.character.width) + this.camera_x <= this.ctx.canvas.width) {
+            if (this.level.character.isMovingLeft() && (this.level.character.x + this.level.character.width) + this.camera_x <= this.ctx.canvas.width - 240) {
                 this.cameraSpeedX += 3;
             }
             this.camera_x = -(charCenterX - canvasCenterX - this.cameraSpeedX);
@@ -156,9 +156,7 @@ class World {
         if (this.level.endBoss.canAlert()
             && this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
         ) {
-            this.level.endBoss.alert();
-            this.level.endBoss.lastAlertPosition = this.level.character.x;
-            this.level.endBoss.lastPosX = this.level.endBoss.x;
+            this.level.endBoss.alert(this.level.character);
         }
     }
 
@@ -184,6 +182,7 @@ class World {
     }
 
      /**
+      * Check if player is colliding with @param enemy 
      * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with specific other target Objects
      * @param {number} index - the indexOf @param enemy in @param collection
      * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
@@ -213,8 +212,8 @@ class World {
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
         if (!(enemy.isKilled() || enemy.isHit()) && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
-            enemy.hit();
-            enemy.lastAlertPosition = this.level.character.x;
+            enemy.hit(this.level.character);
+           
             if (enemy.isKilled()) {
                 enemy.AUDIOS['KILL'].play();
                 this.spliceTimeout(collection, enemy);
@@ -255,8 +254,7 @@ class World {
     }
 
     /**
-     * 
-     * @param {CollectibleObject} collectible 
+     * @param {CollectibleObject} collectible - 
      * @returns {boolean}
      */
     hasCollect(collectible) {

@@ -1,6 +1,6 @@
 class Character extends Creature {
     height = 250;
-    x = 2000;
+    x = 0;
     y = 80;
     speedX = 5;
     groundPos = 171;
@@ -8,7 +8,7 @@ class Character extends Creature {
     lastIdle = new Date().getTime();
     lastAttack = 0;
 
-    bottles = 100;
+    bottles = 0;
     coins = 0;
     throwBottles = [];
 
