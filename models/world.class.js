@@ -113,7 +113,7 @@ class World {
      * @param {number} timeStamp 
      */
     checkWorld(timeStamp) {
-        this.checkCameraTest();
+        this.checkCameraTest(this.level.character);
         this.checkAlertEnemies();
         this.checkCollisions();
     }
@@ -121,17 +121,18 @@ class World {
     /**
      * 
      */
-    checkCameraTest() {
-        let charCenterX = this.level.character.x + this.level.character.width * 0.5;
+    checkCameraTest(target) {
+        let charCenterX = target.x + target.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
+        
         if ((charCenterX - this.cameraSpeedX) > canvasCenterX && (charCenterX - this.cameraSpeedX) < this.level.level_end_x - canvasCenterX) {
-            if (this.level.character.isMovingRight() && this.level.character.x + this.camera_x >= 120) {
+            this.camera_x = -(charCenterX - this.cameraSpeedX - canvasCenterX);
+            if (target.isMovingRight() && target.x + this.camera_x >= 120) {
                 this.cameraSpeedX -= 3;
             }
-            if (this.level.character.isMovingLeft() && (this.level.character.x + this.level.character.width) + this.camera_x <= this.ctx.canvas.width - 240) {
+            if (target.isMovingLeft() && (target.x + target.width) + this.camera_x <= this.ctx.canvas.width - 240) {
                 this.cameraSpeedX += 3;
             }
-            this.camera_x = -(charCenterX - canvasCenterX - this.cameraSpeedX);
         }
     }
 
@@ -140,8 +141,8 @@ class World {
      *  or has not reached  level end minus one half the canvas,
      *  @this @member camera_x is updated to keep the character in the middle of the screen.
      */
-    checkCamera() {
-        let charCenterX = this.level.character.x + this.level.character.width * 0.5;
+    checkCamera(target) {
+        let charCenterX = target.x + target.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
 
         if (charCenterX > canvasCenterX && charCenterX < this.level.level_end_x - canvasCenterX) {
@@ -188,12 +189,10 @@ class World {
      * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
      */
     checkEnemyCharacterCollision(enemy, index, collection) {
-        if (!(this.level.character.isKilled() || enemy.isKilled() || this.level.character.isHit()) && this.level.character.isColliding(enemy)) {
+        if (this.canCollide(enemy, this.level.character) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 enemy.hit(); 
-                this.level.character.groundPos = this.level.character.y;
-                this.level.character.speedY = 0;
-                this.level.character.launch();
+                this.level.character.stamp();
                 if (enemy.isKilled()) {
                     enemy.AUDIOS['STAMP'].play();
                     this.spliceTimeout(collection, enemy);
@@ -205,21 +204,41 @@ class World {
     }
 
     /**
+     * Validates a collision between enemy and char
+     * @param {Enemy} enemy 
+     * @param {Character} char 
+     * @returns {boolean}
+     */
+    canCollide(enemy, char){
+        return !(char.isKilled() || enemy.isKilled() || char.isHit())
+    }
+
+    /**
+     * Validates a collision between a throwObj and a enemy
+     * @param {ThrowableObject} throwObj 
+     * @param {Enemy} enemy 
+     * @returns {boolean}
+     */
+    canHit(throwObj, enemy){
+        return !(enemy.isKilled() || enemy.isHit() || throwObj.broken);
+    }
+
+    /**
      * @function checkThrowEnemyCollision, checks if player used projectile @param throwObj hits @param enemy from @param collection  
      * @param {ThrowableObject} throwObj - an instanceof of ThrowableObject that the player can use as a projectile to hit enemies 
-     * @param {*} enemy - instanceof Enemy to check if is Colliding with @param throwObj
-     * @param {*} collection - the Array that holds a reference to @param enemy 
+     * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with @param throwObj
+     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
-        if (!(enemy.isKilled() || enemy.isHit()) && throwObj.isAboveGround() && throwObj.isColliding(enemy)) {
+        if (this.canHit(throwObj, enemy) && throwObj.isColliding(enemy)) {
+            throwObj.hit();
+            this.spliceTimeout(this.level.character.throwBottles, throwObj);
             enemy.hit(this.level.character);
-           
             if (enemy.isKilled()) {
                 enemy.AUDIOS['KILL'].play();
                 this.spliceTimeout(collection, enemy);
             }
-            throwObj.hit();
-            this.spliceTimeout(this.level.character.throwBottles, throwObj);
+           
         }
     }
 
@@ -377,7 +396,7 @@ class World {
         //Only for Objects translate by Camera Movement
         //Character, level clear Rect Background and all others pointed above
         return true;
-        return mo.x + mo.width + this.camera_x > 0 && mo.x + this.camera_x < 720;
+        return mo.x + mo.width + this.camera_x > 0 && mo.x + this.camera_x < CANVAS_WIDTH;
     }
 
     /**
@@ -388,7 +407,7 @@ class World {
     }
 
     /**
-     * Help @function muteSounds to start loop audios to play
+     * Help @function unmuteSounds to start loop audios to play
      */
     unmuteSounds() {
         this.level.unmuteSounds();

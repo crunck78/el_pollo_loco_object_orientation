@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <script src="js/assets.js"></script>
@@ -36,13 +37,34 @@
 </head>
 
 <body onload="init()">
-    <!-- <h1 id="title">El Pollo Loco</h1> -->
-    <canvas id="canvas" width="720" height="480"></canvas>
-    <div id="hud">
-        <!-- <img width="720" height="480" src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png"> -->
-        <button onclick="runGame()">Start</button>
-        <button onclick="stopGame()">Pause</button>
-        <button onclick="muteSounds()">Mute Sounds</button>
+    
+
+    <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
+    <div id="hud" class="hud-cover">
+        <div class="hud-panel">
+            <button onclick="runGame()">
+                <span class="material-icons">
+                    play_circle
+                </span>
+            </button>
+            <button onclick="stopGame()">
+                <span class="material-icons">
+                    pause
+                </span>
+            </button>
+            <button onclick="muteSounds()">
+                <span class="material-icons">
+                    volume_off
+                </span>
+            </button>
+            <button onclick="unmuteSounds()">
+                <span class="material-icons">
+                    volume_up
+                </span>
+            </button>
+        </div>
+
+        <!-- <img src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png"> -->
     </div>
 </body>
 

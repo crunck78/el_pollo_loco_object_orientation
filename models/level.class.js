@@ -2,6 +2,7 @@ class Level {
     level_end_x = 720 * 4;
     AUDIOS = LEVEL_ASSETS['AUDIOS'];
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
+        
         this.character = new Pepe();
         this.endBoss = new BigCicken();
         this.enemies = enemies;
@@ -13,14 +14,14 @@ class Level {
        
         this.clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
         this.allObjects = this.getAllObjects();
-        // World.collisionObjects = [
-        //     ...this.enemies,
-        //     ...this.coins,
-        //     ...this.bottles,
-        //     ...World.throwableObjects,
-        // ].push(this.character);
-        
-        
+
+        /**
+         * this.backgrounds[0,1,2] and this.backgrounds[this.background.length - 1, -2, -3] do not count
+         * they are used as extremes, as out of Level Areas, that is why - 1
+         * Divided by 3 because , 3 Backgrounds Overlap, they are on the same x position
+         * Times CANVAS_WIDTH because one Background width equals CANVAS_WIDTH
+         */
+        this.level_end_x = (this.backgroundObjects.length / 3 - 1) * CANVAS_WIDTH;
     }
 
     animateAll() {
@@ -69,7 +70,7 @@ class Level {
     }
 
     unmuteSounds(){
-        this.AUDIOS['BACKGROUND'].volume = 100;
+        this.AUDIOS['BACKGROUND'].volume = 1;
     }
 
 }

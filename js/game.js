@@ -10,8 +10,14 @@ function muteSounds(){
     world.muteSounds();
 }
 
+function unmuteSounds(){
+    world.unmuteSounds();
+}
+
 function runGame(){
     world.run();
+    world.ctx.canvas.classList.remove("d-none");
+    //document.getElementById("hud").classList.add("d-none");
 }
 
 function stopGame(){

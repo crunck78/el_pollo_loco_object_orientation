@@ -1,5 +1,7 @@
-const CHARACTER_ASSETS = {
+const CANVAS_WIDTH = 720;
+const CANVAS_HEIGHT = 480;
 
+const CHARACTER_ASSETS = {
     PROPERTIES : {
     
     },

@@ -7,6 +7,7 @@ class ThrowableObject extends DestroyableObject {
     acceleration = 2.5;
     playTime = 200;
     energy = 5;
+    broken = false;
 
     offset = {
         top: 10,
@@ -33,10 +34,11 @@ class ThrowableObject extends DestroyableObject {
     }
 
     break() {
+        this.broken = true;
         //first resolve ... but it can be better
         //setting groundPos to y the throwable object gravity does not apply 
         //or isAboveGround() is false
-        this.groundPos = this.y + 40; //to look like it breaks on the object ist collide with
+        this.groundPos = this.y + 50; //to look like it breaks on the object ist collide with add some offset
     }
 
     animate() {

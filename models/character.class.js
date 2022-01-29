@@ -73,7 +73,7 @@ class Character extends Creature {
 
     canMoveRight() {
         return this.isMovingRight() &&
-            this.x < 720 * 4 &&
+            this.x < CANVAS_WIDTH * 4 &&
             !(this.launching || this.attacking || this.landed);
     }
 
@@ -133,6 +133,12 @@ class Character extends Creature {
         this.bottles -= 5;
         this.bottlesBar.setPercentage(this.bottles);
         setTimeout(()=>{ this.attacking = false; }, 250); //stops playAttacking after timeout
+    }
+
+    stamp(){
+        this.groundPos = this.y;
+        this.speedY = 0;
+        this.launch();
     }
 
     play(timeStamp) {

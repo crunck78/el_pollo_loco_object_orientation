@@ -9,11 +9,10 @@ function getLevel1() {
 }
 
 function getLevelChickens() {
-    return [];
-    let collection1 = getChickensCollection(100);
-    let collection2 = getChickensCollection(400);
-    let collection3 = getChickensCollection(600);
-    let collection4 = getChickensCollection(1000);
+    let collection1 = getChickensCollection(400);
+    let collection2 = getChickensCollection(800);
+    let collection3 = getChickensCollection(1200);
+    let collection4 = getChickensCollection(1600);
     return collection1.concat(collection2, collection3, collection4);
 }
 
@@ -27,36 +26,29 @@ function getChickensCollection(firstX) {
     ];
 }
 
-function getLevelClouds(){
+function getLevelClouds() {
     return [
         new Cloud(300, 200),
         new Cloud(800, 400)
     ];
 }
 
-function getLevelBackgrounds(){
+function getLevelBackgrounds() {
+    let collection1 = getBackgroundsCollection(-1, 1);
+    let collection2 = getBackgroundsCollection(0, 2);
+    let collection3 = getBackgroundsCollection(1, 1);
+    let collection4 = getBackgroundsCollection(2, 2);
+    let collection5 = getBackgroundsCollection(3, 1);
+
+    return collection1.concat(collection2, collection3, collection4, collection5);
+}
+
+function getBackgroundsCollection(xPos, section) {
     return [
-
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', -720, 0.5),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', -720, 0.7),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', -720),
-        
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 0, 0.5),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 0, 0.7),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0),
-
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 720, 0.5),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 720, 0.7),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 720),
-        
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 720 * 2, 0.5),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 720 * 2, 0.7),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 720 * 2),
-
-        new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 720 * 3, 0.5),
-        new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 720 * 3, 0.7),
-        new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 720 * 3),
-    ]
+        new BackgroundObject(`img/5.Fondo/Capas/3.Fondo3/${section}.png`, CANVAS_WIDTH * xPos, 0.5),
+        new BackgroundObject(`img/5.Fondo/Capas/2.Fondo2/${section}.png`, CANVAS_WIDTH * xPos, 0.7),
+        new BackgroundObject(`img/5.Fondo/Capas/1.suelo-fondo1/${section}.png`, CANVAS_WIDTH * xPos)
+    ];
 }
 
 function getLevelCoins() {
@@ -78,33 +70,21 @@ function getCoinsCollection(firstX, firstY) {
 }
 
 function getLevelBottles() {
+    let collection1 = getBottlesCollection(100);
+    let collection2 = getBottlesCollection(400);
+    let collection3 = getBottlesCollection(600);
+    let collection4 = getBottlesCollection(1000);
+    return collection1.concat(collection2, collection3, collection4);
+}
+
+function getBottlesCollection(xPos) {
     return [
-        new Bottle(400, 0),
-        new Bottle(300, 0),
-        new Bottle(500, 0),
-        new Bottle(600, 0),
-        new Bottle(700, 0),
-        new Bottle(800, 0),
-        new Bottle(900, 0),
-        new Bottle(1100, 0),
-        new Bottle(1200, 0),
-        new Bottle(1300, 0),
-        new Bottle(1000, 0),
-        new Bottle(1400, 0),
-        new Bottle(1500, 0),
-        new Bottle(1600, 0),
-        new Bottle(1700, 0),
-        new Bottle(1800, 0),
-        new Bottle(1900, 0),
-        new Bottle(2000, 0),
-        new Bottle(2100, 0),
-        new Bottle(2200, 0),
-        new Bottle(2300, 0),
-        new Bottle(2400, 0),
-        new Bottle(2500, 0),
-        new Bottle(2600, 0),
-        new Bottle(2700, 0),
-        new Bottle(2800, 0),
-        new Bottle(2900, 0)
+        new Bottle(xPos * 0 + 100, 0),
+        new Bottle(xPos * 1 + 100, 0),
+        new Bottle(xPos * 2 + 100, 0),
+        new Bottle(xPos * 3 + 100, 0),
+        new Bottle(xPos * 4 + 100, 0),
+        new Bottle(xPos * 5 + 100, 0),
+        new Bottle(xPos * 6 + 100, 0)
     ];
 }
