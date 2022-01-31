@@ -68,6 +68,8 @@ class Chicken extends Enemy {
             else {
                 super.moveLeft();
             }
+        }else{
+            setTimeout(super.stopMove.bind(this));
         }
     }
 }

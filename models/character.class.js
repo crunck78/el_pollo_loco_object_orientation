@@ -68,6 +68,11 @@ class Character extends Creature {
             if (this.canMoveLeft()) { this.moveLeft(); }
             if (this.canLaunch()) { this.launch(); }
             if (this.canAttack()) { this.attack(); }
+        }else{
+            //STOP MOVE DOES NOT WORK IT IS STILL RUNNING
+            //SETTIMEOUT SOLVES THE PROBLEM BUT WHY???
+            this.launch(CANVAS_HEIGHT + this.height);
+            setTimeout(super.stopMove.bind(this));
         }
     }
 
@@ -107,9 +112,13 @@ class Character extends Creature {
         return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching || this.landed));
     }
 
-    launch() {
+    /**
+     * 
+     * @param {number} groundPos - new  groundPos  
+     */
+    launch(groundPos) {
         this.lastIdle = 0;
-        super.launch();
+        super.launch(groundPos);
     }
 
     land(){
@@ -135,7 +144,8 @@ class Character extends Creature {
         setTimeout(()=>{ this.attacking = false; }, 250); //stops playAttacking after timeout
     }
 
-    stamp(){
+    stamp(enemy){
+        enemy.kill('STAMP');
         this.groundPos = this.y;
         this.speedY = 0;
         this.launch();
@@ -166,6 +176,7 @@ class Character extends Creature {
 
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
     }
 
     playHit(timeStamp) {

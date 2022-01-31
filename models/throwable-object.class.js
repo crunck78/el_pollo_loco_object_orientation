@@ -90,7 +90,8 @@ class ThrowableObject extends DestroyableObject {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
-            super.stopMove(); 
+            this.broken = true; 
+            super.stopMove();
             this.playAnimationElapse = 100;
             setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
         }

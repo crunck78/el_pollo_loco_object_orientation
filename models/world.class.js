@@ -1,9 +1,21 @@
 class World {
 
     /**
+     * Value that determines what is the ground level. 
+     * @type {number} 
+     */
+    groundPos = 400;
+
+    /**
+     * Value by which is check the game status and react accordingly
+     * @type {string}
+     */
+    gameStatus = 'inProgress'
+
+    /**
      * @type {number}
      */
-    cameraSpeedX = 0;
+    cameraOffsetX = 0;
 
     /**
      * Value by which is @this @member ctx on Horizontal translated  
@@ -119,34 +131,49 @@ class World {
     }
 
     /**
-     * 
+     * Test @function checkCameraTest same as @function checkCamera
+     * on right movement or left movement, target is position some offset from middle screen,
+     * opposed to movement direction.
      */
     checkCameraTest(target) {
-        let charCenterX = target.x + target.width * 0.5;
+        let targetCenterX = target.x + target.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
-        
-        if ((charCenterX - this.cameraSpeedX) > canvasCenterX && (charCenterX - this.cameraSpeedX) < this.level.level_end_x - canvasCenterX) {
-            this.camera_x = -(charCenterX - this.cameraSpeedX - canvasCenterX);
-            if (target.isMovingRight() && target.x + this.camera_x >= 120) {
-                this.cameraSpeedX -= 3;
+        let distanceFromCamera = targetCenterX - this.cameraOffsetX;
+
+        if (this.canMoveCamera(canvasCenterX, this.level.level_end_x - canvasCenterX, distanceFromCamera)) {
+            this.camera_x = -(distanceFromCamera - canvasCenterX);
+            if (target.isMovingRight() && targetCenterX + this.camera_x >= canvasCenterX * 0.5) {
+                this.cameraOffsetX -= 3;
             }
-            if (target.isMovingLeft() && (target.x + target.width) + this.camera_x <= this.ctx.canvas.width - 240) {
-                this.cameraSpeedX += 3;
+            if (target.isMovingLeft() && targetCenterX + this.camera_x <= this.ctx.canvas.width - canvasCenterX * 0.5) {
+                this.cameraOffsetX += 3;
             }
         }
     }
 
     /**
-     * If horizontal moving character passes one half the canvas at begin,
+     * Check if camera target is inside Boundaries to allow camera movement 
+     * @param {number} leftBoundary 
+     * @param {number} rightBoundary 
+     * @param {number} distanceFromCamera 
+     * @returns {boolean}
+     */
+    canMoveCamera(leftBoundary, rightBoundary, distanceFromCamera) {
+        return distanceFromCamera > leftBoundary &&
+            distanceFromCamera < rightBoundary;
+    }
+
+    /**
+     *  If horizontal moving @param target passes one half the canvas at begin,
      *  or has not reached  level end minus one half the canvas,
-     *  @this @member camera_x is updated to keep the character in the middle of the screen.
+     *  @this @member camera_x is updated to keep the @param target in the middle of the screen.
      */
     checkCamera(target) {
-        let charCenterX = target.x + target.width * 0.5;
+        let targetCenterX = target.x + target.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
 
-        if (charCenterX > canvasCenterX && charCenterX < this.level.level_end_x - canvasCenterX) {
-            this.camera_x = -(charCenterX - canvasCenterX);
+        if (targetCenterX > canvasCenterX && targetCenterX < this.level.level_end_x - canvasCenterX) {
+            this.camera_x = -(targetCenterX - canvasCenterX);
         }
     }
 
@@ -182,19 +209,17 @@ class World {
         this.level.character.throwBottles.forEach(throwObj => this.checkThrowEnemyCollision(throwObj, enemy, collection));
     }
 
-     /**
-      * Check if player is colliding with @param enemy 
-     * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with specific other target Objects
-     * @param {number} index - the indexOf @param enemy in @param collection
-     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
-     */
+    /**
+     * Check if player is colliding with @param enemy 
+    * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with specific other target Objects
+    * @param {number} index - the indexOf @param enemy in @param collection
+    * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
+    */
     checkEnemyCharacterCollision(enemy, index, collection) {
         if (this.canCollide(enemy, this.level.character) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
-                enemy.hit(); 
-                this.level.character.stamp();
+                this.level.character.stamp(enemy);
                 if (enemy.isKilled()) {
-                    enemy.AUDIOS['STAMP'].play();
                     this.spliceTimeout(collection, enemy);
                 }
             } else {
@@ -209,7 +234,7 @@ class World {
      * @param {Character} char 
      * @returns {boolean}
      */
-    canCollide(enemy, char){
+    canCollide(enemy, char) {
         return !(char.isKilled() || enemy.isKilled() || char.isHit())
     }
 
@@ -219,7 +244,7 @@ class World {
      * @param {Enemy} enemy 
      * @returns {boolean}
      */
-    canHit(throwObj, enemy){
+    canHit(throwObj, enemy) {
         return !(enemy.isKilled() || enemy.isHit() || throwObj.broken);
     }
 
@@ -231,14 +256,13 @@ class World {
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
         if (this.canHit(throwObj, enemy) && throwObj.isColliding(enemy)) {
-            throwObj.hit();
+            throwObj.hit(enemy);
             this.spliceTimeout(this.level.character.throwBottles, throwObj);
             enemy.hit(this.level.character);
             if (enemy.isKilled()) {
                 enemy.AUDIOS['KILL'].play();
                 this.spliceTimeout(collection, enemy);
             }
-           
         }
     }
 
@@ -287,7 +311,7 @@ class World {
         }
         return false;
     }
-    
+
     /**
      * Play collect audio, updates status bar.
      */
@@ -411,5 +435,21 @@ class World {
      */
     unmuteSounds() {
         this.level.unmuteSounds();
+    }
+
+    /**
+     * Help @function drawLine
+     * @param {number} x1 
+     * @param {number} y1 
+     * @param {number} x2 
+     * @param {number} y2 
+     */
+    drawLine(x1, y1, x2, y2) {
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+        this.ctx.restore();
     }
 }

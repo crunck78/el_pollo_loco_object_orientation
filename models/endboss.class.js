@@ -66,6 +66,7 @@ class EndBoss extends Enemy {
     playDead(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
     }
 
     playHit(timeStamp) {
@@ -112,6 +113,10 @@ class EndBoss extends Enemy {
         this.hitPointsBar.y = this.y;
         if (!super.isKilled()) {
             //Endboss movement logic here
+            super.moveEnemy();
+        }else{
+            this.launch(CANVAS_HEIGHT + this.height);
+            setTimeout(super.stopMove.bind(this));
         }
     }
 
@@ -134,22 +139,27 @@ class EndBoss extends Enemy {
         this.hitPointsBar.setPercentage(this.energy);
     }
 
+
     attack() {
         super.attack();
         setTimeout(() => {
-            let newChicken = new Chicken(this.x);
-            newChicken.speedX = 2;
-            newChicken.animate();
-            this.chickens.push(newChicken);
+            this.createChicken();
         }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
         //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to 
         //draw a image times the position of fly image in the attack images array 
 
         setTimeout(() => {
-            let newChicken = new Chicken(this.x);
-            newChicken.speedX = 2;
-            newChicken.animate();
-            this.chickens.push(newChicken);
+           this.createChicken();
         }, 1000);
+    }
+
+    /**
+     * 
+     */
+    createChicken() {
+        let newChicken = new Chicken(this.x);
+        newChicken.speedX = 2;
+        newChicken.animate();
+        this.chickens.push(newChicken);
     }
 }

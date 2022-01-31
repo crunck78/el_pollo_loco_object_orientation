@@ -238,11 +238,12 @@ class MovableObject extends DrawableObject {
 
     /**
      * FIX GROUND POS TO WORK FOR ALL CLASSES OR MOVE METHOD TO CHARACTER
+     * @param {number} groundPos - new groundPos
      */
-    launch() {
+    launch(groundPos) {
         this.currentImage = 0;
         this.launching = true;
-        setTimeout(() => { this.jump(); this.launching = false; this.groundPos = 171; }, 250); // give time for launch animation
+        setTimeout(() => { this.jump(groundPos); }, 250); // give time for launch animation
     }
 
     /**
@@ -264,8 +265,10 @@ class MovableObject extends DrawableObject {
 
     /**
      * Triggers @method gravity if it is started to call @method applyGravity
+     * @param {number} groundPos - new groundPos
      */
-    jump() {
+    jump(groundPos) {
+        this.launching = false; this.groundPos = groundPos ? groundPos : 171;
         this.speedY = this.velocityY;
     }
 

@@ -18,18 +18,20 @@ class Enemy extends NPC {
         super.stopAnimate();
     }
 
-    move(timeStamp) {
-        if (this.moveEnemyTime === undefined) {
-            this.moveEnemyTime = timeStamp;
-        }
-        const elapse = timeStamp - this.moveEnemyTime;
-        if (elapse > FRAMES_TIME) {
-            this.moveEnemyTime = timeStamp;
-            if (!super.isKilled()) {
-                if (this.canPatrol()) { this.patrol() }
-            }
-        }
-        super.move(timeStamp);
+    // move(timeStamp) {
+    //     if (this.moveEnemyTime === undefined) {
+    //         this.moveEnemyTime = timeStamp;
+    //     }
+    //     const elapse = timeStamp - this.moveEnemyTime;
+    //     if (elapse > FRAMES_TIME) {
+    //         this.moveEnemyTime = timeStamp;
+    //         this.moveEnemy(timeStamp);
+    //     }
+    //     super.move(timeStamp);
+    // }
+
+    moveEnemy(timeStamp) {
+        if (this.canPatrol()) { this.patrol() }
     }
 
     // canSearch(){
@@ -55,8 +57,8 @@ class Enemy extends NPC {
             this.movingRight = false;
             this.movingLeft = false;
             if (this.x < this.lastAlertPosition) {
-                this.moveRight(); 
-                if(this.x >= this.lastAlertPosition){
+                this.moveRight();
+                if (this.x >= this.lastAlertPosition) {
                     this.reachedTarget = true;
                     this.lastAlertPosition = undefined;
                     this.movingRight = false;
@@ -64,7 +66,7 @@ class Enemy extends NPC {
                 }
             }
             else if (this.x > this.lastAlertPosition) {
-                if(this.x <= this.lastAlertPosition){
+                if (this.x <= this.lastAlertPosition) {
                     this.reachedTarget = true;
                     this.lastAlertPosition = undefined;
                     this.movingRight = false;
@@ -124,5 +126,15 @@ class Enemy extends NPC {
         // this.lastAlert = new Date().getTime();
         //console.log("ALERT");
         setTimeout(() => { this.alerted = false; if (this.canAttack()) { this.attack(); } }, (8 * 300)); //alert images length times animationElapse pro alert image
+    }
+    /**
+     * @override @function kill 
+     * @param {string} method - how was it killed? STAMP (Character Stamped onver head) | KILL (energy = 0)
+     */
+    kill(method) {
+        if (method && method == 'STAMP' || method == 'KILL') {
+            this.AUDIOS[method].play();
+        }
+        super.kill();
     }
 }

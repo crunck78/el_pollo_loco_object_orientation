@@ -2,10 +2,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     margin: 0;
+
+    position: relative;
+
+    min-height: 100vh;
+
+    background-color: #994409;
 }
 
-#hud {
+.overlay {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -15,63 +22,78 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
-.hud-cover {
+.background-cover {
     background-image: url("img/9.Intro _ Outro Image/Start Screen/Opción 1.png");
     background-position: center top;
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-.hud-panel {
+#menuPanel {
     padding: 12px;
+    display: flex;
+
+    visibility: hidden;
+
+    position: absolute;
+    z-index: 999;
+    right: 0;
 }
 
-/* #hud img {
-    display: block;
-    object-fit: contain;
-    object-position: top;
-    width: 100%;
-    height: 100%;
-} */
-
-#hud button {
+#menuPanel button {
     font-size: large;
     font-weight: 700;
     letter-spacing: 6px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: rgb(252, 165, 53);
-    border-radius: 12px;
-    padding: 12px 12px;
+    border-radius: 100%;
+    padding: 6px 6px;
     cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 6px;
+
+    visibility: visible;
 }
 
 canvas {
-    background-color: black;
+    background-color: #994409;
     display: block;
+    padding: relative;
+    z-index: 998;
+}
+
+#hud{
+    width: 720px;
+    height: 480px;
+
+    position: relative;
 }
 
 /* Smartphones ----------- */
 @media only screen and (max-width: 720px) {
-    canvas {
+    canvas, #hud {
         width: 100%;
+    }
+
+    #hud{
+        height: calc(100vw * 480 / 750);
     }
 }
 
 /* Smartphones ----------- */
 @media only screen and (max-height: 480px) {
-    canvas {
+    canvas, #hud {
         height: 100vh;
     }
 }
 
-/* #title{
- position: absolute;
- top: 0;
-} */
-
 .d-none {
-    display: none;
+    display: none !important;
 }

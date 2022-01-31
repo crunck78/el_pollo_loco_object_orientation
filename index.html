@@ -37,34 +37,26 @@
 </head>
 
 <body onload="init()">
-    
 
-    <canvas class="d-none" id="canvas" width="720" height="480"></canvas>
-    <div id="hud" class="hud-cover">
-        <div class="hud-panel">
-            <button onclick="runGame()">
-                <span class="material-icons">
-                    play_circle
-                </span>
-            </button>
-            <button onclick="stopGame()">
-                <span class="material-icons">
-                    pause
-                </span>
-            </button>
-            <button onclick="muteSounds()">
-                <span class="material-icons">
-                    volume_off
-                </span>
-            </button>
-            <button onclick="unmuteSounds()">
-                <span class="material-icons">
-                    volume_up
-                </span>
-            </button>
+
+    <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
+    <div class="overlay">
+        <div id="hud" class="background-cover">
+            
+            <div id="menuPanel">
+                <button onclick="togglePlay(iconPlay, this)">
+                    <span id="iconPlay" class="material-icons">
+                        play_circle
+                    </span>
+                </button>
+                <button onclick="toggleSounds(iconSound, this)">
+                    <span id="iconSound" class="material-icons">
+                        volume_off
+                    </span>
+                </button>
+            </div>
+            
         </div>
-
-        <!-- <img src="img/9.Intro _ Outro Image/Start Screen/Opción 1.png"> -->
     </div>
 </body>
 

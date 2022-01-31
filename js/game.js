@@ -6,20 +6,25 @@ function init(){
     world = new World();
 }
 
-function muteSounds(){
-    world.muteSounds();
+function togglePlay(icon, btnHTML){
+    btnHTML.blur();
+    if(icon.innerText == 'play_circle'){
+        icon.innerText = 'pause';
+        world.run();
+        world.ctx.canvas.classList.remove("d-none");
+    }else if(icon.innerText == 'pause'){
+        icon.innerText = 'play_circle';
+        world.stop();
+    }
 }
 
-function unmuteSounds(){
-    world.unmuteSounds();
-}
-
-function runGame(){
-    world.run();
-    world.ctx.canvas.classList.remove("d-none");
-    //document.getElementById("hud").classList.add("d-none");
-}
-
-function stopGame(){
-    world.stop();
+function toggleSounds(icon, btnHTML){
+    btnHTML.blur();
+    if(icon.innerText == 'volume_off'){
+        icon.innerText = 'volume_up';
+        world.muteSounds();
+    }else if(icon.innerText == 'volume_up'){
+        icon.innerText = 'volume_off';
+        world.unmuteSounds();
+    }
 }
