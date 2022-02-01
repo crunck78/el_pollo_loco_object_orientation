@@ -1,3 +1,7 @@
+/**
+ * An extension of Creature. It is a playable Character that can be controlled via keyboard.
+ * It can walk, jump, throw objects.
+ */
 class Character extends Creature {
     height = 250;
     x = 0;

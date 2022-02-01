@@ -46,16 +46,18 @@ class DrawableObject {
 
     /**
      * @type {number} - Depth measurement. Closer to 1 is closer to Screen, Closer to 0 is far from Screen
+     * Also influences how fast is this instance been translated 
      */
     distance = 1;
 
     /**
      * @type {boolean} indicator mainly for fliping the image before drawing and back after drawing
+     * Also influences some animation and movement logic for this instance 
      */
     otherDirection = false;
 
     /**
-     * @type {number} - Indicator of the current value of @static @member count
+     * @type {number} - Indicator of the current value of static @member count
      */
     id;
 
@@ -65,15 +67,16 @@ class DrawableObject {
     }
 
     /**
-     * @param {CanvasRenderingContext2D} ctx
+     * 
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's @member img will be drawn.
      */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
     /**
-     * Help function
-     * @param {CanvasRenderingContext2D} ctx 
+     * Help @function drawFrames, draws some useful info about this instance, like coordinates and @member image dimensions.
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawFrames(ctx) {
         if (this instanceof Character || this instanceof EndBoss) {
@@ -84,8 +87,8 @@ class DrawableObject {
     }
 
     /**
-     * Help function, to visualize the instance's @member img frame dimensions.
-     * @param {CanvasRenderingContext2D} ctx 
+     * Help @function drawImageFrame, to visualize the instance's @member img frame dimensions.
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawImageFrame(ctx) {
         ctx.beginPath();
@@ -96,22 +99,20 @@ class DrawableObject {
     }
 
     /**
-     * Help function, to visualize the context were this instance's @member img is been drawn.
-     * @param {CanvasRenderingContext2D} ctx 
+     * Help @function drawContextFrame, to visualize the context were this instance's @member img is been drawn.
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawContextFrame(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
-
         ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.stroke();
     }
 
     /**
-     * Help function,
-     * Draws on the given context the instance's coordinates in relate to canvas origin [0, 0]
-     * @param {CanvasRenderingContext2D} ctx 
+     * Help @function drawCoordinates, to visualize coordinates values of this instance
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
      drawCoordinates(ctx) {
         ctx.beginPath();
@@ -121,7 +122,8 @@ class DrawableObject {
     }
 
     /**
-     * @param {string} imgPath - Ex.: img/image1.png
+     * Defines @member img and sets its src with the given image path
+     * @param {string} imgPath - the image path to set this instance @member img to. Ex.: img/image1.png
      */
      loadImage(imgPath) {
         this.img = new Image();
@@ -129,7 +131,9 @@ class DrawableObject {
     }
 
     /**
-     * @param {Array} arr - ['img/image1.png', 'img/image2.png', ...] 
+     * For each image Path in @param arr, defines an Image, gives the path as its source
+     * and saves the image path as key, and the Images as value to @member imageCache 
+     * @param {string[]} arr - the collection of image paths Ex.: ['img/image1.png', 'img/image2.png', ...] 
      */
     loadImages(arr) {
         arr.forEach((path) => {
@@ -140,8 +144,9 @@ class DrawableObject {
     }
 
     /**
-     * @param {object} images - object's all images
-     * Ex. : images['WALKING'] = ['img/walking1.png', 'img/walking2.png'];
+     * Help @function loadAllImages, given a Dictionary via @param images, of keys as names that best represent the values as image paths collection,
+     * for each values, loads the image paths.
+     * @param {object} images - object's all images. Ex. : images['WALKING'] = ['img/walking1.png', 'img/walking2.png'];
      */
     loadAllImages(images) {
         for (const status in images) {

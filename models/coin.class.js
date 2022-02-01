@@ -1,3 +1,7 @@
+/**
+ * An extension of CollectibleObject. Representing a Coin which the character can collect if it collides with one.
+ * and the Character Coin Bar is not full. 
+ */
 class Coin extends CollectibleObject {
     width = 100;
     height = 100;

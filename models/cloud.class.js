@@ -1,3 +1,6 @@
+/**
+ * An extension of MovableObject. Represents some Clouds in the sky that move alone in a given direction
+ */
 class Cloud extends MovableObject {
     y = 50;
     x = Math.random() * 500; //Zahl zwieschen 0 und 500

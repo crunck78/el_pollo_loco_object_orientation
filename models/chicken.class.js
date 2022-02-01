@@ -1,3 +1,10 @@
+/**
+ * An extension of Enemy, defines some specific Enemy Type to Character
+ * They are very weak. They perform only simple self actions. 
+ * They can hurt the Character on Collision if the Character does not Collide from top.
+ * They can be instantly be killed if Character Collides from top.
+ * They can be hurt if they Collide with Characters's throwing objects  
+ */
 class Chicken extends Enemy {
     height = 55;
     width = 70;
@@ -18,16 +25,26 @@ class Chicken extends Enemy {
         this.y = this.groundPos;
     }
 
+    /**
+     * @override @function animate
+     */
     animate() {
         //super.startDirectionChange();
         super.animate();
     }
 
+    /**
+     * @override @function stopAnimate
+     */
     stopAnimate() {
         //super.stopDirectionChange();
         super.stopAnimate();
     }
 
+    /**
+     * @override @function play
+     * @param {number} timeStamp 
+     */
     play(timeStamp) {
         if(this.playChickenTime === undefined){
             this.playChickenTime = timeStamp;
@@ -40,14 +57,27 @@ class Chicken extends Enemy {
         super.play(timeStamp);
     }
 
+    /**
+     * @function playChicken , holds all the logic how a chicken's images are been played
+     * @param {number} timeStamp 
+     */
     playChicken(timeStamp){
         if (super.isKilled()) {
-            super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+            this.playDead(timeStamp);
         } else {
             super.playAnimation(timeStamp, this.IMAGES['WALKING']);
         }
     }
 
+    playDead(timeStamp){
+        super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+    }
+
+    /**
+     * @override @function move
+     * @param {number} timeStamp 
+     */
     move(timeStamp) {
         if(this.moveChickenTime === undefined){
             this.moveChickenTime = timeStamp;
@@ -60,6 +90,10 @@ class Chicken extends Enemy {
         super.move(timeStamp);
     }
 
+    /**
+     * @function moveChicken , holds all the login how a chicken should be moving
+     * @param {number} timeStamp 
+     */
     moveChicken(timeStamp){
         if (!super.isKilled()) {
             if (this.otherDirection) {

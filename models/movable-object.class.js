@@ -1,5 +1,5 @@
 /**
- * An extension of DrawableObject Construct that can be animated inside a 2d Canvas Context
+ * An extension of DrawableObject Construct that can be animated inside a 2d Canvas Context.
  */
 class MovableObject extends DrawableObject {
     /**
@@ -89,20 +89,21 @@ class MovableObject extends DrawableObject {
     gravityAnimationElapse = 160;
 
     /**
-     * If @this is performing launch animation
+     * Control flag to determine if this instance is performing launch animation.
      * @type {boolean}
      */
     launching;
 
     /**
-     * If @this is performing ground touch animation
+     * Control flag to determine If this instance is performing ground touch animation
      * @type {boolean}
      */
     landed;
 
     /**
      * Queries an image from @member imageCache as the next image to be drawn
-     * @param {number} timeStamp 
+     * only if @member playAnimationElapse time passed.
+     * @param {number} timeStamp
      * @param {string[]} images - a collection of image paths that have been loaded with @method loadImages to @member imageCache
      */
     playAnimation(timeStamp, images) {
@@ -164,7 +165,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * This is used to recall the Child Class redefined @method move.
+     * This is used to recall the Child Class overridden @method move.
      * @param {number} timeStamp 
      */
     move(timeStamp) {
@@ -175,7 +176,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * This is used to recall the Child Class redefined @method play.
+     * This is used to recall the Child Class overridden @method play.
      * @param {number} timeStamp 
      */
     play(timeStamp) {
@@ -216,12 +217,14 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Simulates Vertical Projectile motion, if @this isAboveGround or @this speedY greater then 0
+     * Simulates Vertical Projectile motion,
+     *  if this instance isAboveGround or @member speedY greater then 0,
      */
     applyGravity() {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.accelerationY;
+            //This only has to happen once every time this instance after been launched, then landes.
             if (!(this.isAboveGround() || this.speedY > 0)) {
                 this.land();
             }
@@ -229,7 +232,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * If @this y is less then @this groundPos
+     * If this instance @member y is less then this instance @member groundPos
      * @returns {boolean}
      */
     isAboveGround() {
@@ -237,7 +240,6 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * FIX GROUND POS TO WORK FOR ALL CLASSES OR MOVE METHOD TO CHARACTER
      * @param {number} groundPos - new groundPos
      */
     launch(groundPos) {
@@ -247,7 +249,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * If @this is jumping or landing or in mit air.
+     * If this instance is jumping or landing or in mit air.
      * @returns {boolean}
      */
     isInAir() {
@@ -290,7 +292,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Sets @member landed as true for 250 ms timeout. 
+     * Sets @member landed as true for 250 ms timeout.
      */
     land() {
         this.y = this.groundPos;
@@ -300,7 +302,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * If @this is moving in any direction lef, right, up or down
+     * If this instance is moving in any direction lef, right, up or down
      * @returns {boolean}
      */
     isMoving() {
@@ -332,28 +334,28 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Add to @this @member x, @this @member speedX 
+     * Add to this instance @member x, this instance @member speedX 
      */
     moveRight() {
         this.x += this.speedX;
     }
 
     /**
-     * Subtract from @this @member x, @this @member speedX
+     * Subtract from this instance @member x, this instance @member speedX
      */
     moveLeft() {
         this.x -= this.speedX;
     }
 
     /**
-     * Subtract from @this @member y, @this @member speedY
+     * Subtract from this instance @member y, this instance @member speedY
      */
     moveUp() {
         this.y -= this.speedX;
     }
 
     /**
-     * Add to @this @member y, @this @member speedY
+     * Add to this instance @member y, this instance @member speedY
      */
     moveDown() {
         this.y += this.speedX;
