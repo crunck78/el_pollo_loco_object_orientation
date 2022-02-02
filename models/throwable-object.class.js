@@ -1,4 +1,12 @@
+/**
+ * An extension of DestroyableObject. Represents an Object that a Character can throw.
+ * On Collision with other objects or ground contact it breaks.
+ * If collides with Enemies deals damage.
+ */
 class ThrowableObject extends DestroyableObject {
+
+    damage = 20;
+
     height = 100;
     width = 60;
     speedY = 10;
@@ -41,16 +49,35 @@ class ThrowableObject extends DestroyableObject {
         this.groundPos = this.y + 50; //to look like it breaks on the object ist collide with add some offset
     }
 
+    // break(target){
+    //     if(target && target instanceof DestroyableObject){
+    //         target.hit(this.damage);
+    //     }
+    //     this.broken = true;
+    //     this.groundPos = this.y + 50;
+    //     this.x = target.x;
+    // }
+
+    /**
+     * @override @function animate
+     */
     animate() {
         super.startGravity();
         super.animate();
     }
 
+    /**
+     * @override @function stopAnimate
+     */
     stopAnimate() {
         super.stopGravity();
         super.stopAnimate();
     }
 
+    /**
+     * @override @function play
+     * @param {number} timeStamp 
+     */
     play(timeStamp) {
         if (this.playThrowObjectTime === undefined) {
             this.playThrowObjectTime = timeStamp;
@@ -63,6 +90,10 @@ class ThrowableObject extends DestroyableObject {
         super.play(timeStamp);
     }
 
+    /**
+     * @function playThrowObject , holds all the logic how a throwable-object's images are been played
+     * @param {number} timeStamp 
+     */
     playThrowObject(timeStamp) {
         if (super.isAboveGround()) {
             super.playAnimation(timeStamp, this.IMAGES['ROTATION_BOTTLE']);
@@ -85,8 +116,12 @@ class ThrowableObject extends DestroyableObject {
         super.move(timeStamp);
     }
 
+    /**
+     * @function moveThrowObject , holds all the login how a throwable-object should be moving
+     * @param {number} timeStamp 
+     */
     moveThrowObject(timeStamp) {
-        if (super.isAboveGround()) {
+        if (super.isAboveGround() || !this.broken) {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
@@ -95,6 +130,14 @@ class ThrowableObject extends DestroyableObject {
             this.playAnimationElapse = 100;
             setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
         }
+    }
+
+    /**
+     *  
+     * @returns {boolean}
+     */
+    isBroken(){
+        return super.isKilled();
     }
 
     hit() {

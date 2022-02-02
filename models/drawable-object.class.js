@@ -46,7 +46,7 @@ class DrawableObject {
 
     /**
      * @type {number} - Depth measurement. Closer to 1 is closer to Screen, Closer to 0 is far from Screen
-     * Also influences how fast is this instance been translated 
+     * Also influences how fast is this instance been translated via Canvas2dRenderingContext
      */
     distance = 1;
 

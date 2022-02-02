@@ -2,6 +2,12 @@
  * An extension of MovableObject that can collide with other CollidableObjects.
  */
 class CollidableObject extends MovableObject {
+
+    /**
+     * @type {number} - how much damage can this instance cause to other DestroyableObjects 
+     */
+     damage = 0;
+
     /**
      * @type {object} - Numerical offsets for this instance's coordinates and dimensions,
      * used for collision check.

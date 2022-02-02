@@ -1,8 +1,12 @@
 /**
  * An extension of Creature. It is a playable Character that can be controlled via keyboard.
  * It can walk, jump, throw objects.
+ * Power, it can squish any Enemy it lands on.
  */
 class Character extends Creature {
+
+    damage = 20;
+
     height = 250;
     x = 0;
     y = 80;
@@ -36,11 +40,11 @@ class Character extends Creature {
     }
 
     createStatusBars() {
-        this.hitPointsBar = new StatusBar(30, 0, CHARACTER_ASSETS['IMAGES_HIT_POINTS_BAR']);
+        this.hitPointsBar = new StatusBar(30, 0, CHARACTER_ASSETS['IMAGES_HIT_POINTS_BAR'], 0);
         this.hitPointsBar.setPercentage(this.energy);
-        this.coinsBar = new StatusBar(30, 40, CHARACTER_ASSETS['IMAGES_COINS_BAR']);
+        this.coinsBar = new StatusBar(30, 40, CHARACTER_ASSETS['IMAGES_COINS_BAR'], 0);
         this.coinsBar.setPercentage(this.coins);
-        this.bottlesBar = new StatusBar(30, 80, CHARACTER_ASSETS['IMAGES_BOTTLES_BAR']);
+        this.bottlesBar = new StatusBar(30, 80, CHARACTER_ASSETS['IMAGES_BOTTLES_BAR'], 0);
         this.bottlesBar.setPercentage(this.bottles);
     }
 
@@ -148,6 +152,10 @@ class Character extends Creature {
         setTimeout(()=>{ this.attacking = false; }, 250); //stops playAttacking after timeout
     }
 
+    /**
+     * Instant kills an enemy, which performs a followup launch
+     * @param {Enemy} enemy - the enemy to be killed on stamp
+     */
     stamp(enemy){
         enemy.kill('STAMP');
         this.groundPos = this.y;
@@ -246,9 +254,9 @@ class Character extends Creature {
         super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
     }
 
-    hit() {
+    hit(damage) {
         this.lastIdle = 0;
-        super.hit();
+        super.hit(damage);
         this.hitPointsBar.setPercentage(this.energy);
     }
 

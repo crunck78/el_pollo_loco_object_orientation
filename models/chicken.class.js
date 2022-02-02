@@ -6,6 +6,9 @@
  * They can be hurt if they Collide with Characters's throwing objects  
  */
 class Chicken extends Enemy {
+
+    damage = 10;
+
     height = 55;
     width = 70;
     energy = 5;
@@ -71,7 +74,7 @@ class Chicken extends Enemy {
 
     playDead(timeStamp){
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+        setTimeout( ()=> {super.stopPlay(); this.AUDIOS['KILL'].play();}, this.playAnimationElapse * this.IMAGES['DEAD'].length);
     }
 
     /**

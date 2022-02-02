@@ -2,6 +2,7 @@
  * An extension of Class CollidableObject, used to damage this instance and measure if is hurt or killed.
  */
 class DestroyableObject extends CollidableObject{
+
     /**
      * @type {number} - 0 or less = dead 
      */
@@ -27,13 +28,15 @@ class DestroyableObject extends CollidableObject{
     }
 
     /**
-     * this instance takes 20 damage on @member energy
+     * this instance takes a given damage on @member energy
      * if energy is below 0, it is kept at 0
      * else get current time for @member lastHit
+     * @param {number} damage - how much damage should this instance take
+     * If no damage is given it will take a minimum 5 damage
      */
-    hit() {
+    hit(damage) {
         this.currentImage = 0;
-        this.energy -= 20;
+        this.energy -= damage ? damage : 5;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

@@ -1,5 +1,7 @@
 class EndBoss extends Enemy {
 
+    damage = 40;
+
     offset = {
         top: 0,
         bottom: 30,
@@ -134,7 +136,7 @@ class EndBoss extends Enemy {
     }
 
     hit(target) {
-        super.hit();
+        super.hit(target.damage);
         super.alert(target);
         this.hitPointsBar.setPercentage(this.energy);
     }

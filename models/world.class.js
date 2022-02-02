@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 class World {
 
     /**
@@ -52,6 +55,12 @@ class World {
     * @type {number}
     */
     checkWorldTime;
+
+    /**
+     * The context were @member level's DrawableObjects are been drawn
+     * @type {CanvasRenderingContext2D}
+     */
+    ctx
 
     constructor() {
         this.level = getLevel1();
@@ -166,7 +175,7 @@ class World {
     /**
      *  If horizontal moving @param target passes one half the canvas at begin,
      *  or has not reached  level end minus one half the canvas,
-     *  @this @member camera_x is updated to keep the @param target in the middle of the screen.
+     *  this instance @member camera_x is updated to keep the @param target in the middle of the screen.
      */
     checkCamera(target) {
         let targetCenterX = target.x + target.width * 0.5;
@@ -189,7 +198,7 @@ class World {
     }
 
     /**
-     * Wrapper @function checkCollisions, calls different collision check functions.
+     * Wrapper @function checkCollisions , calls different collision check functions.
      */
     checkCollisions() {
         this.level.enemies.forEach((enemy, index, enemies) => this.checkEnemyCollisions(enemy, index, enemies));
@@ -219,11 +228,11 @@ class World {
         if (this.canCollide(enemy, this.level.character) && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 this.level.character.stamp(enemy);
-                if (enemy.isKilled()) {
+                if (enemy.isKilled()) { // this should anyways happen
                     this.spliceTimeout(collection, enemy);
                 }
             } else {
-                this.level.character.hit();
+                this.level.character.hit(enemy.damage);
             }
         }
     }
@@ -256,11 +265,12 @@ class World {
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
         if (this.canHit(throwObj, enemy) && throwObj.isColliding(enemy)) {
-            throwObj.hit(enemy);
+            throwObj.hit();
+            //throwObj.break(enemy);
             this.spliceTimeout(this.level.character.throwBottles, throwObj);
-            enemy.hit(this.level.character);
+            //enemy.hit(this.level.character);
+            //TODO BUILD A COLLECTOR OF ALL KILLED OR DESTROYED OBJECTS TO DELETE THEM
             if (enemy.isKilled()) {
-                enemy.AUDIOS['KILL'].play();
                 this.spliceTimeout(collection, enemy);
             }
         }
@@ -346,30 +356,29 @@ class World {
         this.requestDraw = requestAnimationFrame(this.draw.bind(this));
     }
 
+    /**
+     * @function drawGameInProgress , draws all in instance level defined DrawableObjects to this instance @member ctx
+     * 
+     */
     drawGameInProgress() {
-        // --------- Space for fixed Objects ---------
+
         this.addToMap(this.level.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        // --------- Space for fixed Objects End ---------
-
-        this.ctx.translate(this.camera_x, 0);
-
+        
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endBoss.chickens);
         this.addObjectsToMap(this.level.character.throwBottles);
+        
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
 
-        this.ctx.translate(-this.camera_x, 0);
-
-        // --------- Space for fixed Objects ---------
+      
         this.addToMap(this.level.character.hitPointsBar);
         this.addToMap(this.level.character.coinsBar);
         this.addToMap(this.level.character.bottlesBar);
-        // --------- Space for fixed Objects End ---------
     }
 
     isGameOver() {
@@ -387,26 +396,23 @@ class World {
     }
 
     /**
-     * Draws the @param mo on @this @member ctx and performs after and before conditional changes, like flip image or context translations.
-     * Each before draw change in @this @member ctx should be reversed apply after draw.
+     * Draws the @param mo on this instance @member ctx and performs after and before conditional changes,
+     * like flip image or context translations.
+     * Each before draw change in this instance @member ctx should be reversed apply after draw.
      * @param {DrawableObject} mo 
      */
     addToMap(mo) {
         if (this.insideCanvas(mo)) {
+            this.ctx.translate(this.camera_x * mo.distance, 0);
             if (mo.otherDirection) {
                 this.flipImage(mo);
-            }
-            if (mo instanceof BackgroundObject) {
-                this.ctx.translate(this.camera_x * mo.distance, 0);
             }
             mo.draw(this.ctx);
-            mo.drawFrames(this.ctx);
-            if (mo instanceof BackgroundObject) {
-                this.ctx.translate(-this.camera_x * mo.distance, 0);
-            }
+            //mo.drawFrames(this.ctx);
             if (mo.otherDirection) {
                 this.flipImage(mo);
             }
+            this.ctx.translate(-this.camera_x * mo.distance, 0);
         }
     }
 
