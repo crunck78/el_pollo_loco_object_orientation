@@ -49,7 +49,7 @@ class Chicken extends Enemy {
      * @param {number} timeStamp 
      */
     play(timeStamp) {
-        if(this.playChickenTime === undefined){
+        if (this.playChickenTime === undefined) {
             this.playChickenTime = timeStamp;
         }
         const elapse = timeStamp - this.playChickenTime;
@@ -64,7 +64,7 @@ class Chicken extends Enemy {
      * @function playChicken , holds all the logic how a chicken's images are been played
      * @param {number} timeStamp 
      */
-    playChicken(timeStamp){
+    playChicken(timeStamp) {
         if (super.isKilled()) {
             this.playDead(timeStamp);
         } else {
@@ -72,9 +72,15 @@ class Chicken extends Enemy {
         }
     }
 
-    playDead(timeStamp){
+    playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout( ()=> {super.stopPlay(); this.AUDIOS['KILL'].play();}, this.playAnimationElapse * this.IMAGES['DEAD'].length);
+        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+    }
+
+    stopPlay() {
+        this.AUDIOS['KILL'].play();
+        super.stopPlay(); 
+        super.stopGravity();
     }
 
     /**
@@ -82,7 +88,7 @@ class Chicken extends Enemy {
      * @param {number} timeStamp 
      */
     move(timeStamp) {
-        if(this.moveChickenTime === undefined){
+        if (this.moveChickenTime === undefined) {
             this.moveChickenTime = timeStamp;
         }
         const elapse = timeStamp - this.moveChickenTime;
@@ -97,7 +103,7 @@ class Chicken extends Enemy {
      * @function moveChicken , holds all the login how a chicken should be moving
      * @param {number} timeStamp 
      */
-    moveChicken(timeStamp){
+    moveChicken(timeStamp) {
         if (!super.isKilled()) {
             if (this.otherDirection) {
                 super.moveRight();
@@ -105,7 +111,7 @@ class Chicken extends Enemy {
             else {
                 super.moveLeft();
             }
-        }else{
+        } else {
             setTimeout(super.stopMove.bind(this));
         }
     }

@@ -188,7 +188,18 @@ class Character extends Creature {
 
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+    }
+
+    /**
+     * @override @function stopPlay
+     */
+    stopPlay(){
+        // delete this.hitPointsBar;
+        // delete this.coinsBar;
+        // delete this.bottlesBar;
+        super.stopGravity();
+        super.stopPlay();
     }
 
     playHit(timeStamp) {

@@ -68,7 +68,16 @@ class EndBoss extends Enemy {
     playDead(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
+        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
+    }
+
+    /**
+     * @override @function stopPlay
+     */
+    stopPlay(){
+        delete this.hitPointsBar; //is this ok? draw asks anyway if object to draw exists
+        super.stopGravity();
+        super.stopPlay();
     }
 
     playHit(timeStamp) {
@@ -110,16 +119,18 @@ class EndBoss extends Enemy {
     }
 
     moveEndBoss(timeStamp) {
-        //hp bar follows endboss
-        this.hitPointsBar.x = this.x;
-        this.hitPointsBar.y = this.y;
         if (!super.isKilled()) {
-            //Endboss movement logic here
-            super.moveEnemy();
-        }else{
+           this.moveEnemy();
+        } else {
             this.launch(CANVAS_HEIGHT + this.height);
             setTimeout(super.stopMove.bind(this));
         }
+    }
+
+    moveEnemy(){
+        this.hitPointsBar.x = this.x;
+        this.hitPointsBar.y = this.y;
+        super.moveEnemy();
     }
 
     canMoveRight() {
@@ -151,7 +162,7 @@ class EndBoss extends Enemy {
         //draw a image times the position of fly image in the attack images array 
 
         setTimeout(() => {
-           this.createChicken();
+            this.createChicken();
         }, 1000);
     }
 

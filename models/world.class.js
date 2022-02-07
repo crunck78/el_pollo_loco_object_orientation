@@ -309,6 +309,7 @@ class World {
      */
     delete(array, mo) {
         let position = array.indexOf(mo);
+        // mostly are handled in the highest class instance
         mo.stopAnimate(); // first fix ... stops recursive  functions after no longer Object is needed
         array.splice(position, 1);
     }
@@ -377,7 +378,6 @@ class World {
 
     /**
      * @function drawGameInProgress , draws all in instance level defined DrawableObjects to this instance @member ctx
-     * 
      */
     drawGameInProgress() {
 
@@ -393,7 +393,6 @@ class World {
 
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
-
 
         this.addToMap(this.level.character.hitPointsBar);
         this.addToMap(this.level.character.coinsBar);
@@ -418,10 +417,10 @@ class World {
      * Draws the @param mo on this instance @member ctx and performs after and before conditional changes,
      * like flip image or context translations.
      * Each before draw change in this instance @member ctx should be reversed apply after draw.
-     * @param {DrawableObject} mo 
+     * @param {DrawableObject} mo
      */
     addToMap(mo) {
-        if (mo && this.insideCanvas(mo)) {
+        if (mo && this.insideCanvas(mo)) { //because of delete use , we ask if mo is defined
             this.ctx.translate(this.camera_x * mo.distance, 0);
             if (mo.otherDirection) {
                 this.flipImage(mo);

@@ -9,7 +9,7 @@ function getLevel1() {
 }
 
 function getLevelChickens() {
-    //return [];
+    return [new Chicken(900)];
     let collection1 = getChickensCollection(400);
     let collection2 = getChickensCollection(800);
     let collection3 = getChickensCollection(1200);
@@ -53,7 +53,7 @@ function getBackgroundsCollection(xPos, section) {
 }
 
 function getLevelCoins() {
-    //return [];
+    return [new Coin(1200, 200)];
     let collection1 = getCoinsCollection(500, 200);
     let collection2 = getCoinsCollection(1000, 200);
     let collection3 = getCoinsCollection(1500, 200);
@@ -72,7 +72,7 @@ function getCoinsCollection(firstX, firstY) {
 }
 
 function getLevelBottles() {
-    //return [new Bottle(1000, 0)];
+    return [new Bottle(1000, 0)];
     let collection1 = getBottlesCollection(100);
     let collection2 = getBottlesCollection(400);
     let collection3 = getBottlesCollection(600);

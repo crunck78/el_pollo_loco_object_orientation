@@ -174,6 +174,7 @@ class MovableObject extends DrawableObject {
         if (this.moveOjectTime === undefined) {
             this.moveOjectTime = timeStamp;
         }
+        if(this instanceof ThrowableObject) console.log('Move Animation Runs for:', this);
         this.requestMove = requestAnimationFrame(this.move.bind(this));
     }
 
@@ -185,6 +186,7 @@ class MovableObject extends DrawableObject {
         if (this.playObjectTime === undefined) {
             this.playObjectTime = timeStamp;
         }
+        if(this instanceof ThrowableObject) console.log('Play Animation Runs for:', this);
         this.requestPlay = requestAnimationFrame(this.play.bind(this));
     }
 
@@ -214,6 +216,7 @@ class MovableObject extends DrawableObject {
         if (elapse > FRAMES_TIME) {
             this.gravityTime = timeStamp;
             this.applyGravity();
+            if(this instanceof ThrowableObject) console.log('Gravity Runs for:', this);
         }
         this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
     }

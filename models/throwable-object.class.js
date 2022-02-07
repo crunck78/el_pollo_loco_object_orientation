@@ -99,9 +99,14 @@ class ThrowableObject extends DestroyableObject {
             super.playAnimation(timeStamp, this.IMAGES['ROTATION_BOTTLE']);
         }
         else {
-            this.AUDIOS['BREAK'].play();
-            super.playAnimation(timeStamp, this.IMAGES['SPLASH']);
+            this.playBreak(timeStamp);
         }
+    }
+
+    playBreak(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['SPLASH']);
+        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
+
     }
 
     move(timeStamp) {
@@ -125,18 +130,23 @@ class ThrowableObject extends DestroyableObject {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
-            this.broken = true;
-            super.stopMove();
-            this.playAnimationElapse = 100;
-            setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
+            setTimeout(this.stopMove.bind(this));
         }
     }
 
+    stopMove() {
+        this.broken = true;
+        this.AUDIOS['BREAK'].play();
+        this.playAnimationElapse = 100;
+        super.stopGravity();
+        super.stopMove();
+    }
+
     /**
-     *  
+     * @function isBroken named like this for better semantic
      * @returns {boolean}
      */
-    isBroken(){
+    isBroken() {
         return super.isKilled();
     }
 
