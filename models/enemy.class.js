@@ -193,4 +193,12 @@ class Enemy extends NPC {
         }
         super.kill();
     }
+
+    /**
+     * 
+     * @param {CollidableObject} target - the object that hits this instance after validated collision
+     */
+    hit(target) {
+        super.hit(target.damage);
+    }
 }

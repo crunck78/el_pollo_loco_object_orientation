@@ -78,7 +78,7 @@ class Character extends Creature {
             if (this.canAttack()) { this.attack(); }
         }else{
             //STOP MOVE DOES NOT WORK IT IS STILL RUNNING
-            //SETTIMEOUT SOLVES THE PROBLEM BUT WHY???
+            //SET TIMEOUT SOLVES THE PROBLEM BUT WHY??? 
             this.launch(CANVAS_HEIGHT + this.height);
             setTimeout(super.stopMove.bind(this));
         }

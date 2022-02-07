@@ -136,7 +136,7 @@ class EndBoss extends Enemy {
     }
 
     hit(target) {
-        super.hit(target.damage);
+        super.hit(target);
         super.alert(target);
         this.hitPointsBar.setPercentage(this.energy);
     }

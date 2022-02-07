@@ -1,5 +1,7 @@
 /**
  * An extension of DrawableObject Construct that can be animated inside a 2d Canvas Context.
+ * TODO Each instance after reference to it has been lost or instance is no longer needed and deleted from view
+ * , all recursive calls to it should be handled (stopped)
  */
 class MovableObject extends DrawableObject {
     /**
@@ -301,10 +303,6 @@ class MovableObject extends DrawableObject {
         setTimeout(() => { this.landed = false; }, 250); // give time for landing animation
     }
 
-    /**
-     * If this instance is moving in any direction lef, right, up or down
-     * @returns {boolean}
-     */
     isMoving() {
         return this.isMovingVertically() || this.isMovingHorizontally();
     }

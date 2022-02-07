@@ -4,6 +4,14 @@
 class DrawableObject {
 
     /**
+     * Marks this instance as no longer needed in game progress, can be excluded from draw map. 
+     * Also used to eliminate ist references from collections 
+     * and stop its recursive functions @function move , @function play and @function gravity
+     * @type {boolean}
+     */
+    disposable = false;
+
+    /**
      * @type {number} - Counts how many DrawableObject instances have been created
      */
     static count = 0;
@@ -61,13 +69,16 @@ class DrawableObject {
      */
     id;
 
+    /**
+     * Each new instance of DrawableObject get as id the current counter value and increases the counter afterwards by 1
+     */
     constructor() {
         this.id = DrawableObject.count;
         DrawableObject.count++;
     }
 
     /**
-     * 
+     * Draws this instance's @member img inside @param ctx's canvas at this instance's coordinates and dimensions
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's @member img will be drawn.
      */
     draw(ctx) {
@@ -79,7 +90,7 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawFrames(ctx) {
-        if (this instanceof Character || this instanceof EndBoss) {
+        if (this instanceof Character || this instanceof Bottle) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
             this.drawCoordinates(ctx);

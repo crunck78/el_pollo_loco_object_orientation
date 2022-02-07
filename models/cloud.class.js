@@ -6,7 +6,7 @@ class Cloud extends MovableObject {
     x = Math.random() * 500; //Zahl zwieschen 0 und 500
     width = 500;
     height = 250;
-    constructor(width, height, distance = 1) {
+    constructor(width, height, distance = 0) {
         super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
         this.width = width;
         this.height = height;

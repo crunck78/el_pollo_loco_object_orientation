@@ -137,6 +137,7 @@ class World {
         this.checkCameraTest(this.level.character);
         this.checkAlertEnemies();
         this.checkCollisions();
+        //this.checkCollisionsTest();
     }
 
     /**
@@ -162,9 +163,9 @@ class World {
 
     /**
      * Check if camera target is inside Boundaries to allow camera movement 
-     * @param {number} leftBoundary 
-     * @param {number} rightBoundary 
-     * @param {number} distanceFromCamera 
+     * @param {number} leftBoundary - minium distance for target to achieve for camera to move.
+     * @param {number} rightBoundary - maximum distance for target to achieve for camera to move.
+     * @param {number} distanceFromCamera - how far is the camera's offset from target
      * @returns {boolean}
      */
     canMoveCamera(leftBoundary, rightBoundary, distanceFromCamera) {
@@ -190,7 +191,8 @@ class World {
      * If Character is in Enemy alert Distance range, enemy will be alerted if it can be alerted
      */
     checkAlertEnemies() {
-        if (this.level.endBoss.canAlert()
+        if (this.level.endBoss.canAlert() &&
+            !this.level.character.isKilled()
             && this.level.endBoss.distanceFromX(this.level.character) < this.level.endBoss.alertDistance
         ) {
             this.level.endBoss.alert(this.level.character);
@@ -205,6 +207,21 @@ class World {
         this.level.endBoss.chickens.forEach((chicken, index, chickens) => this.checkEnemyCollisions(chicken, index, chickens));
         this.checkCollisionsWithCollectibles(this.level.coins);
         this.checkCollisionsWithCollectibles(this.level.bottles);
+    }
+
+    /**
+     * Wrapper @function checkCollisionsTest , calls different collision check functions.
+     */
+    checkCollisionsTest() {
+        //TODO 
+        // let collidabels = [
+        //     this.level.character,
+        //     ...this.level.enemies.filter(e => !e.isKilled()),
+        //     ...this.level.endBoss.chickens.filter(e => !e.isKilled()),
+        //     ...this.level.character.throwBottles.filter(t => !t.broken),
+        //     ...this.level.coins,
+        //     ...this.level.bottles
+        // ];
     }
 
     /**
@@ -268,7 +285,7 @@ class World {
             throwObj.hit();
             //throwObj.break(enemy);
             this.spliceTimeout(this.level.character.throwBottles, throwObj);
-            //enemy.hit(this.level.character);
+            enemy.hit(this.level.character);
             //TODO BUILD A COLLECTOR OF ALL KILLED OR DESTROYED OBJECTS TO DELETE THEM
             if (enemy.isKilled()) {
                 this.spliceTimeout(collection, enemy);
@@ -292,6 +309,7 @@ class World {
      */
     delete(array, mo) {
         let position = array.indexOf(mo);
+        mo.stopAnimate(); // first fix ... stops recursive  functions after no longer Object is needed
         array.splice(position, 1);
     }
 
@@ -301,6 +319,7 @@ class World {
     checkCollisionsWithCollectibles(collectibles) {
         collectibles.forEach((collectible, index) => {
             if (this.level.character.isColliding(collectible) && this.hasCollect(collectible)) {
+                collectible.stopAnimate(); // first fix ... stops recursive  functions after no longer Object is needed
                 collectibles.splice(index, 1);
             }
         });
@@ -365,17 +384,17 @@ class World {
         this.addToMap(this.level.clearRect);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
-        
+
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.endBoss.chickens);
         this.addObjectsToMap(this.level.character.throwBottles);
-        
+
         this.addToMap(this.level.endBoss.hitPointsBar);
         this.addToMap(this.level.character);
 
-      
+
         this.addToMap(this.level.character.hitPointsBar);
         this.addToMap(this.level.character.coinsBar);
         this.addToMap(this.level.character.bottlesBar);
@@ -402,7 +421,7 @@ class World {
      * @param {DrawableObject} mo 
      */
     addToMap(mo) {
-        if (this.insideCanvas(mo)) {
+        if (mo && this.insideCanvas(mo)) {
             this.ctx.translate(this.camera_x * mo.distance, 0);
             if (mo.otherDirection) {
                 this.flipImage(mo);
@@ -422,11 +441,15 @@ class World {
         mo.x = mo.x * -1;
     }
 
+    /**
+     * Gives back if the @param mo's Horizontal position is inside Canvas
+     * @param {DrawableObject} mo 
+     * @returns {boolean}
+     */
     insideCanvas(mo) {
-        //Only for Objects translate by Camera Movement
-        //Character, level clear Rect Background and all others pointed above
-        return true;
-        return mo.x + mo.width + this.camera_x > 0 && mo.x + this.camera_x < CANVAS_WIDTH;
+        let translate = this.camera_x * mo.distance;
+        return mo.x + mo.width + translate > 0 &&
+            mo.x + translate < CANVAS_WIDTH;
     }
 
     /**

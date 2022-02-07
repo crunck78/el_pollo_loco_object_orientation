@@ -1,5 +1,5 @@
 /**
- * An extension of DrawableObject. Representing an in game overlay.
+ * An extension of DrawableObject. Representing an in game overlay or layout of the Level.
  */
 class BackgroundObject extends DrawableObject {
     width = CANVAS_WIDTH; 

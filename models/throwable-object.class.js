@@ -121,11 +121,11 @@ class ThrowableObject extends DestroyableObject {
      * @param {number} timeStamp 
      */
     moveThrowObject(timeStamp) {
-        if (super.isAboveGround() || !this.broken) {
+        if (super.isAboveGround()) {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
-            this.broken = true; 
+            this.broken = true;
             super.stopMove();
             this.playAnimationElapse = 100;
             setTimeout(this.stopAnimate.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);

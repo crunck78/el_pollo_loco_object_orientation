@@ -3,5 +3,8 @@
  * and the Character is allowed to collect one. 
  */
 class CollectibleObject extends CollidableObject{
-    
+    delete(){
+        this.stopAnimate();
+        delete this;
+    }
 }
