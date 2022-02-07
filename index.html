@@ -37,11 +37,9 @@
 </head>
 
 <body onload="init()">
-
-
     <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
     <div class="overlay">
-        <div id="hud" class="background-cover">
+        <div id="hud" class="background-cover d-none">
 
             <div class="panel">
                 <div class="panel-wrapper ml-auto">
@@ -66,12 +64,12 @@
 
             <div class="panel">
                 <div class="panel-wrapper">
-                    <button onmouseup="handleLeftUp()" onmousedown="handleLeftDown()">
+                    <button id="btnLeft">
                         <span id="iconMoveLeft" class="material-icons">
                             chevron_left
                         </span>
                     </button>
-                    <button onmouseup="handleRightUp()" onmousedown="handleRightDown()">
+                    <button id="btnRight">
                         <span id="iconMoveRight" class="material-icons">
                             chevron_right
                         </span>
@@ -79,13 +77,13 @@
                 </div>
 
                 <div class="panel-wrapper">
-                    <button onmouseup="" onmousedown="">
+                    <button id="btnJump">
                         <span id="iconJump" class="material-icons">
                             keyboard_arrow_up
                         </span>
                     </button>
-                    <button onmouseup="" onmousedown="">
-                        <span style="transform: rotatey(180deg);" id="iconthrow" class="material-icons">
+                    <button id="btnThrow">
+                        <span style="transform: rotateY(180deg);" id="iconthrow" class="material-icons">
                             undo
                         </span>
                     </button>

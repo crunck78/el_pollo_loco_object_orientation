@@ -4,6 +4,11 @@ const GROUND = 410;
 
 function init(){
     world = new World();
+    showHUD();
+}
+
+function showHUD(){
+    document.getElementById('hud').classList.remove('d-none');
 }
 
 function togglePlay(icon, btnHTML){
