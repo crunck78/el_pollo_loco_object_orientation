@@ -32,18 +32,25 @@ body {
     background-size: contain;
 }
 
-#menuPanel {
+.panel {
     padding: 12px;
     display: flex;
 
+    justify-content: space-between;
+
     visibility: hidden;
 
-    position: absolute;
+    position: relative;
+    /* right: 0; */
     z-index: 999;
-    right: 0;
+    
 }
 
-#menuPanel button {
+.panel-wrapper{
+    display: flex;
+}
+
+/* .panel .panel-wrapper */ button {
     font-size: large;
     font-weight: 700;
     letter-spacing: 6px;
@@ -62,6 +69,10 @@ body {
     visibility: visible;
 }
 
+.ml-auto{
+    margin-left: auto;
+}
+
 canvas {
     background-color: #994409;
     display: block;
@@ -74,6 +85,10 @@ canvas {
     height: 480px;
 
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 /* Smartphones ----------- */

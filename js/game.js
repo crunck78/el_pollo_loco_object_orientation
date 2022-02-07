@@ -28,3 +28,14 @@ function toggleSounds(icon, btnHTML){
         world.unmuteSounds();
     }
 }
+
+function toggleHUD(icon, btnHTML){
+    btnHTML.blur();
+    if(icon.innerText == 'visibility_off'){
+        icon.innerText = 'visibility';
+        //document.getElementById('hud').style.visibility = "hidden";
+    }else if(icon.innerText == 'visibility'){
+        icon.innerText = 'visibility_off';
+        //document.getElementById('hud').style.visibility = "visible";
+    }
+}

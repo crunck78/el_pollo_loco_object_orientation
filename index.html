@@ -42,20 +42,56 @@
     <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
     <div class="overlay">
         <div id="hud" class="background-cover">
-            
-            <div id="menuPanel">
-                <button onclick="togglePlay(iconPlay, this)">
-                    <span id="iconPlay" class="material-icons">
-                        play_circle
-                    </span>
-                </button>
-                <button onclick="toggleSounds(iconSound, this)">
-                    <span id="iconSound" class="material-icons">
-                        volume_off
-                    </span>
-                </button>
+
+            <div class="panel">
+                <div class="panel-wrapper ml-auto">
+                    <button onclick="togglePlay(iconPlay, this)">
+                        <span id="iconPlay" class="material-icons">
+                            play_circle
+                        </span>
+                    </button>
+                    <button onclick="toggleSounds(iconSound, this)">
+                        <span id="iconSound" class="material-icons">
+                            volume_off
+                        </span>
+                    </button>
+               
+                    <button onclick="toggleHUD(iconHUD, this)">
+                        <span id="iconHUD" class="material-icons">
+                            visibility_off
+                        </span>
+                    </button>
+                </div>
             </div>
-            
+
+            <div class="panel">
+                <div class="panel-wrapper">
+                    <button onmouseup="handleLeftUp()" onmousedown="handleLeftDown()">
+                        <span id="iconMoveLeft" class="material-icons">
+                            chevron_left
+                        </span>
+                    </button>
+                    <button onmouseup="handleRightUp()" onmousedown="handleRightDown()">
+                        <span id="iconMoveRight" class="material-icons">
+                            chevron_right
+                        </span>
+                    </button>
+                </div>
+
+                <div class="panel-wrapper">
+                    <button onmouseup="" onmousedown="">
+                        <span id="iconJump" class="material-icons">
+                            keyboard_arrow_up
+                        </span>
+                    </button>
+                    <button onmouseup="" onmousedown="">
+                        <span style="transform: rotatey(180deg);" id="iconthrow" class="material-icons">
+                            undo
+                        </span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
