@@ -4,6 +4,11 @@
 class CollidableObject extends MovableObject {
 
     /**
+     * @type {boolean} - a flag to mark this instance as collidable
+     */
+    collidable = true;
+
+    /**
      * @type {number} - how much damage can this instance cause to other DestroyableObjects 
      */
      damage = 0;
@@ -18,6 +23,14 @@ class CollidableObject extends MovableObject {
         right: 0,
         bottom: 0
     };
+
+    /**
+     * @function canCollide , to validate collision check
+     * @returns {boolean}
+     */
+    canCollide(){
+        return this.collidable;
+    }
 
     /**
      * If this instance is colliding with @param mo

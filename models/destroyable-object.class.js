@@ -4,6 +4,11 @@
 class DestroyableObject extends CollidableObject{
 
     /**
+     * 
+     */
+    destroyable = true;
+
+    /**
      * @type {number} - 0 or less = dead 
      */
     energy = 100;
@@ -15,6 +20,13 @@ class DestroyableObject extends CollidableObject{
 
     canHit() {
         //Logic and Time Controlled?
+    }
+
+    /**
+     * @override @function canCollide 
+     */
+    canCollide(){
+        return !(this.isKilled() || this.isHit()) && super.canCollide();
     }
 
     /**

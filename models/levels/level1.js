@@ -9,7 +9,7 @@ function getLevel1() {
 }
 
 function getLevelChickens() {
-    return [new Chicken(900)];
+    return [new Chicken(1500)];
     let collection1 = getChickensCollection(400);
     let collection2 = getChickensCollection(800);
     let collection3 = getChickensCollection(1200);

@@ -77,7 +77,7 @@ class Character extends Creature {
             if (this.canLaunch()) { this.launch(); }
             if (this.canAttack()) { this.attack(); }
         }else{
-            //STOP MOVE DOES NOT WORK IT IS STILL RUNNING
+            //STOP MOVE DOES NOT WORK, IT IS STILL RUNNING
             //SET TIMEOUT SOLVES THE PROBLEM BUT WHY??? 
             this.launch(CANVAS_HEIGHT + this.height);
             setTimeout(super.stopMove.bind(this));
@@ -157,7 +157,7 @@ class Character extends Creature {
      * @param {Enemy} enemy - the enemy to be killed on stamp
      */
     stamp(enemy){
-        enemy.kill('STAMP');
+        enemy.kill();
         this.groundPos = this.y;
         this.speedY = 0;
         this.launch();

@@ -183,16 +183,16 @@ class Enemy extends NPC {
         setTimeout(() => { this.alerted = false; if (this.canAttack()) { this.attack(); } }, (8 * 300)); //alert images length times animationElapse pro alert image
     }
     
-    /**
-     * @override @function kill 
-     * @param {string} method - how was it killed? STAMP (Character Stamped onver head) | KILL (energy = 0)
-     */
-    kill(method) {
-        if (method && method == 'STAMP' || method == 'KILL') {
-            this.AUDIOS[method].play();
-        }
-        super.kill();
-    }
+    // /**
+    //  * @override @function kill 
+    //  * @param {string} method - how was it killed? STAMP (Character Stamped onver head) | KILL (energy = 0)
+    //  */
+    // kill(method) {
+    //     if (method && method == 'STAMP' || method == 'KILL') {
+    //         this.AUDIOS[method].play();
+    //     }
+    //     super.kill();
+    // }
 
     /**
      * 

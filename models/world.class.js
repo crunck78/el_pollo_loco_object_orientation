@@ -4,6 +4,11 @@
 class World {
 
     /**
+     * Layout to be show when game ends.
+     */
+    endScreen;
+
+    /**
      * Value that determines what is the ground level. 
      * @type {number} 
      */
@@ -13,7 +18,7 @@ class World {
      * Value by which is check the game status and react accordingly
      * @type {string}
      */
-    gameStatus = 'inProgress'
+    gameStatus = 'inProgress';
 
     /**
      * @type {number}
@@ -134,10 +139,21 @@ class World {
      * @param {number} timeStamp 
      */
     checkWorld(timeStamp) {
+        this.checkProgress();
         this.checkCameraTest(this.level.character);
         this.checkAlertEnemies();
         this.checkCollisions();
         //this.checkCollisionsTest();
+    }
+
+    checkProgress(){
+        let result = this.isGameOver();
+        if(result){
+            setTimeout(this.stopCheck.bind(this));
+            setTimeout(()=>{
+                this.level.endScreen = result == 'WIN' ? this.level.winScreen : this.level.loseScreen;
+            },1000)
+        }
     }
 
     /**
@@ -214,14 +230,9 @@ class World {
      */
     checkCollisionsTest() {
         //TODO 
-        // let collidabels = [
-        //     this.level.character,
-        //     ...this.level.enemies.filter(e => !e.isKilled()),
-        //     ...this.level.endBoss.chickens.filter(e => !e.isKilled()),
-        //     ...this.level.character.throwBottles.filter(t => !t.broken),
-        //     ...this.level.coins,
-        //     ...this.level.bottles
-        // ];
+        let allObjects = this.level.getAllObjects();
+        let collidabels = this.level.getObjectsByClassName(allObjects, CollidableObject);
+        
     }
 
     /**
@@ -242,7 +253,7 @@ class World {
     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
     */
     checkEnemyCharacterCollision(enemy, index, collection) {
-        if (this.canCollide(enemy, this.level.character) && this.level.character.isColliding(enemy)) {
+        if (enemy.canCollide() &&  this.level.character.canCollide() && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 this.level.character.stamp(enemy);
                 if (enemy.isKilled()) { // this should anyways happen
@@ -255,7 +266,7 @@ class World {
     }
 
     /**
-     * Validates a collision between enemy and char
+     * @deprecated - Validates a collision between enemy and char
      * @param {Enemy} enemy 
      * @param {Character} char 
      * @returns {boolean}
@@ -282,8 +293,8 @@ class World {
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
         if (this.canHit(throwObj, enemy) && throwObj.isColliding(enemy)) {
-            throwObj.hit();
-            //throwObj.break(enemy);
+            //throwObj.hit();
+            throwObj.break();
             this.spliceTimeout(this.level.character.throwBottles, throwObj);
             enemy.hit(this.level.character);
             //TODO BUILD A COLLECTOR OF ALL KILLED OR DESTROYED OBJECTS TO DELETE THEM
@@ -310,7 +321,7 @@ class World {
     delete(array, mo) {
         let position = array.indexOf(mo);
         // mostly are handled in the highest class instance
-        mo.stopAnimate(); // first fix ... stops recursive  functions after no longer Object is needed
+        //mo.stopAnimate(); // first fix ... stops recursive  functions after no longer Object is needed
         array.splice(position, 1);
     }
 
@@ -388,19 +399,28 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
+
         this.addObjectsToMap(this.level.endBoss.chickens);
-        this.addObjectsToMap(this.level.character.throwBottles);
-
         this.addToMap(this.level.endBoss.hitPointsBar);
-        this.addToMap(this.level.character);
 
+        this.addToMap(this.level.character);
+        this.addObjectsToMap(this.level.character.throwBottles);
         this.addToMap(this.level.character.hitPointsBar);
         this.addToMap(this.level.character.coinsBar);
         this.addToMap(this.level.character.bottlesBar);
+
+        this.addToMap(this.level.endScreen);
     }
 
     isGameOver() {
-        return this.level.character.isKilled() || this.level.endBoss.isKilled();
+        if(this.level.character.isKilled()){
+            return 'LOOSE';
+        } 
+
+        if(this.level.endBoss.isKilled()){
+            return 'WIN';
+        }
+        return false; // game not ended
     }
 
     /**

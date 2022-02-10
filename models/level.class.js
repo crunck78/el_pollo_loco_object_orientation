@@ -87,6 +87,9 @@ class Level {
         this.character = new Pepe();
         this.endBoss = new BigChicken();
         this.clearRect = new BackgroundObject('img/5.Fondo/Capas/5.cielo_1920-1080px.png', 0, 0);
+        this.endScreen; // Defined when game ends
+        this.winScreen = new BackgroundObject('img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png', 0, 0);
+        this.loseScreen = new BackgroundObject('img/9.Intro _ Outro Image/_Game over_ screen/1.you lost.png', 0, 0);
         this.enemies = enemies;
         this.enemies.push(this.endBoss);
         this.clouds = clouds;
@@ -95,11 +98,10 @@ class Level {
         this.bottles = bottles;
 
         this.allObjects = this.getAllObjects();
-        console.log(this.allObjects);
-        this.movableObjects = this.getObjectsByClassName(MovableObject);
-        this.collidableObjects = this.getObjectsByClassName(CollidableObject);
-        this.destroyableObjects = this.getObjectsByClassName(DestroyableObject);
-        this.collectableObjects = this.getObjectsByClassName(CollectibleObject);
+        this.movableObjects = this.getObjectsByClassName(this.allObjects, MovableObject);
+        this.collidableObjects = this.getObjectsByClassName(this.allObjects, CollidableObject);
+        this.destroyableObjects = this.getObjectsByClassName(this.allObjects, DestroyableObject);
+        this.collectableObjects = this.getObjectsByClassName(this.allObjects, CollectibleObject);
 
         /**
          * this.backgrounds[0,1,2] and this.backgrounds[this.background.length - 1, -2, -3] do not count
@@ -175,12 +177,13 @@ class Level {
     }
 
     /**
-     * Filters out @member allObjects for instances of @param className type
+     * Filters out @param collection for instances of @param className type
+     * @param {any[]} collection a collection of instances
      * @param {className} className 
-     * @returns {any[]}
+     * @returns {any[]} - A Collection of instances className
      */
-    getObjectsByClassName(className) {
-        return this.allObjects.filter(o => o instanceof className);
+    getObjectsByClassName(collection ,className) {
+        return collection.filter(o => o instanceof className);
     }
 
     muteSounds() {

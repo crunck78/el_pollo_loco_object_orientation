@@ -9,7 +9,7 @@ class DrawableObject {
      * and stop its recursive functions @function move , @function play and @function gravity
      * @type {boolean}
      */
-    disposable = false;
+    drawable = true;
 
     /**
      * @type {number} - Counts how many DrawableObject instances have been created

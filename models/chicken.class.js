@@ -67,19 +67,25 @@ class Chicken extends Enemy {
     playChicken(timeStamp) {
         if (super.isKilled()) {
             this.playDead(timeStamp);
-        } else {
+        }
+        else if (super.isHit()) this.playHit(timeStamp);
+        else {
             super.playAnimation(timeStamp, this.IMAGES['WALKING']);
         }
     }
 
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+        setTimeout(() => { this.stopPlay(); this.AUDIOS['KILL'].play(); }, this.playAnimationElapse * this.IMAGES['DEAD'].length);
+    }
+
+    playHit(timeStamp) {
+        this.AUDIOS['KILL'].play();
+        //super.playAnimation(timeStamp, this.IMAGES['HIT']);
     }
 
     stopPlay() {
-        this.AUDIOS['KILL'].play();
-        super.stopPlay(); 
+        super.stopPlay();
         super.stopGravity();
     }
 
@@ -114,5 +120,11 @@ class Chicken extends Enemy {
         } else {
             setTimeout(super.stopMove.bind(this));
         }
+    }
+
+    kill() {
+        this.AUDIOS['STAMP'].play();
+        super.kill();
+        super.stopMove();
     }
 }

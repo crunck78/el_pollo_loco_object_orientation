@@ -47,6 +47,7 @@ class ThrowableObject extends DestroyableObject {
         //setting groundPos to y the throwable object gravity does not apply 
         //or isAboveGround() is false
         this.groundPos = this.y + 50; //to look like it breaks on the object ist collide with add some offset
+        super.hit(this.energy); // :D total damage
     }
 
     // break(target){
@@ -104,9 +105,10 @@ class ThrowableObject extends DestroyableObject {
     }
 
     playBreak(timeStamp) {
+        //FIX AFTER PAUSE PLAY NO LONGER REPLAY ANIMATION
+        this.drawable = false;
         super.playAnimation(timeStamp, this.IMAGES['SPLASH']);
         setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
-
     }
 
     move(timeStamp) {
@@ -130,28 +132,12 @@ class ThrowableObject extends DestroyableObject {
             if (this.otherDirection) { super.moveLeft(); }
             else { super.moveRight(); }
         } else {
-            setTimeout(this.stopMove.bind(this));
+            setTimeout(() => { super.stopMove(); super.stopGravity() });
+
+            this.broken = true;
+            this.AUDIOS['BREAK'].play();
+            this.playAnimationElapse = 100;
+
         }
-    }
-
-    stopMove() {
-        this.broken = true;
-        this.AUDIOS['BREAK'].play();
-        this.playAnimationElapse = 100;
-        super.stopGravity();
-        super.stopMove();
-    }
-
-    /**
-     * @function isBroken named like this for better semantic
-     * @returns {boolean}
-     */
-    isBroken() {
-        return super.isKilled();
-    }
-
-    hit() {
-        super.hit();
-        this.break();
     }
 }
