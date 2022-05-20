@@ -11,7 +11,7 @@ class CollidableObject extends MovableObject {
     /**
      * @type {number} - how much damage can this instance cause to other DestroyableObjects 
      */
-     damage = 0;
+    damage = 0;
 
     /**
      * @type {object} - Numerical offsets for this instance's coordinates and dimensions,
@@ -28,7 +28,7 @@ class CollidableObject extends MovableObject {
      * @function canCollide , to validate collision check
      * @returns {boolean}
      */
-    canCollide(){
+    canCollide() {
         return this.collidable;
     }
 
@@ -65,7 +65,7 @@ class CollidableObject extends MovableObject {
      * @returns {boolean}
      */
     isLeftSide(mo) {
-        return !(this.getRightPos() > mo.getLeftPos());
+        return !(this.getHitBoxRightPos() > mo.getHitBoxLeftPos());
     }
 
     /**
@@ -74,7 +74,7 @@ class CollidableObject extends MovableObject {
      * @returns {boolean}
      */
     isRightSide(mo) {
-        return !(this.getLeftPos() < mo.getRightPos());
+        return !(this.getHitBoxLeftPos() < mo.getHitBoxRightPos());
     }
 
     /**
@@ -83,7 +83,7 @@ class CollidableObject extends MovableObject {
      * @returns {boolean}
      */
     isAbove(mo) {
-        return !(this.getBottomPos() > mo.getTopPos());
+        return !(this.getHitBoxBottomPos() > mo.getHitBoxTopPos());
     }
 
     /**
@@ -92,14 +92,14 @@ class CollidableObject extends MovableObject {
      * @returns {boolean}
      */
     isBelow(mo) {
-        return !(this.getTopPos() < mo.getBottomPos());
+        return !(this.getHitBoxTopPos() < mo.getHitBoxBottomPos());
     }
 
     /**
      * Get this instance @member x plus this instance @member object.left value
      * @returns {number}
      */
-    getLeftPos() {
+    getHitBoxLeftPos() {
         return this.x + this.offset.left;
     }
 
@@ -107,7 +107,7 @@ class CollidableObject extends MovableObject {
     * Get this instance @member x plus this instance @member width minus this instance @member object.left value
     * @returns {number}
     */
-    getRightPos() {
+    getHitBoxRightPos() {
         return this.x + this.width - this.offset.right;
     }
 
@@ -115,7 +115,7 @@ class CollidableObject extends MovableObject {
     * Get this instance @member y plus this instance @member object.top value
     * @returns {number}
     */
-    getTopPos() {
+    getHitBoxTopPos() {
         return this.y + this.offset.top;
     }
 
@@ -123,7 +123,7 @@ class CollidableObject extends MovableObject {
     * Get this instance @member y plus this instance @member height minus this instance @member object.bottom value
     * @returns {number}
     */
-    getBottomPos() {
+    getHitBoxBottomPos() {
         return this.y + this.height - this.offset.bottom;
     }
 
@@ -132,13 +132,13 @@ class CollidableObject extends MovableObject {
      * @param {CollidableObject} mo 
      * @returns {number}
      */
-    distanceFromY(mo) {
+    distanceFromOffsetY(mo) {
         if (this.isAbove(mo)) {
-            return mo.getTopPos() - this.getBottomPos();
+            return mo.getHitBoxTopPos() - this.getHitBoxBottomPos();
         }
 
         if (this.isBelow(mo)) {
-            return this.getTopPos() - mo.getBottomPos();
+            return this.getHitBoxTopPos() - mo.getHitBoxBottomPos();
         }
 
         return 0; // means they are intersectingY
@@ -149,15 +149,40 @@ class CollidableObject extends MovableObject {
      * @param {CollidableObject} mo 
      * @returns {number}
      */
-    distanceFromX(mo) {
+    distanceFromOffsetX(mo) {
         if (this.isLeftSide(mo)) {
-            return mo.getLeftPos() - this.getRightPos();
+            return mo.getHitBoxLeftPos() - this.getHitBoxRightPos();
         }
 
         if (this.isRightSide(mo)) {
-            return this.getLeftPos() - mo.getRightPos();
+            return this.getHitBoxLeftPos() - mo.getHitBoxRightPos();
         }
 
         return 0; // means they are intersectingX
+    }
+
+    /**
+     * Help @function drawHitBoxFrame, to visualize the objects hit box
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
+     */
+    drawHitBoxFrame(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '5';
+        ctx.strokeStyle = 'red';
+        ctx.rect(
+            this.getHitBoxLeftPos(),
+            this.getHitBoxTopPos(),
+            this.getHitBoxWidth(),
+            this.getHitBoxHeight()
+        );
+        ctx.stroke();
+    }
+
+    getHitBoxWidth(){
+        return  this.getHitBoxRightPos() - this.getHitBoxLeftPos();
+    }
+
+    getHitBoxHeight(){
+        return this.getHitBoxBottomPos() - this.getHitBoxTopPos();
     }
 }

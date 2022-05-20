@@ -9,7 +9,7 @@ function getLevel1() {
 }
 
 function getLevelChickens() {
-    return [new Chicken(1500)];
+    return [];
     let collection1 = getChickensCollection(400);
     let collection2 = getChickensCollection(800);
     let collection3 = getChickensCollection(1200);
@@ -52,14 +52,19 @@ function getBackgroundsCollection(xPos, section) {
     ];
 }
 
+/**
+ * 
+ * @returns { Coin[] } Coins Mountain Form
+ */
 function getLevelCoins() {
-    return [new Coin(1200, 200)];
+    return [new Coin(1200, 100)];
     let collection1 = getCoinsCollection(500, 200);
     let collection2 = getCoinsCollection(1000, 200);
     let collection3 = getCoinsCollection(1500, 200);
     let collection4 = getCoinsCollection(2000, 200);
     return collection1.concat(collection2, collection3, collection4);
 }
+
 
 function getCoinsCollection(firstX, firstY) {
     return [
@@ -77,7 +82,16 @@ function getLevelBottles() {
     let collection2 = getBottlesCollection(400);
     let collection3 = getBottlesCollection(600);
     let collection4 = getBottlesCollection(1000);
-    return collection1.concat(collection2, collection3, collection4);
+
+    let collection5 = getBottlesCollection(200);
+    let collection6 = getBottlesCollection(300);
+    let collection7 = getBottlesCollection(700);
+    let collection8 = getBottlesCollection(900);
+
+    return collection1.concat(collection2, collection3, collection4, collection5,
+        collection6,
+        collection7,
+        collection8);
 }
 
 function getBottlesCollection(xPos) {
@@ -90,4 +104,10 @@ function getBottlesCollection(xPos) {
         new Bottle(xPos * 5 + 100, 0),
         new Bottle(xPos * 6 + 100, 0)
     ];
+}
+
+
+let inputValue;
+function handleOnclick(){
+    inputValue = document.getElementById("input").value;
 }

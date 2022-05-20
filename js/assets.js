@@ -218,3 +218,16 @@ const LEVEL_ASSETS = {
         BACKGROUND: new Audio('audio/background.mp3')
     }
 }
+
+
+function createImageCacheFromPaths(paths){
+    
+    let imageCache = {};
+    paths.forEach( path=>{
+        const image = new Image();
+        image.onload( onLoadevent =>{
+            imageCache[path] = path;
+        });
+        image.src = path;
+    });
+}

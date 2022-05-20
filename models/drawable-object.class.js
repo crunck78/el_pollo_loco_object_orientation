@@ -90,7 +90,7 @@ class DrawableObject {
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawFrames(ctx) {
-        if (this instanceof Character || this instanceof Bottle) {
+        if (this instanceof Character || this instanceof Bottle || this instanceof Coin) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
             this.drawCoordinates(ctx);
@@ -127,9 +127,10 @@ class DrawableObject {
      */
      drawCoordinates(ctx) {
         ctx.beginPath();
+        ctx.lineWidth = '2';
         ctx.strokeStyle = 'black';
-        ctx.font = '48px serif';
-        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y);
+        ctx.font = 'normal small-caps 100 20px serif';
+        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y - 16);
     }
 
     /**
