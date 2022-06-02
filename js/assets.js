@@ -220,14 +220,22 @@ const LEVEL_ASSETS = {
 }
 
 
-function createImageCacheFromPaths(paths){
+// function createImageCacheFromPaths(paths){
     
-    let imageCache = {};
-    paths.forEach( path=>{
-        const image = new Image();
-        image.onload( onLoadevent =>{
-            imageCache[path] = path;
-        });
-        image.src = path;
-    });
-}
+//     let imageCache = {};
+//     paths.forEach( path=>{
+//         const image = new Image();
+//         image.onload( onLoadevent =>{
+//             imageCache[path] = image;
+//         });
+//         image.src = path;
+//     });
+//     return imageCache;
+// }
+
+// function loadAllAssets(){
+//     for(const status in CHARACTER_ASSETS.IMAGES  ){
+        
+//         CHARACTER_ASSETS.IMAGES[status]
+//     }
+// }

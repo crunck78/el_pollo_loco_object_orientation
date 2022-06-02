@@ -33,34 +33,30 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * If this instance is colliding with @param mo
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
     isColliding(mo) {
-        return this.isIntersectingX(mo) && this.isIntersectingY(mo);
+        return this.isHorizontalIntersecting(mo) && this.isVerticalIntersecting(mo);
     }
 
     /**
-     * If this instance is intersecting @param mo on the horizontal axis. 
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
-    isIntersectingX(mo) {
+    isHorizontalIntersecting(mo) {
         return !(this.isLeftSide(mo) || this.isRightSide(mo));
     }
 
     /**
-     * If this instance is intersecting @param mo on the vertical axis. 
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
-    isIntersectingY(mo) {
+    isVerticalIntersecting(mo) {
         return !(this.isAbove(mo) || this.isBelow(mo));
     }
 
     /**
-     * If this instance is on the left side of @param mo relative to viewer
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
@@ -69,7 +65,6 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * If this instance is on the right side of @param mo relative to viewer
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
@@ -78,7 +73,6 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * If this instance is above of @param mo relative to viewer
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
@@ -87,7 +81,6 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * If this instance is below of @param mo relative to viewer
      * @param {CollidableObject} mo 
      * @returns {boolean}
      */
@@ -96,7 +89,13 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * Get this instance @member x plus this instance @member object.left value
+    * @returns {number}
+    */
+     getHitBoxRightPos() {
+        return this.x + this.width - this.offset.right;
+    }
+
+    /**
      * @returns {number}
      */
     getHitBoxLeftPos() {
@@ -104,15 +103,6 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-    * Get this instance @member x plus this instance @member width minus this instance @member object.left value
-    * @returns {number}
-    */
-    getHitBoxRightPos() {
-        return this.x + this.width - this.offset.right;
-    }
-
-    /**
-    * Get this instance @member y plus this instance @member object.top value
     * @returns {number}
     */
     getHitBoxTopPos() {
@@ -120,7 +110,6 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-    * Get this instance @member y plus this instance @member height minus this instance @member object.bottom value
     * @returns {number}
     */
     getHitBoxBottomPos() {
@@ -128,11 +117,10 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * Get the distance of this instance to the @param mo over the Vertical Axy
      * @param {CollidableObject} mo 
      * @returns {number}
      */
-    distanceFromOffsetY(mo) {
+    verticalDistanceFrom(mo) {
         if (this.isAbove(mo)) {
             return mo.getHitBoxTopPos() - this.getHitBoxBottomPos();
         }
@@ -145,11 +133,11 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * Get the distance of this instance to the @param mo over the Horizontal Axy
      * @param {CollidableObject} mo 
      * @returns {number}
      */
-    distanceFromOffsetX(mo) {
+    horizontalDistanceFrom(mo) {
+
         if (this.isLeftSide(mo)) {
             return mo.getHitBoxLeftPos() - this.getHitBoxRightPos();
         }
@@ -162,7 +150,14 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * Help @function drawHitBoxFrame, to visualize the objects hit box
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
+     */
+    drawHitBox(ctx){
+        this.drawHitBoxFrame(ctx);
+        this.drawHitBoxCoordinates(ctx);
+    }
+
+    /**
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
     drawHitBoxFrame(ctx) {
@@ -178,11 +173,26 @@ class CollidableObject extends MovableObject {
         ctx.stroke();
     }
 
-    getHitBoxWidth(){
-        return  this.getHitBoxRightPos() - this.getHitBoxLeftPos();
+    /**
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
+     */
+    drawHitBoxCoordinates(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'black';
+        ctx.font = 'normal small-caps 100 20px serif';
+        ctx.strokeText(
+            'x: ' + this.getHitBoxLeftPos() + ' y: ' + this.getHitBoxTopPos(),
+            this.getHitBoxLeftPos(),
+            this.getHitBoxTopPos() - 16
+        );
     }
 
-    getHitBoxHeight(){
+    getHitBoxWidth() {
+        return this.getHitBoxRightPos() - this.getHitBoxLeftPos();
+    }
+
+    getHitBoxHeight() {
         return this.getHitBoxBottomPos() - this.getHitBoxTopPos();
     }
 }

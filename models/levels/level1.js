@@ -77,7 +77,7 @@ function getCoinsCollection(firstX, firstY) {
 }
 
 function getLevelBottles() {
-    return [new Bottle(1000, 0)];
+    //return [new Bottle(1000, 0)];
     let collection1 = getBottlesCollection(100);
     let collection2 = getBottlesCollection(400);
     let collection3 = getBottlesCollection(600);

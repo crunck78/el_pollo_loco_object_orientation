@@ -86,14 +86,14 @@ class DrawableObject {
     }
 
     /**
-     * Help @function drawFrames, draws some useful info about this instance, like coordinates and @member image dimensions.
+     * Help @function drawFramesAndCoordinates, draws some useful info about this instance, like coordinates and @member image dimensions as a frame.
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
-    drawFrames(ctx) {
+    drawFramesAndCoordinates(ctx) {
         if (this instanceof Character || this instanceof Bottle || this instanceof Coin) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
-            this.drawCoordinates(ctx);
+            this.drawImageCoordinates(ctx);
         }
     }
 
@@ -110,10 +110,22 @@ class DrawableObject {
     }
 
     /**
+     * Help @function drawImageCoordinates, to visualize coordinates values of this instance
+     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
+     */
+     drawImageCoordinates(ctx) {
+        ctx.beginPath();
+        ctx.lineWidth = '2';
+        ctx.strokeStyle = 'black';
+        ctx.font = 'normal small-caps 100 20px serif';
+        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y - 16);
+    }
+
+    /**
      * Help @function drawContextFrame, to visualize the context were this instance's @member img is been drawn.
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
-    drawContextFrame(ctx) {
+     drawContextFrame(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
@@ -121,17 +133,6 @@ class DrawableObject {
         ctx.stroke();
     }
 
-    /**
-     * Help @function drawCoordinates, to visualize coordinates values of this instance
-     * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
-     */
-     drawCoordinates(ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = '2';
-        ctx.strokeStyle = 'black';
-        ctx.font = 'normal small-caps 100 20px serif';
-        ctx.strokeText('x: ' + this.x + ' y: ' + this.y, this.x, this.y - 16);
-    }
 
     /**
      * Defines @member img and sets its src with the given image path
@@ -150,8 +151,8 @@ class DrawableObject {
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
-            img.src = path;
             this.imageCache[path] = img;
+            img.src = path;
         });
     }
 

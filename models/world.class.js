@@ -209,7 +209,7 @@ class World {
     checkAlertEnemies() {
         if (this.level.endBoss.canAlert() &&
             !this.level.character.isKilled()
-            && this.level.endBoss.distanceFromOffsetX(this.level.character) < this.level.endBoss.alertDistance
+            && this.level.endBoss.horizontalDistanceFrom(this.level.character) < this.level.endBoss.alertDistance
         ) {
             this.level.endBoss.alert(this.level.character);
         }
@@ -446,9 +446,9 @@ class World {
                 this.flipImage(mo);
             }
             mo.draw(this.ctx);
-            mo.drawFrames(this.ctx);
+            mo.drawFramesAndCoordinates(this.ctx);
             if(mo instanceof CollidableObject)
-                mo.drawHitBoxFrame(this.ctx);
+                mo.drawHitBox(this.ctx);
             if (mo.otherDirection) {
                 this.flipImage(mo);
             }

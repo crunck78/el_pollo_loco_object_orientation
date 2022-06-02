@@ -1,6 +1,7 @@
-let world;
 const FRAMES_TIME = 16;
 const GROUND = 410;
+
+let world;
 
 function init(){
     world = new World();
