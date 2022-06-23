@@ -1,12 +1,12 @@
 /**
- * Represents a Managing Class for a Level Design. 
+ * Represents a Managing Class for a Level Design.
  * It holds the reference to all instanceof DrawableObjects to be draw on screen.
- *  
+ *
  */
 class Level {
     /**
      * How Long is the playground.
-     * @type {number} 
+     * @type {number}
      */
     level_end_x;
 
@@ -70,17 +70,17 @@ class Level {
     clearRect;
 
     /**
-     * The concatenation of all DrawableObjects in the game. 
+     * The concatenation of all DrawableObjects in the game.
      */
     allObjects;
 
     /**
-     * 
-     * @param {Chicken[]} enemies 
-     * @param {Cloud[]} clouds 
-     * @param {BackgroundObject[]} backgroundObjects 
-     * @param {Coin[]} coins 
-     * @param {Bottle[]} bottles 
+     *
+     * @param {Chicken[]} enemies
+     * @param {Cloud[]} clouds
+     * @param {BackgroundObject[]} backgroundObjects
+     * @param {Coin[]} coins
+     * @param {Bottle[]} bottles
      */
     constructor(enemies, clouds, backgroundObjects, coins, bottles) {
 
@@ -179,7 +179,7 @@ class Level {
     /**
      * Filters out @param collection for instances of @param className type
      * @param {any[]} collection a collection of instances
-     * @param {className} className 
+     * @param {className} className
      * @returns {any[]} - A Collection of instances className
      */
     getObjectsByClassName(collection ,className) {
@@ -193,5 +193,4 @@ class Level {
     unmuteSounds() {
         this.AUDIOS['BACKGROUND'].volume = 1;
     }
-
 }

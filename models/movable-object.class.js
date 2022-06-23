@@ -117,7 +117,7 @@ class MovableObject extends DrawableObject {
             this.playAnimationTime = timeStamp;
             let i = this.currentImage % images.length;
             let path = images[i];
-            this.img = this.imageCache[path];
+            this.img = this.imageCache[path].img;
             this.currentImage++;
         }
     }
@@ -153,7 +153,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Stops the recursive @function move 
+     * Stops the recursive @function move
      */
     stopMove() {
         cancelAnimationFrame(this.requestMove);
@@ -168,7 +168,7 @@ class MovableObject extends DrawableObject {
 
     /**
      * This is used to recall the Child Class overridden @method move.
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     move(timeStamp) {
         if (this.moveOjectTime === undefined) {
@@ -180,7 +180,7 @@ class MovableObject extends DrawableObject {
 
     /**
      * This is used to recall the Child Class overridden @method play.
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     play(timeStamp) {
         if (this.playObjectTime === undefined) {
@@ -206,7 +206,7 @@ class MovableObject extends DrawableObject {
 
     /**
      * Self recalling function, calling @method applyGravity only after @constant FRAMES_TIME has passed.
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     gravity(timeStamp) {
         if (this.gravityTime === undefined) {
@@ -280,7 +280,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity 
+     * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity
      * @returns {boolean}
      */
     isMitAir() {
@@ -335,7 +335,7 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * Add to this instance @member x, this instance @member speedX 
+     * Add to this instance @member x, this instance @member speedX
      */
     moveRight() {
         this.x += this.speedX;

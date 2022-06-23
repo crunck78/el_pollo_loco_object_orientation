@@ -16,6 +16,8 @@ function togglePlay(icon, btnHTML){
     btnHTML.blur();
     if(icon.innerText == 'play_circle'){
         icon.innerText = 'pause';
+        //document.getElementById('loading').classList.remove('d-none');
+
         world.run();
         world.ctx.canvas.classList.remove("d-none");
     }else if(icon.innerText == 'pause'){

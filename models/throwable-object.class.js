@@ -44,7 +44,7 @@ class ThrowableObject extends DestroyableObject {
     break() {
         this.broken = true;
         //first resolve ... but it can be better
-        //setting groundPos to y the throwable object gravity does not apply 
+        //setting groundPos to y the throwable object gravity does not apply
         //or isAboveGround() is false
         this.groundPos = this.y + 50; //to look like it breaks on the object ist collide with add some offset
         super.hit(this.energy); // :D total damage
@@ -77,7 +77,7 @@ class ThrowableObject extends DestroyableObject {
 
     /**
      * @override @function play
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     play(timeStamp) {
         if (this.playThrowObjectTime === undefined) {
@@ -93,7 +93,7 @@ class ThrowableObject extends DestroyableObject {
 
     /**
      * @function playThrowObject , holds all the logic how a throwable-object's images are been played
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     playThrowObject(timeStamp) {
         if (super.isAboveGround()) {
@@ -106,9 +106,9 @@ class ThrowableObject extends DestroyableObject {
 
     playBreak(timeStamp) {
         //FIX AFTER PAUSE PLAY NO LONGER REPLAY ANIMATION
-        this.drawable = false;
+
         super.playAnimation(timeStamp, this.IMAGES['SPLASH']);
-        setTimeout(super.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
+        setTimeout(()=> this.drawable = false, super.stopPlay(), this.playAnimationElapse * this.IMAGES['SPLASH'].length);
     }
 
     move(timeStamp) {
@@ -125,7 +125,7 @@ class ThrowableObject extends DestroyableObject {
 
     /**
      * @function moveThrowObject , holds all the login how a throwable-object should be moving
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     moveThrowObject(timeStamp) {
         if (super.isAboveGround()) {

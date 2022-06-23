@@ -2,10 +2,9 @@
  * A Construction to be drawn on a 2d Canvas Context
  */
 class DrawableObject {
-
     /**
-     * Marks this instance as no longer needed in game progress, can be excluded from draw map. 
-     * Also used to eliminate ist references from collections 
+     * Marks this instance as no longer needed in game progress, can be excluded from draw map.
+     * Also used to eliminate ist references from collections
      * and stop its recursive functions @function move , @function play and @function gravity
      * @type {boolean}
      */
@@ -60,7 +59,7 @@ class DrawableObject {
 
     /**
      * @type {boolean} indicator mainly for fliping the image before drawing and back after drawing
-     * Also influences some animation and movement logic for this instance 
+     * Also influences some animation and movement logic for this instance
      */
     otherDirection = false;
 
@@ -113,7 +112,7 @@ class DrawableObject {
      * Help @function drawImageCoordinates, to visualize coordinates values of this instance
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
-     drawImageCoordinates(ctx) {
+    drawImageCoordinates(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '2';
         ctx.strokeStyle = 'black';
@@ -125,7 +124,7 @@ class DrawableObject {
      * Help @function drawContextFrame, to visualize the context were this instance's @member img is been drawn.
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
-     drawContextFrame(ctx) {
+    drawContextFrame(ctx) {
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'red';
@@ -138,20 +137,21 @@ class DrawableObject {
      * Defines @member img and sets its src with the given image path
      * @param {string} imgPath - the image path to set this instance @member img to. Ex.: img/image1.png
      */
-     loadImage(imgPath) {
+    loadImage(imgPath) {
         this.img = new Image();
         this.img.src = imgPath;
     }
 
     /**
      * For each image Path in @param arr, defines an Image, gives the path as its source
-     * and saves the image path as key, and the Images as value to @member imageCache 
-     * @param {string[]} arr - the collection of image paths Ex.: ['img/image1.png', 'img/image2.png', ...] 
+     * and saves the image path as key, and the Images as value to @member imageCache
+     * @param {string[]} arr - the collection of image paths Ex.: ['img/image1.png', 'img/image2.png', ...]
      */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
-            this.imageCache[path] = img;
+            img.onload = () => this.imageCache[path].loaded = true;
+            this.imageCache[path] = { img, loaded: false };
             img.src = path;
         });
     }
@@ -165,5 +165,20 @@ class DrawableObject {
         for (const status in images) {
             this.loadImages(images[status]);
         }
+    }
+
+    areAllImagesLoaded(){
+        for (const animations in this.IMAGES) {
+            if (Object.hasOwnProperty.call(this.IMAGES, animations)) {
+                const animation = this.IMAGES[animations];
+                if(!this.areImagesLoaded(animation))
+                return false;
+            }
+        }
+        return true;
+    }
+
+    areImagesLoaded(arr) {
+        return arr.every(path => this.imageCache[path].loaded);
     }
 }

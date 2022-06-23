@@ -128,9 +128,9 @@ class EndBoss extends Enemy {
     }
 
     moveEnemy(){
+        super.moveEnemy();
         this.hitPointsBar.x = this.x;
         this.hitPointsBar.y = this.y;
-        super.moveEnemy();
     }
 
     canMoveRight() {
@@ -158,8 +158,8 @@ class EndBoss extends Enemy {
         setTimeout(() => {
             this.createChicken();
         }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
-        //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to 
-        //draw a image times the position of fly image in the attack images array 
+        //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to
+        //draw a image times the position of fly image in the attack images array
 
         setTimeout(() => {
             this.createChicken();
@@ -167,7 +167,7 @@ class EndBoss extends Enemy {
     }
 
     /**
-     * 
+     *
      */
     createChicken() {
         let newChicken = new Chicken(this.x);

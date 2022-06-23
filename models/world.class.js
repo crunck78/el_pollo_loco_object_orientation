@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 class World {
 
@@ -9,8 +9,8 @@ class World {
     endScreen;
 
     /**
-     * Value that determines what is the ground level. 
-     * @type {number} 
+     * Value that determines what is the ground level.
+     * @type {number}
      */
     groundPos = 400;
 
@@ -26,7 +26,7 @@ class World {
     cameraOffsetX = 0;
 
     /**
-     * Value by which is @this @member ctx on Horizontal translated  
+     * Value by which is @this @member ctx on Horizontal translated
      * @type {number}
      */
     camera_x = 0;
@@ -120,7 +120,7 @@ class World {
 
     /**
      * This recursive @function check, calls @this @method checkWorld only after @constant FRAMES_TIME has passed
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     check(timeStamp) {
         if (this.checkWorldTime === undefined) {
@@ -136,14 +136,16 @@ class World {
 
     /**
      * Wrapper @function checkWorld, to call different, multiple in game check functions.
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     checkWorld(timeStamp) {
         this.checkProgress();
         this.checkCameraTest(this.level.character);
+        //this.checkCameraTest(this.level.enemies[19]);
         this.checkAlertEnemies();
         this.checkCollisions();
         //this.checkCollisionsTest();
+        this.clearUnDrawableObjects();
     }
 
     checkProgress(){
@@ -178,7 +180,7 @@ class World {
     }
 
     /**
-     * Check if camera target is inside Boundaries to allow camera movement 
+     * Check if camera target is inside Boundaries to allow camera movement
      * @param {number} leftBoundary - minium distance for target to achieve for camera to move.
      * @param {number} rightBoundary - maximum distance for target to achieve for camera to move.
      * @param {number} distanceFromCamera - how far is the camera's offset from target
@@ -229,17 +231,17 @@ class World {
      * Wrapper @function checkCollisionsTest , calls different collision check functions.
      */
     checkCollisionsTest() {
-        //TODO 
+        //TODO
         let allObjects = this.level.getAllObjects();
         let collidabels = this.level.getObjectsByClassName(allObjects, CollidableObject);
-        
+
     }
 
     /**
      * Check if @param enemy is colliding with some specific targets.
      * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with specific other target Objects
      * @param {number} index - the indexOf @param enemy in @param collection
-     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
+     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy
      */
     checkEnemyCollisions(enemy, index, collection) {
         this.checkEnemyCharacterCollision(enemy, index, collection);
@@ -247,10 +249,10 @@ class World {
     }
 
     /**
-     * Check if player is colliding with @param enemy 
+     * Check if player is colliding with @param enemy
     * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with specific other target Objects
     * @param {number} index - the indexOf @param enemy in @param collection
-    * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
+    * @param {Enemy[]} collection - the Array that holds a reference to @param enemy
     */
     checkEnemyCharacterCollision(enemy, index, collection) {
         if (enemy.canCollide() &&  this.level.character.canCollide() && this.level.character.isColliding(enemy)) {
@@ -267,8 +269,8 @@ class World {
 
     /**
      * @deprecated - Validates a collision between enemy and char
-     * @param {Enemy} enemy 
-     * @param {Character} char 
+     * @param {Enemy} enemy
+     * @param {Character} char
      * @returns {boolean}
      */
     canCollide(enemy, char) {
@@ -277,8 +279,8 @@ class World {
 
     /**
      * Validates a collision between a throwObj and a enemy
-     * @param {ThrowableObject} throwObj 
-     * @param {Enemy} enemy 
+     * @param {ThrowableObject} throwObj
+     * @param {Enemy} enemy
      * @returns {boolean}
      */
     canHit(throwObj, enemy) {
@@ -286,10 +288,10 @@ class World {
     }
 
     /**
-     * @function checkThrowEnemyCollision, checks if player used projectile @param throwObj hits @param enemy from @param collection  
-     * @param {ThrowableObject} throwObj - an instanceof of ThrowableObject that the player can use as a projectile to hit enemies 
+     * @function checkThrowEnemyCollision, checks if player used projectile @param throwObj hits @param enemy from @param collection
+     * @param {ThrowableObject} throwObj - an instanceof of ThrowableObject that the player can use as a projectile to hit enemies
      * @param {Enemy} enemy - instanceof Enemy to check if is Colliding with @param throwObj
-     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy 
+     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy
      */
     checkThrowEnemyCollision(throwObj, enemy, collection) {
         if (this.canHit(throwObj, enemy) && throwObj.isColliding(enemy)) {
@@ -307,7 +309,7 @@ class World {
     /**
      * Calls @function delete after a 2 seconds time out to delete @param mo from @param array
      * @param {DrawableObject[]} array - holds a reference to @param mo
-     * @param {DrawableObject} mo - ist referenced by @param array 
+     * @param {DrawableObject} mo - ist referenced by @param array
      */
     spliceTimeout(array, mo) {
         setTimeout(this.delete.bind(this, array, mo), 2000);
@@ -316,7 +318,7 @@ class World {
     /**
      * Deletes @param mo from @param array
      * @param {DrawableObject[]} array - holds a reference to @param mo
-     * @param {DrawableObject} mo - ist referenced by @param array 
+     * @param {DrawableObject} mo - ist referenced by @param array
      */
     delete(array, mo) {
         let position = array.indexOf(mo);
@@ -326,7 +328,7 @@ class World {
     }
 
     /**
-     * @param {CollectibleObject[]} collectibles 
+     * @param {CollectibleObject[]} collectibles
      */
     checkCollisionsWithCollectibles(collectibles) {
         collectibles.forEach((collectible, index) => {
@@ -337,8 +339,13 @@ class World {
         });
     }
 
+    clearUnDrawableObjects(){
+        const temp = this.level.character.throwBottles.filter( tb => tb.drawable);
+        this.level.character.throwBottles = temp;
+    }
+
     /**
-     * @param {CollectibleObject} collectible - 
+     * @param {CollectibleObject} collectible -
      * @returns {boolean}
      */
     hasCollect(collectible) {
@@ -373,7 +380,7 @@ class World {
 
     /**
      * This recursive @member draw calls drawing functions only after @constant FRAMES_TIME has passed
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     draw(timeStamp) {
         if (this.drawTime === undefined) {
@@ -405,6 +412,7 @@ class World {
 
         this.addToMap(this.level.character);
         this.addObjectsToMap(this.level.character.throwBottles);
+
         this.addToMap(this.level.character.hitPointsBar);
         this.addToMap(this.level.character.coinsBar);
         this.addToMap(this.level.character.bottlesBar);
@@ -415,7 +423,7 @@ class World {
     isGameOver() {
         if(this.level.character.isKilled()){
             return 'LOOSE';
-        } 
+        }
 
         if(this.level.endBoss.isKilled()){
             return 'WIN';
@@ -425,7 +433,7 @@ class World {
 
     /**
      * Wrapper @function addObjectsToMap calls @function addToMap for each instanceof DrawableObject in @param objects
-     * @param {DrawableObject[]} objects 
+     * @param {DrawableObject[]} objects
      */
     addObjectsToMap(objects) {
         objects.forEach(o => {
@@ -464,7 +472,7 @@ class World {
 
     /**
      * Gives back if the @param mo's Horizontal position is inside Canvas
-     * @param {DrawableObject} mo 
+     * @param {DrawableObject} mo
      * @returns {boolean}
      */
     insideCanvas(mo) {
@@ -489,10 +497,10 @@ class World {
 
     /**
      * Help @function drawLine
-     * @param {number} x1 
-     * @param {number} y1 
-     * @param {number} x2 
-     * @param {number} y2 
+     * @param {number} x1
+     * @param {number} y1
+     * @param {number} x2
+     * @param {number} y2
      */
     drawLine(x1, y1, x2, y2) {
         this.ctx.save();
