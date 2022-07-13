@@ -145,16 +145,16 @@ class World {
         this.checkAlertEnemies();
         this.checkCollisions();
         //this.checkCollisionsTest();
-        this.clearUnDrawableObjects();
+        //this.clearUnDrawableObjects();
     }
 
-    checkProgress(){
+    checkProgress() {
         let result = this.isGameOver();
-        if(result){
-            setTimeout(this.stopCheck.bind(this));
-            setTimeout(()=>{
+        if (result) {
+            setTimeout(() => { this.stopCheck(); });
+            setTimeout(() => {
                 this.level.endScreen = result == 'WIN' ? this.level.winScreen : this.level.loseScreen;
-            },1000)
+            }, 1000)
         }
     }
 
@@ -255,7 +255,7 @@ class World {
     * @param {Enemy[]} collection - the Array that holds a reference to @param enemy
     */
     checkEnemyCharacterCollision(enemy, index, collection) {
-        if (enemy.canCollide() &&  this.level.character.canCollide() && this.level.character.isColliding(enemy)) {
+        if (enemy.canCollide() && this.level.character.canCollide() && this.level.character.isColliding(enemy)) {
             if (this.level.character.isStamping(enemy)) {
                 this.level.character.stamp(enemy);
                 if (enemy.isKilled()) { // this should anyways happen
@@ -312,7 +312,7 @@ class World {
      * @param {DrawableObject} mo - ist referenced by @param array
      */
     spliceTimeout(array, mo) {
-        setTimeout(this.delete.bind(this, array, mo), 2000);
+        setTimeout(() => { this.delete(array, mo); }, 2000);
     }
 
     /**
@@ -339,8 +339,8 @@ class World {
         });
     }
 
-    clearUnDrawableObjects(){
-        const temp = this.level.character.throwBottles.filter( tb => tb.drawable);
+    clearUnDrawableObjects() {
+        const temp = this.level.character.throwBottles.filter(tb => tb.drawable);
         this.level.character.throwBottles = temp;
     }
 
@@ -421,11 +421,11 @@ class World {
     }
 
     isGameOver() {
-        if(this.level.character.isKilled()){
+        if (this.level.character.isKilled()) {
             return 'LOOSE';
         }
 
-        if(this.level.endBoss.isKilled()){
+        if (this.level.endBoss.isKilled()) {
             return 'WIN';
         }
         return false; // game not ended
@@ -455,7 +455,7 @@ class World {
             }
             mo.draw(this.ctx);
             mo.drawFramesAndCoordinates(this.ctx);
-            if(mo instanceof CollidableObject)
+            if (mo instanceof CollidableObject)
                 mo.drawHitBox(this.ctx);
             if (mo.otherDirection) {
                 this.flipImage(mo);

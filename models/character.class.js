@@ -82,7 +82,7 @@ class Character extends Creature {
             //STOP MOVE DOES NOT WORK, IT IS STILL RUNNING
             //SET TIMEOUT SOLVES THE PROBLEM BUT WHY???
             this.launch(CANVAS_HEIGHT + this.height);
-            setTimeout(super.stopMove.bind(this));
+            setTimeout(() => { super.stopMove() });
         }
     }
 
@@ -190,7 +190,7 @@ class Character extends Creature {
 
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length);
+        setTimeout(() => { this.stopPlay() }, this.playAnimationElapse * this.IMAGES['DEAD'].length);
     }
 
     /**
@@ -211,7 +211,7 @@ class Character extends Creature {
 
     playLaunch(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
-        setTimeout(() => this.launching = false, 250);
+        setTimeout(() => { this.launching = false; }, 250);
     }
 
     playAboveGround(timeStamp) {

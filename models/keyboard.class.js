@@ -87,7 +87,7 @@ class Keyboard {
                     this.D = true;
                 }
             }
-            // if(e.keyCode == 68 ){  
+            // if(e.keyCode == 68 ){
             //     this.D = !e.repeat;
             // }
         });

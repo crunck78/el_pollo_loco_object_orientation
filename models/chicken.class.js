@@ -1,9 +1,9 @@
 /**
  * An extension of Enemy, defines some specific Enemy Type to Character
- * They are very weak. They perform only simple self actions. 
+ * They are very weak. They perform only simple self actions.
  * They can hurt the Character on Collision if the Character does not Collide from top.
  * They can be instantly be killed if Character Collides from top.
- * They can be hurt if they Collide with Characters's throwing objects  
+ * They can be hurt if they Collide with Characters's throwing objects
  */
 class Chicken extends Enemy {
 
@@ -46,7 +46,7 @@ class Chicken extends Enemy {
 
     /**
      * @override @function play
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     play(timeStamp) {
         if (this.playChickenTime === undefined) {
@@ -62,7 +62,7 @@ class Chicken extends Enemy {
 
     /**
      * @function playChicken , holds all the logic how a chicken's images are been played
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     playChicken(timeStamp) {
         if (super.isKilled()) {
@@ -91,7 +91,7 @@ class Chicken extends Enemy {
 
     /**
      * @override @function move
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     move(timeStamp) {
         if (this.moveChickenTime === undefined) {
@@ -107,19 +107,13 @@ class Chicken extends Enemy {
 
     /**
      * @function moveChicken , holds all the login how a chicken should be moving
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     moveChicken(timeStamp) {
-        if (!super.isKilled()) {
-            if (this.otherDirection) {
-                super.moveRight();
-            }
-            else {
-                super.moveLeft();
-            }
-        } else {
-            setTimeout(super.stopMove.bind(this));
-        }
+        if (!super.isKilled())
+            if (this.otherDirection) super.moveRight();
+            else  super.moveLeft();
+        else setTimeout(() => { super.stopMove() });
     }
 
     kill() {

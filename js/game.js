@@ -47,3 +47,7 @@ function toggleHUD(icon, btnHTML){
         //document.getElementById('hud').style.visibility = "visible";
     }
 }
+
+function restart(){
+   window.location.reload();
+}

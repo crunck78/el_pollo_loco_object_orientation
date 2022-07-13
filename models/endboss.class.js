@@ -68,13 +68,13 @@ class EndBoss extends Enemy {
     playDead(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
-        setTimeout(this.stopPlay.bind(this), this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
+        setTimeout(() => { this.stopPlay(); }, this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
     }
 
     /**
      * @override @function stopPlay
      */
-    stopPlay(){
+    stopPlay() {
         delete this.hitPointsBar; //is this ok? draw asks anyway if object to draw exists
         super.stopGravity();
         super.stopPlay();
@@ -120,14 +120,14 @@ class EndBoss extends Enemy {
 
     moveEndBoss(timeStamp) {
         if (!super.isKilled()) {
-           this.moveEnemy();
+            this.moveEnemy();
         } else {
             this.launch(CANVAS_HEIGHT + this.height);
-            setTimeout(super.stopMove.bind(this));
+            setTimeout(() => { super.stopMove(); });
         }
     }
 
-    moveEnemy(){
+    moveEnemy() {
         super.moveEnemy();
         this.hitPointsBar.x = this.x;
         this.hitPointsBar.y = this.y;
@@ -155,15 +155,11 @@ class EndBoss extends Enemy {
 
     attack() {
         super.attack();
-        setTimeout(() => {
-            this.createChicken();
-        }, 0); //find a timeout that creates a new chicken when attack images are playing and the fly image is played
+        setTimeout(() => { this.createChicken(); }, 0);
+        //find a timeout that creates a new chicken when attack images are playing and the fly image is played
         //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to
         //draw a image times the position of fly image in the attack images array
-
-        setTimeout(() => {
-            this.createChicken();
-        }, 1000);
+        setTimeout(() => { this.createChicken(); }, 1000);
     }
 
     /**
