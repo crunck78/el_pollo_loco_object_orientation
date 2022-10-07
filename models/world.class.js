@@ -225,6 +225,7 @@ class World {
         this.level.endBoss.chickens.forEach((chicken, index, chickens) => this.checkEnemyCollisions(chicken, index, chickens));
         this.checkCollisionsWithCollectibles(this.level.coins);
         this.checkCollisionsWithCollectibles(this.level.bottles);
+        this.checkCollisionWithPlatforms(this.level.character, this.level.platforms);
     }
 
     /**
@@ -339,6 +340,18 @@ class World {
         });
     }
 
+    checkCollisionWithPlatforms(target, platforms) {
+        for (let index = 0; index < platforms.length; index++) {
+            const platform = platforms[index];
+            if (platform.isUnder(target)) {
+                target.groundPos = platform.y - target.height;
+                break;
+            }
+            else
+                target.groundPos = world.groundPos - target.height;
+        }
+    }
+
     clearUnDrawableObjects() {
         const temp = this.level.character.throwBottles.filter(tb => tb.drawable);
         this.level.character.throwBottles = temp;
@@ -403,6 +416,8 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
 
+        this.addObjectsToMap(this.level.platforms);
+
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
@@ -421,14 +436,9 @@ class World {
     }
 
     isGameOver() {
-        if (this.level.character.isKilled()) {
-            return 'LOOSE';
-        }
-
-        if (this.level.endBoss.isKilled()) {
-            return 'WIN';
-        }
-        return false; // game not ended
+        if (this.level.character.isKilled()) return 'LOOSE';
+        if (this.level.endBoss.isKilled()) return 'WIN';
+        return false;
     }
 
     /**

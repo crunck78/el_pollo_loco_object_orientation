@@ -2,41 +2,32 @@
  * A Construction to be drawn on a 2d Canvas Context
  */
 class DrawableObject {
-    /**
-     * Marks this instance as no longer needed in game progress, can be excluded from draw map.
-     * Also used to eliminate ist references from collections
-     * and stop its recursive functions @function move , @function play and @function gravity
-     * @type {boolean}
-     */
-    drawable = true;
 
-    /**
-     * @type {number} - Counts how many DrawableObject instances have been created
-     */
+    drawable = true;
     static count = 0;
 
     /**
-     * @type {number} - Vertical Position
+     * Vertical Position
      */
     x = 0;
 
     /**
-     * @type {number} - Horizontal Position
+     *Horizontal Position
      */
     y = 0;
 
     /**
-     * @type {number} - Vertical Size
+     *Vertical Size
      */
     width = 100;
 
     /**
-     * @type {number} - Horizontal Size
+     *Horizontal Size
      */
     height = 100;
 
     /**
-     * @type {HTMLImageElement} - Image Element to be Drawn
+     * Image Element to be Drawn
      */
     img = new Image();
 

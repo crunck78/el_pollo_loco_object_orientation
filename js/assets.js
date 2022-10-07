@@ -3,7 +3,7 @@ const CANVAS_HEIGHT = 480;
 
 const CHARACTER_ASSETS = {
     PROPERTIES : {
-    
+
     },
 
     AUDIOS: {
@@ -188,6 +188,16 @@ const CHICKEN_ASSETS = {
     }
 }
 
+const PLATFORM_ASSETS = {
+    AUDIOS : {
+
+    },
+
+    IMAGES : {
+        
+    }
+}
+
 const THROWABLE_OBJECT_ASSETS = {
     AUDIOS: {
         BREAK: new Audio('audio/glassBreak.mp3'),
@@ -221,7 +231,7 @@ const LEVEL_ASSETS = {
 
 
 // function createImageCacheFromPaths(paths){
-    
+
 //     let imageCache = {};
 //     paths.forEach( path=>{
 //         const image = new Image();
@@ -235,7 +245,7 @@ const LEVEL_ASSETS = {
 
 // function loadAllAssets(){
 //     for(const status in CHARACTER_ASSETS.IMAGES  ){
-        
+
 //         CHARACTER_ASSETS.IMAGES[status]
 //     }
 // }

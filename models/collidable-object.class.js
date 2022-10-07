@@ -9,7 +9,7 @@ class CollidableObject extends MovableObject {
     collidable = true;
 
     /**
-     * @type {number} - how much damage can this instance cause to other DestroyableObjects 
+     * @type {number} - how much damage can this instance cause to other DestroyableObjects
      */
     damage = 0;
 
@@ -33,7 +33,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isColliding(mo) {
@@ -41,7 +41,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isHorizontalIntersecting(mo) {
@@ -49,7 +49,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isVerticalIntersecting(mo) {
@@ -57,7 +57,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isLeftSide(mo) {
@@ -65,7 +65,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isRightSide(mo) {
@@ -73,7 +73,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isAbove(mo) {
@@ -81,7 +81,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {boolean}
      */
     isBelow(mo) {
@@ -117,7 +117,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
+     * @param {CollidableObject} mo
      * @returns {number}
      */
     verticalDistanceFrom(mo) {
@@ -133,8 +133,8 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-     * @param {CollidableObject} mo 
-     * @returns {number}
+     * @param {CollidableObject} mo
+     * @returns { number }
      */
     horizontalDistanceFrom(mo) {
 

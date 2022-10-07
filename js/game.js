@@ -1,6 +1,9 @@
 const FRAMES_TIME = 16;
 const GROUND = 410;
 
+/**
+ * @type { World }
+ */
 let world;
 
 function init(){

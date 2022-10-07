@@ -1,21 +1,10 @@
 /**
  * An extension of Class CollidableObject, used to damage this instance and measure if is hurt or killed.
  */
-class DestroyableObject extends CollidableObject{
+class DestroyableObject extends CollidableObject {
 
-    /**
-     * 
-     */
     destroyable = true;
-
-    /**
-     * @type {number} - 0 or less = dead 
-     */
     energy = 100;
-
-    /**
-     * @type {number} - time in milliseconds on last @member energy damage
-     */
     lastHit = 0;
 
     canHit() {
@@ -23,9 +12,9 @@ class DestroyableObject extends CollidableObject{
     }
 
     /**
-     * @override @function canCollide 
+     * @override canCollide
      */
-    canCollide(){
+    canCollide() {
         return !(this.isKilled() || this.isHit()) && super.canCollide();
     }
 
@@ -40,10 +29,7 @@ class DestroyableObject extends CollidableObject{
     }
 
     /**
-     * this instance takes a given damage on @member energy
-     * if energy is below 0, it is kept at 0
-     * else get current time for @member lastHit
-     * @param {number} damage - how much damage should this instance take
+     * @param {number} damage how much damage should this instance take
      * If no damage is given it will take a minimum 5 damage
      */
     hit(damage) {
@@ -57,16 +43,14 @@ class DestroyableObject extends CollidableObject{
     }
 
     /**
-     * If this instance @member energy is 0
-     * @returns {boolean}
+     * @returns {boolean} If energy equals zero
      */
     isKilled() {
         return this.energy == 0;
     }
 
     /**
-     * Sets this instance @member energy to 0
-     * and @member currentImage to 0,
+     * Sets energy to 0 and currentImage to 0,
      * This action requires that animation starts with first image.
      */
     kill() {

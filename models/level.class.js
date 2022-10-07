@@ -82,7 +82,7 @@ class Level {
      * @param {Coin[]} coins
      * @param {Bottle[]} bottles
      */
-    constructor(enemies, clouds, backgroundObjects, coins, bottles) {
+    constructor(enemies, clouds, backgroundObjects, coins, bottles, platforms) {
 
         this.character = new Pepe();
         this.endBoss = new BigChicken();
@@ -96,6 +96,7 @@ class Level {
         this.backgroundObjects = backgroundObjects;
         this.coins = coins;
         this.bottles = bottles;
+        this.platforms = platforms;
 
         this.allObjects = this.getAllObjects();
         this.movableObjects = this.getObjectsByClassName(this.allObjects, MovableObject);
@@ -160,6 +161,7 @@ class Level {
         return [
             this.clearRect,
             ...this.backgroundObjects,
+            ...this.platforms,
             ...this.clouds,
             ...this.coins,
             ...this.bottles,
