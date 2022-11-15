@@ -275,9 +275,14 @@ class MovableObject extends DrawableObject {
      * @param {number} groundPos - new groundPos
      */
     jump(groundPos) {
-        this.launching = false; this.groundPos = groundPos ? groundPos : 171;
+        this.launching = false;
+        this.groundPos = groundPos ? groundPos : 171;
         this.speedY = this.velocityY;
     }
+
+    // getGroundPos(){
+    //     return GROUND - this.height;
+    // }
 
     /**
      * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity

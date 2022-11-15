@@ -83,7 +83,7 @@ class DrawableObject {
         if (this instanceof Character || this instanceof Bottle || this instanceof Coin) {
             this.drawImageFrame(ctx);
             //this.drawContextFrame(ctx);
-            this.drawImageCoordinates(ctx);
+            //this.drawImageCoordinates(ctx);
         }
     }
 
