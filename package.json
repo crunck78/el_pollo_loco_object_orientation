@@ -1,0 +1,26 @@
+{
+  "name": "el_pollo_loco_object_orientation",
+  "version": "1.0.0",
+  "description": "Run Action Jump Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc -r -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crunck78/el_pollo_loco_object_orientation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crunck78/el_pollo_loco_object_orientation/issues"
+  },
+  "homepage": "https://github.com/crunck78/el_pollo_loco_object_orientation#readme",
+  "devDependencies": {
+    "better-docs": "^2.7.2"
+  },
+  "dependencies": {
+    "taffydb": "^2.7.3"
+  }
+}
