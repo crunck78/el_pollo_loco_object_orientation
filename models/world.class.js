@@ -348,7 +348,7 @@ class World {
                 break;
             }
             else
-                target.groundPos = world.groundPos - target.height;
+                target.groundPos = this.groundPos - target.height;
         }
     }
 

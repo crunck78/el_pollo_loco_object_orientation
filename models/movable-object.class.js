@@ -229,7 +229,7 @@ class MovableObject extends DrawableObject {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.accelerationY;
-            //This only has to happen once every time this instance after been launched, then landes.
+            //This only has to happen once every time this instance after been launched, then lands.
             if (!(this.isAboveGround() || this.speedY > 0)) {
                 this.land();
             }
@@ -276,7 +276,7 @@ class MovableObject extends DrawableObject {
      */
     jump(groundPos) {
         this.launching = false;
-        this.groundPos = groundPos ? groundPos : 171;
+        this.groundPos = groundPos ? groundPos : this.groundPos;
         this.speedY = this.velocityY;
     }
 

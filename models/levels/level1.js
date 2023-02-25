@@ -18,7 +18,7 @@ function getLevel1() {
  * @returns {Platform[]}
  */
 function getLevelPlatforms() {
-    //return [];
+    return [];
     let collection1 = getPlatformCollection(100);
     return collection1;
 }
@@ -43,7 +43,7 @@ function getPlatformCollection(firstX) {
  * @returns {Chicken[]}
  */
 function getLevelChickens() {
-    //return [];
+    // return [];
     let collection1 = getChickensCollection(400);
     let collection2 = getChickensCollection(800);
     let collection3 = getChickensCollection(1200);
@@ -139,7 +139,7 @@ function getCoinsCollection(firstX, firstY) {
  * @returns {Bottle[]}
  */
 function getLevelBottles() {
-    // return [new Bottle(1000, 0)];
+    return [new Bottle(1000, 0)];
     let collection1 = getBottlesCollection(100);
     let collection2 = getBottlesCollection(400);
     let collection3 = getBottlesCollection(600);

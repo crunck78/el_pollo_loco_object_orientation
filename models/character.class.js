@@ -10,7 +10,7 @@ class Character extends Creature {
     x = 0;
     y = 80;
     speedX = 5;
-    groundPos = 171;
+    groundPos = 190;
 
     lastIdle = new Date().getTime();
     lastAttack = 0;
@@ -89,7 +89,7 @@ class Character extends Creature {
         if (!super.isKilled()) {
             if (this.canMoveRight()) { this.moveRight(); }
             if (this.canMoveLeft()) { this.moveLeft(); }
-            if (this.canLaunch()) { this.launch(); }
+            if (this.canLaunch()) { this.launch(this.groundPos); }
             if (this.canAttack()) { this.attack(); }
         } else {
             //STOP MOVE DOES NOT WORK, IT IS STILL RUNNING
@@ -209,7 +209,6 @@ class Character extends Creature {
      */
     stamp(enemy) {
         enemy.kill();
-        this.groundPos = this.y;
         this.speedY = 0;
         this.launch();
     }
