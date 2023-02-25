@@ -5,7 +5,7 @@ class NPC extends Creature{
 
     /**
      * Used to count after how much time should @member otherDirection change value;
-     * Toggles the value of @member otherDirection after given milliseconds value. 
+     * Toggles the value of @member otherDirection after given milliseconds value.
      * @type {number}
      */
     changeDirectionTime = 5000;
@@ -23,7 +23,7 @@ class NPC extends Creature{
     movingRight = false;
 
     /**
-     * Starts the change Direction Interval @function changeDirection every @member changeDirectionTime ms. 
+     * Starts the change Direction Interval @function changeDirection every @member changeDirectionTime ms.
      */
      startDirectionChange() {
         this.changeDirectionInterval = setInterval(this.changeDirection.bind(this), this.changeDirectionTime);
@@ -44,7 +44,6 @@ class NPC extends Creature{
         this.otherDirection = !this.otherDirection;
     }
 
-    //TODO SET FLAG MOVING LEFT AND RIGHT TO MOVABLEOBJECT
     isMovingLeft(){
         return this.movingLeft;
     }

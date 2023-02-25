@@ -21,6 +21,11 @@ class Chicken extends Enemy {
     AUDIOS = CHICKEN_ASSETS['AUDIOS'];
     IMAGES = CHICKEN_ASSETS['IMAGES'];
 
+    /**
+     *
+     * @param {number} x
+     * @param {number} y
+     */
     constructor(x, y = 0) {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
         super.loadAllImages(this.IMAGES);
@@ -29,7 +34,7 @@ class Chicken extends Enemy {
     }
 
     /**
-     * @override @function animate
+     * @override
      */
     animate() {
         //super.startDirectionChange();
@@ -37,7 +42,7 @@ class Chicken extends Enemy {
     }
 
     /**
-     * @override @function stopAnimate
+     * @override
      */
     stopAnimate() {
         //super.stopDirectionChange();
@@ -45,7 +50,7 @@ class Chicken extends Enemy {
     }
 
     /**
-     * @override @function play
+     * @override
      * @param {number} timeStamp
      */
     play(timeStamp) {
@@ -61,7 +66,7 @@ class Chicken extends Enemy {
     }
 
     /**
-     * @function playChicken , holds all the logic how a chicken's images are been played
+     * Defines how a chicken's images are been played
      * @param {number} timeStamp
      */
     playChicken(timeStamp) {
@@ -74,23 +79,34 @@ class Chicken extends Enemy {
         }
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
         setTimeout(() => { this.stopPlay(); this.AUDIOS['KILL'].play(); }, this.playAnimationElapse * this.IMAGES['DEAD'].length);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playHit(timeStamp) {
         this.AUDIOS['KILL'].play();
         //super.playAnimation(timeStamp, this.IMAGES['HIT']);
     }
 
+    /**
+     * @override
+     */
     stopPlay() {
         super.stopPlay();
         super.stopGravity();
     }
 
     /**
-     * @override @function move
+     * @override
      * @param {number} timeStamp
      */
     move(timeStamp) {
@@ -106,7 +122,7 @@ class Chicken extends Enemy {
     }
 
     /**
-     * @function moveChicken , holds all the login how a chicken should be moving
+     * Defines how a chicken should be moving
      * @param {number} timeStamp
      */
     moveChicken(timeStamp) {
@@ -116,6 +132,9 @@ class Chicken extends Enemy {
         else setTimeout(() => { super.stopMove() });
     }
 
+    /**
+     * @override
+     */
     kill() {
         this.AUDIOS['STAMP'].play();
         super.kill();

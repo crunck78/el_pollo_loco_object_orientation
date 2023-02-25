@@ -1,6 +1,6 @@
 /**
  * An extension of CollectibleObject. Representing a Coin which the character can collect if it collides with one.
- * and the Character Coin Bar is not full. 
+ * and the Character Coin Bar is not full.
  */
 class Coin extends CollectibleObject {
     width = 100;
@@ -20,6 +20,12 @@ class Coin extends CollectibleObject {
         'img/8.Coin/Moneda1.png',
         'img/8.Coin/Moneda2.png'
     ];
+
+    /**
+     *
+     * @param {number} x
+     * @param {number} y
+     */
     constructor(x, y) {
         super().loadImage('img/8.Coin/Moneda1.png');
         super.loadImages(this.IMAGES);
@@ -27,6 +33,10 @@ class Coin extends CollectibleObject {
         this.y = y;
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     play(timeStamp) {
         if (this.playCoinTime === undefined) {
             this.playCoinTime = timeStamp;
@@ -39,6 +49,10 @@ class Coin extends CollectibleObject {
         super.play(timeStamp);
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     move(timeStamp) {
         if (this.moveCoinTime === undefined) {
             this.moveCoinTime = timeStamp;

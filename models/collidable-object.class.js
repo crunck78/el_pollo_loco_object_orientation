@@ -25,7 +25,7 @@ class CollidableObject extends MovableObject {
     };
 
     /**
-     * @function canCollide , to validate collision check
+     * To validate collision check
      * @returns {boolean}
      */
     canCollide() {
@@ -33,6 +33,7 @@ class CollidableObject extends MovableObject {
     }
 
     /**
+     * Check if this is colliding with given CollidableObject
      * @param {CollidableObject} mo
      * @returns {boolean}
      */
@@ -89,9 +90,9 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-    * @returns {number}
-    */
-     getHitBoxRightPos() {
+     * @returns {number}
+     */
+    getHitBoxRightPos() {
         return this.x + this.width - this.offset.right;
     }
 
@@ -103,15 +104,15 @@ class CollidableObject extends MovableObject {
     }
 
     /**
-    * @returns {number}
-    */
+     * @returns {number}
+     */
     getHitBoxTopPos() {
         return this.y + this.offset.top;
     }
 
     /**
-    * @returns {number}
-    */
+     * @returns {number}
+     */
     getHitBoxBottomPos() {
         return this.y + this.height - this.offset.bottom;
     }
@@ -152,7 +153,7 @@ class CollidableObject extends MovableObject {
     /**
      * @param {CanvasRenderingContext2D} ctx - the context where this instance's info will be drawn.
      */
-    drawHitBox(ctx){
+    drawHitBox(ctx) {
         this.drawHitBoxFrame(ctx);
         this.drawHitBoxCoordinates(ctx);
     }

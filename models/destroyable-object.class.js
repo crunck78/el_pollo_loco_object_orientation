@@ -12,7 +12,7 @@ class DestroyableObject extends CollidableObject {
     }
 
     /**
-     * @override canCollide
+     * @override
      */
     canCollide() {
         return !(this.isKilled() || this.isHit()) && super.canCollide();

@@ -10,7 +10,7 @@ class CollectibleObject extends CollidableObject{
     collectable = true;
 
     /**
-     * @override @function canCollide
+     * @override
      * @returns {boolean}
      */
     canCollide(){

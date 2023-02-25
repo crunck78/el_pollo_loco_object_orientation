@@ -3,9 +3,16 @@
  */
 class Cloud extends MovableObject {
     y = 50;
-    x = Math.random() * 500; //Zahl zwieschen 0 und 500
+    x = Math.random() * 500;
     width = 500;
     height = 250;
+
+    /**
+     *
+     * @param {number} width
+     * @param {number} height
+     * @param {number} distance
+     */
     constructor(width, height, distance = 0) {
         super().loadImage('img/5.Fondo/Capas/4.nubes/1.png');
         this.width = width;
@@ -13,6 +20,10 @@ class Cloud extends MovableObject {
         this.distance = distance;
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     move(timeStamp) {
         if(this.moveCloudTime === undefined){
             this.moveCloudTime = timeStamp;
@@ -25,6 +36,10 @@ class Cloud extends MovableObject {
         super.move(timeStamp);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     play(timeStamp) {
         if(this.playCloudTime === undefined){
             this.playCloudTime = timeStamp;

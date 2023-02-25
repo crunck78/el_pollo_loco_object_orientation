@@ -1,3 +1,7 @@
+/**
+ *
+ * @returns {Level}
+ */
 function getLevel1() {
     return new Level(
         getLevelChickens(),
@@ -9,13 +13,22 @@ function getLevel1() {
     );
 }
 
-function getLevelPlatforms(){
+/**
+ *
+ * @returns {Platform[]}
+ */
+function getLevelPlatforms() {
     //return [];
     let collection1 = getPlatformCollection(100);
     return collection1;
 }
 
-function getPlatformCollection(firstX, firstY){
+/**
+ *
+ * @param {number} firstX
+ * @returns {Platform[]}
+ */
+function getPlatformCollection(firstX) {
     return [
         new Platform(firstX + 0 * 300),
         new Platform(firstX + 1 * 300),
@@ -25,6 +38,10 @@ function getPlatformCollection(firstX, firstY){
     ]
 }
 
+/**
+ *
+ * @returns {Chicken[]}
+ */
 function getLevelChickens() {
     //return [];
     let collection1 = getChickensCollection(400);
@@ -34,6 +51,11 @@ function getLevelChickens() {
     return collection1.concat(collection2, collection3, collection4);
 }
 
+/**
+ *
+ * @param {number} firstX
+ * @returns {Chicken[]}
+ */
 function getChickensCollection(firstX) {
     return [
         new Chicken(firstX + 0 * 100),
@@ -44,6 +66,10 @@ function getChickensCollection(firstX) {
     ];
 }
 
+/**
+ *
+ * @returns {Cloud[]}
+ */
 function getLevelClouds() {
     return [
         new Cloud(300, 200),
@@ -51,6 +77,10 @@ function getLevelClouds() {
     ];
 }
 
+/**
+ *
+ * @returns {BackgroundObject[]}
+ */
 function getLevelBackgrounds() {
     let collection1 = getBackgroundsCollection(-1, 1);
     let collection2 = getBackgroundsCollection(0, 2);
@@ -61,6 +91,12 @@ function getLevelBackgrounds() {
     return collection1.concat(collection2, collection3, collection4, collection5);
 }
 
+/**
+ *
+ * @param {number} xPos
+ * @param {string} section
+ * @returns @returns {BackgroundObject[]}
+ */
 function getBackgroundsCollection(xPos, section) {
     return [
         new BackgroundObject(`img/5.Fondo/Capas/3.Fondo3/${section}.png`, CANVAS_WIDTH * xPos, 0.5),
@@ -71,7 +107,7 @@ function getBackgroundsCollection(xPos, section) {
 
 /**
  *
- * @returns { Coin[] } Coins Mountain Form
+ * @returns { Coin[] }
  */
 function getLevelCoins() {
     return [new Coin(1200, 100)];
@@ -82,7 +118,12 @@ function getLevelCoins() {
     return collection1.concat(collection2, collection3, collection4);
 }
 
-
+/**
+ *
+ * @param {number} firstX
+ * @param {number} firstY
+ * @returns { Coin[] }
+ */
 function getCoinsCollection(firstX, firstY) {
     return [
         new Coin(firstX + 0 * 100, firstY - 0 * 50),
@@ -93,8 +134,12 @@ function getCoinsCollection(firstX, firstY) {
     ];
 }
 
+/**
+ *
+ * @returns {Bottle[]}
+ */
 function getLevelBottles() {
-    return [new Bottle(1000, 0)];
+    // return [new Bottle(1000, 0)];
     let collection1 = getBottlesCollection(100);
     let collection2 = getBottlesCollection(400);
     let collection3 = getBottlesCollection(600);
@@ -111,6 +156,11 @@ function getLevelBottles() {
         collection8);
 }
 
+/**
+ *
+ * @param {number} xPos
+ * @returns {Bottle[]}
+ */
 function getBottlesCollection(xPos) {
     return [
         new Bottle(xPos * 0 + 100, 0),
@@ -121,10 +171,4 @@ function getBottlesCollection(xPos) {
         new Bottle(xPos * 5 + 100, 0),
         new Bottle(xPos * 6 + 100, 0)
     ];
-}
-
-
-let inputValue;
-function handleOnclick(){
-    inputValue = document.getElementById("input").value;
 }

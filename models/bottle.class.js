@@ -1,6 +1,5 @@
 /**
- * An extension of CollectibleObject. Representing a Bottle which the character can collect if it collides with one.
- * and the Character Bottles Bar is not full.
+ * An extension of CollectibleObject. Representing a Bottle which the character can collect
  */
 class Bottle extends CollectibleObject {
     width = 100;
@@ -35,7 +34,7 @@ class Bottle extends CollectibleObject {
     }
 
     /**
-     * @override @function animate
+     * @override
      */
     animate() {
         super.startGravity();
@@ -43,7 +42,7 @@ class Bottle extends CollectibleObject {
     }
 
     /**
-     * @override @function stopAnimate
+     * @override
      */
     stopAnimate() {
         super.stopGravity();
@@ -51,7 +50,7 @@ class Bottle extends CollectibleObject {
     }
 
     /**
-     * @override @function play
+     * @override
      * @param {number} timeStamp
      */
     play(timeStamp) {
@@ -67,7 +66,7 @@ class Bottle extends CollectibleObject {
     }
 
     /**
-     * @override @function move
+     * @override
      * @param {number} timeStamp
      */
     move(timeStamp) {

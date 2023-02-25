@@ -1,6 +1,6 @@
 /**
  * An extension of CollectibleObject. Representing a Energy Supply which the character can collect if it collides with one.
- * and the Character HitPoints Bar is not full. 
+ * and the Character HitPoints Bar is not full.
  */
  class HitPoint extends CollectibleObject {
     width = 100;
@@ -21,6 +21,11 @@
         'img/7.Marcadores/Icono/Vidas.png'
     ];
 
+    /**
+     *
+     * @param {number} x
+     * @param {number} y
+     */
     constructor(x, y) {
         super().loadImage(this.IMAGES[0]);
         super.loadImages(this.IMAGES);
@@ -29,7 +34,7 @@
     }
 
     /**
-     * @override @function animate
+     * @override
      */
     animate() {
         //super.startGravity();
@@ -37,7 +42,7 @@
     }
 
     /**
-     * @override @function stopAnimate
+     * @override
      */
     stopAnimate() {
         //super.stopGravity();
@@ -45,8 +50,8 @@
     }
 
     /**
-     * @override @function play
-     * @param {number} timeStamp 
+     * @override
+     * @param {number} timeStamp
      */
     play(timeStamp) {
         if(this.playBottleTime === undefined){
@@ -61,8 +66,8 @@
     }
 
     /**
-     * @override @function move
-     * @param {number} timeStamp 
+     * @override
+     * @param {number} timeStamp
      */
     move(timeStamp) {
         if(this.moveBottleTime === undefined){

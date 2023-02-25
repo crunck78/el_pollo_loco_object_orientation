@@ -34,16 +34,26 @@ class EndBoss extends Enemy {
         this.hitPointsBar.setPercentage(this.energy);
     }
 
+    /**
+     * @override
+     */
     animate() {
         // super.startDirectionChange();
         super.animate();
     }
 
+    /**
+     * @override
+     */
     stopAnimate() {
         // super.stopDirectionChange();
         super.stopAnimate();
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     play(timeStamp) {
         if (this.playBossTime === undefined) {
             this.playBossTime = timeStamp;
@@ -56,6 +66,10 @@ class EndBoss extends Enemy {
         super.play(timeStamp);
     }
 
+    /**
+     * Defines how a endboss's images are been played
+     * @param {number} timeStamp
+     */
     playEndBoss(timeStamp) {
         if (super.isKilled()) this.playDead(timeStamp);
         else if (super.isHit()) this.playHit(timeStamp);
@@ -65,6 +79,10 @@ class EndBoss extends Enemy {
         else this.playIdle(timeStamp);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playDead(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
@@ -72,7 +90,7 @@ class EndBoss extends Enemy {
     }
 
     /**
-     * @override @function stopPlay
+     * @override
      */
     stopPlay() {
         delete this.hitPointsBar; //is this ok? draw asks anyway if object to draw exists
@@ -80,32 +98,56 @@ class EndBoss extends Enemy {
         super.stopPlay();
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playHit(timeStamp) {
         this.AUDIOS['HIT'].play();
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['HIT']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playAlert(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['ALERT']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playAttack(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['ATTACK']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playMove(timeStamp) {
         this.playAnimationElapse = 300;
         super.playAnimation(timeStamp, this.IMAGES['WALKING']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playIdle(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['IDLE']);
         this.playAnimationElapse = 550;
     }
 
+    /**
+     * @override
+     * @param {time} timeStamp
+     */
     move(timeStamp) {
         if (this.moveBossTime === undefined) {
             this.moveBossTime = timeStamp;
@@ -118,6 +160,10 @@ class EndBoss extends Enemy {
         super.move(timeStamp);
     }
 
+    /**
+     * Defines how a endboss should be moving
+     * @param {number} timeStamp
+     */
     moveEndBoss(timeStamp) {
         if (!super.isKilled()) {
             this.moveEnemy();
@@ -127,25 +173,43 @@ class EndBoss extends Enemy {
         }
     }
 
+    /**
+     * @override
+     */
     moveEnemy() {
         super.moveEnemy();
         this.hitPointsBar.x = this.x;
         this.hitPointsBar.y = this.y;
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     canMoveRight() {
         return false;
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     canMoveLeft() {
         return false;
     }
 
+    /**
+     * @override
+     */
     kill() {
         super.kill();
         this.hitPointsBar.setPercentage(this.energy);
     }
 
+    /**
+     * @override
+     * @param {CollidableObject} target
+     */
     hit(target) {
         super.hit(target);
         super.alert(target);

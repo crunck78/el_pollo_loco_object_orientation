@@ -81,6 +81,7 @@ class Level {
      * @param {BackgroundObject[]} backgroundObjects
      * @param {Coin[]} coins
      * @param {Bottle[]} bottles
+     * @param {Platform[]} platforms
      */
     constructor(enemies, clouds, backgroundObjects, coins, bottles, platforms) {
 
@@ -106,15 +107,15 @@ class Level {
 
         /**
          * this.backgrounds[0,1,2] and this.backgrounds[this.background.length - 1, -2, -3] do not count
-         * they are used as extremes, as out of Level Areas, that is why - 1
          * Divided by 3 because , 3 Backgrounds Overlap, they are on the same x position
+         * they are used as extremes, as out of Level Areas, that is why - 1
          * Times CANVAS_WIDTH because one Background width equals CANVAS_WIDTH
          */
         this.level_end_x = (this.backgroundObjects.length / 3 - 1) * CANVAS_WIDTH;
     }
 
     /**
-     * Wrapper @function animateAll ,for each Object that can be animated starts its @function animate
+     * Triggers animation for all MovableObjects
      */
     animateAll() {
         this.AUDIOS['BACKGROUND'].play();
@@ -127,8 +128,12 @@ class Level {
         this.animateCollection(this.clouds);
     }
 
-    animateCollection(array) {
-        array.forEach(element => {
+    /**
+     *
+     * @param {MovableObject[]} moveableObjects
+     */
+    animateCollection(moveableObjects) {
+        moveableObjects.forEach(element => {
             element.animate();
         });
     }

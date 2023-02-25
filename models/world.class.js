@@ -1,5 +1,5 @@
 /**
- *
+ * This is our in-game World. Holds everything and performs everything
  */
 class World {
 

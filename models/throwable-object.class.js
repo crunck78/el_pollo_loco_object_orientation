@@ -29,7 +29,12 @@ class ThrowableObject extends DestroyableObject {
     AUDIOS = THROWABLE_OBJECT_ASSETS['AUDIOS'];
     IMAGES = THROWABLE_OBJECT_ASSETS['IMAGES'];
 
-    // Created as a Bottle is been throw
+    /**
+     *
+     * @param {number} x
+     * @param {number} y
+     * @param {boolean} otherDirection
+     */
     constructor(x, y, otherDirection) {
         super().loadImage('img/7.Marcadores/Icono/Botella.png');
         super.loadImages(this.IMAGES['ROTATION_BOTTLE']);
@@ -60,7 +65,7 @@ class ThrowableObject extends DestroyableObject {
     // }
 
     /**
-     * @override @function animate
+     * @override
      */
     animate() {
         super.startGravity();
@@ -68,7 +73,7 @@ class ThrowableObject extends DestroyableObject {
     }
 
     /**
-     * @override @function stopAnimate
+     * @override
      */
     stopAnimate() {
         super.stopGravity();
@@ -76,7 +81,7 @@ class ThrowableObject extends DestroyableObject {
     }
 
     /**
-     * @override @function play
+     * @override
      * @param {number} timeStamp
      */
     play(timeStamp) {
@@ -92,7 +97,7 @@ class ThrowableObject extends DestroyableObject {
     }
 
     /**
-     * @function playThrowObject , holds all the logic how a throwable-object's images are been played
+     * Defines how a throwable-object's images are been played
      * @param {number} timeStamp
      */
     playThrowObject(timeStamp) {
@@ -104,6 +109,10 @@ class ThrowableObject extends DestroyableObject {
         }
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playBreak(timeStamp) {
         //FIX AFTER PAUSE PLAY NO LONGER REPLAY ANIMATION
 
@@ -111,6 +120,10 @@ class ThrowableObject extends DestroyableObject {
         setTimeout(() => { super.stopPlay(); this.drawable = false; }, this.playAnimationElapse * this.IMAGES['SPLASH'].length);
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     move(timeStamp) {
         if (this.moveThrowObjectTime === undefined) {
             this.moveThrowObjectTime = timeStamp;
@@ -124,7 +137,7 @@ class ThrowableObject extends DestroyableObject {
     }
 
     /**
-     * @function moveThrowObject , holds all the login how a throwable-object should be moving
+     * Defines how a throwable-object should be moving
      * @param {number} timeStamp
      */
     moveThrowObject(timeStamp) {

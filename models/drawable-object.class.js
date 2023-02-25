@@ -158,6 +158,10 @@ class DrawableObject {
         }
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     areAllImagesLoaded(){
         for (const animations in this.IMAGES) {
             if (Object.hasOwnProperty.call(this.IMAGES, animations)) {
@@ -169,6 +173,11 @@ class DrawableObject {
         return true;
     }
 
+    /**
+     *
+     * @param {string[]} arr - a list of some sort of animations images
+     * @returns {boolean}
+     */
     areImagesLoaded(arr) {
         return arr.every(path => this.imageCache[path].loaded);
     }

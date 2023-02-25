@@ -4,7 +4,6 @@
  * Power, it can squish any Enemy it lands on.
  */
 class Character extends Creature {
-
     damage = 20;
 
     height = 250;
@@ -50,16 +49,26 @@ class Character extends Creature {
         this.bottlesBar.setPercentage(this.bottles);
     }
 
+    /**
+     * @override
+     */
     animate() {
         super.startGravity();
         super.animate();
     }
 
+    /**
+     * @override
+     */
     stopAnimate() {
         super.stopGravity();
         super.stopAnimate();
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     move(timeStamp) {
         if (this.moveCharTime === undefined) {
             this.moveCharTime = timeStamp;
@@ -72,6 +81,10 @@ class Character extends Creature {
         super.move(timeStamp);
     }
 
+    /**
+     * Defines how a character should be moving
+     * @param {number} timeStamp
+     */
     moveCharacter(timeStamp) {
         if (!super.isKilled()) {
             if (this.canMoveRight()) { this.moveRight(); }
@@ -86,38 +99,64 @@ class Character extends Creature {
         }
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     canMoveRight() {
         return this.isMovingRight() &&
             this.x < CANVAS_WIDTH * 4 &&
             !(this.launching || this.attacking || this.landed);
     }
 
+    /**
+     * @override
+     */
     moveRight() {
         this.lastIdle = 0;
         super.moveRight();
         super.otherDirection = false;
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     canMoveLeft() {
         return this.isMovingLeft() &&
             this.x > 0 &&
             !(this.launching || this.attacking || this.landed);
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     isMovingRight() {
         return this.keyboard.RIGHT; // Poor Control should be fixed, this does not mean is moving right
     }
 
+    /**
+     * @override
+     */
     moveLeft() {
         this.lastIdle = 0;
         super.moveLeft();
         super.otherDirection = true;
     }
 
+    /**
+     *
+     * @returns {boolean}
+     */
     isMovingLeft() {
         return this.keyboard.LEFT; // Poor Control should be fixed, this does not mean is moving left
     }
 
+    /**
+     * If this can launch into air
+     * @returns {boolean}
+     */
     canLaunch() {
         return (this.keyboard.SPACE && !(super.isAboveGround() || this.launching || this.landed));
     }
@@ -131,11 +170,18 @@ class Character extends Creature {
         super.launch(groundPos);
     }
 
+    /**
+     * @override
+     */
     land() {
         this.lastIdle = 0;
         super.land();
     }
 
+    /**
+     * If it can throw bottle
+     * @returns {boolean}
+     */
     canAttack() {
         return this.keyboard.D &&
             this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &&
@@ -143,6 +189,9 @@ class Character extends Creature {
             !(super.isAboveGround() || super.isHit() || this.landed);
     }
 
+    /**
+     * Perform bottle throw
+     */
     attack() {
         this.lastIdle = 0; //prevents instant idle
         this.attacking = true; //triggers playAttacking animation
@@ -165,6 +214,10 @@ class Character extends Creature {
         this.launch();
     }
 
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
     play(timeStamp) {
         if (this.playCharTime === undefined) {
             this.playCharTime = timeStamp;
@@ -177,6 +230,10 @@ class Character extends Creature {
         super.play(timeStamp);
     }
 
+    /**
+     * Defines how a character's images are been played
+     * @param {number} timeStamp
+     */
     playCharacter(timeStamp) {
         if (super.isKilled()) { this.playDead(timeStamp); }
         else if (super.isHit()) { this.playHit(timeStamp); }
@@ -188,13 +245,17 @@ class Character extends Creature {
         else { this.playStand(timeStamp); }
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playDead(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['DEAD']);
         setTimeout(() => { this.stopPlay() }, this.playAnimationElapse * this.IMAGES['DEAD'].length);
     }
 
     /**
-     * @override @function stopPlay
+     * @override
      */
     stopPlay() {
         // delete this.hitPointsBar;
@@ -204,48 +265,84 @@ class Character extends Creature {
         super.stopPlay();
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playHit(timeStamp) {
         this.AUDIOS['HIT'].play();
         super.playAnimation(timeStamp, this.IMAGES['HIT']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playLaunch(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
         setTimeout(() => { this.launching = false; }, 250);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playAboveGround(timeStamp) {
         if (super.isJumping()) { this.playJump(timeStamp); }
         if (super.isMitAir()) { this.playMitAir(timeStamp); }
         if (super.isLanding()) { this.playLanding(timeStamp); }
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playJump(timeStamp) {
         this.AUDIOS['JUMP'].play();
         super.playAnimation(timeStamp, this.IMAGES['JUMP']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playMitAir(timeStamp) {
         // this.landing = false;
         // setTimeout(()=> this.landing = true, 100);
         super.playAnimation(timeStamp, this.IMAGES['MID_AIR']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playLanding(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['LANDING']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playLanded(timeStamp) {
         this.AUDIOS['LAND'].play();
         this.landed = true;
         super.playAnimation(timeStamp, this.IMAGES['LANDED']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playMove(timeStamp) {
         this.AUDIOS['MOVE'].play();
         super.playAnimation(timeStamp, this.IMAGES['WALKING']);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playStand(timeStamp) {
         if (this.lastIdle == 0) { // first time idle
             this.lastIdle = new Date().getTime();
@@ -258,27 +355,46 @@ class Character extends Creature {
         }
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playAttack(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['ATTACK']);
         //setTimeout(() => this.attacking = false, 250);
     }
 
+    /**
+     *
+     * @param {number} timeStamp
+     */
     playLaunch(timeStamp) {
         super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
     }
 
+    /**
+     *
+     * @param {number} damage
+     */
     hit(damage) {
         this.lastIdle = 0;
         super.hit(damage);
         this.hitPointsBar.setPercentage(this.energy);
     }
 
+    /**
+     * @override
+     */
     kill() {
         this.lastIdle = 0;
         super.kill();
         this.hitPointsBar.setPercentage(this.energy);
     }
 
+    /**
+     * @param {MovableObject} mo
+     * @returns {boolean}
+     */
     isStamping(mo) {
         //most  likely to stamp an enemy
         // not exactly but does the job ... is just a soft simulation, not real life

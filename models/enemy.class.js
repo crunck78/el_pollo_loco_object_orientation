@@ -1,5 +1,5 @@
 /**
- * An extension of NPC, defines some self behavior as an Enemy to Character 
+ * An extension of NPC, defines some self behavior as an Enemy to Character
  */
 class Enemy extends NPC {
 
@@ -57,8 +57,8 @@ class Enemy extends NPC {
     }
 
     /**
-     * 
-     * @param {number} timeStamp 
+     *
+     * @param {number} timeStamp
      */
     moveEnemy(timeStamp) {
         if (this.canPatrol()) { this.patrol() }
@@ -66,7 +66,7 @@ class Enemy extends NPC {
 
     /**
      * Control @function canPatrol , check if this instance is able to patrol
-     * @returns {boolean} 
+     * @returns {boolean}
      */
     canPatrol() {
         return !(this.alerted || super.isHit() || this.attacking);
@@ -76,9 +76,9 @@ class Enemy extends NPC {
      * @function patrol
      */
     patrol() {
-        if (this.lastAlertPosition && !this.reachedTarget) { //there is a last alert pos reached it, 
+        if (this.lastAlertPosition && !this.reachedTarget) { //there is a last alert pos reached it,
             if (this.changeDirectionInterval) { this.stopDirectionChange(); } //stop the change direction if its started,
-            // stop movement           
+            // stop movement
             this.movingRight = false;
             this.movingLeft = false;
             if (this.x < this.lastAlertPosition) {
@@ -152,7 +152,7 @@ class Enemy extends NPC {
 
     /**
      * Triggers attack action for some given timeout in milliseconds.
-     * @param {number} timeStamp 
+     * @param {number} timeStamp
      */
     attack(timeStamp) {
         this.attacking = true;
@@ -168,9 +168,9 @@ class Enemy extends NPC {
     }
 
     /**
-     * Triggers alert action for some given timeout in milliseconds. 
-     * @param {Character} target 
-     * @param {number} timeStamp 
+     * Triggers alert action for some given timeout in milliseconds.
+     * @param {Character} target
+     * @param {number} timeStamp
      */
     alert(target, timeStamp) {
         this.lastAlertPosition = target.x;
@@ -182,9 +182,9 @@ class Enemy extends NPC {
         //console.log("ALERT");
         setTimeout(() => { this.alerted = false; if (this.canAttack()) { this.attack(); } }, (8 * 300)); //alert images length times animationElapse pro alert image
     }
-    
+
     // /**
-    //  * @override @function kill 
+    //  * @override @function kill
     //  * @param {string} method - how was it killed? STAMP (Character Stamped onver head) | KILL (energy = 0)
     //  */
     // kill(method) {
@@ -195,8 +195,8 @@ class Enemy extends NPC {
     // }
 
     /**
-     * 
-     * @param {CollidableObject} target - the object that hits this instance after validated collision
+     *
+     * @param {CollidableObject} target - the object that hits this instance
      */
     hit(target) {
         super.hit(target.damage);

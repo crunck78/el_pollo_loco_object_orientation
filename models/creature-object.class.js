@@ -10,7 +10,7 @@ class Creature extends DestroyableObject {
     attacking = false;
 
     /**
-     * Abstract control @function canAttack ,
+     * @abstract,
      * Checks if this instance it is able to perform an attack
      */
     canAttack() {
@@ -19,8 +19,8 @@ class Creature extends DestroyableObject {
     }
 
     /**
-     * Sets the @member currentImage to 0. 
-     * This action requires that animation starts with first image from images array.
+     * Sets currentImage to 0.
+     * This action requires that animation starts with first image from attack images array.
      */
     attack() {
         // throw new Error('You have to implement the method attack!');
