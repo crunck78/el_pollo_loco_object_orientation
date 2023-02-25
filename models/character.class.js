@@ -21,8 +21,8 @@ class Character extends Creature {
 
     offset = {
         top: 120,
-        bottom: 30,
-        left: 40,
+        bottom: 15,
+        left: 30,
         right: 30
     }
 

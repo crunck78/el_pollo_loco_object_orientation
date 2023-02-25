@@ -115,7 +115,6 @@ class ThrowableObject extends DestroyableObject {
      */
     playBreak(timeStamp) {
         //FIX AFTER PAUSE PLAY NO LONGER REPLAY ANIMATION
-
         super.playAnimation(timeStamp, this.IMAGES['SPLASH']);
         setTimeout(() => { super.stopPlay(); this.drawable = false; }, this.playAnimationElapse * this.IMAGES['SPLASH'].length);
     }

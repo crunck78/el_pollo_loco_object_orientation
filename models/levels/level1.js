@@ -18,8 +18,8 @@ function getLevel1() {
  * @returns {Platform[]}
  */
 function getLevelPlatforms() {
-    return [];
-    let collection1 = getPlatformCollection(100);
+    // return [];
+    let collection1 = getPlatformCollection(300);
     return collection1;
 }
 

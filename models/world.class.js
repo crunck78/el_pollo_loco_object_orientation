@@ -12,7 +12,7 @@ class World {
      * Value that determines what is the ground level.
      * @type {number}
      */
-    groundPos = 400;
+    groundPos = 439;
 
     /**
      * Value by which is check the game status and react accordingly
@@ -344,7 +344,7 @@ class World {
         for (let index = 0; index < platforms.length; index++) {
             const platform = platforms[index];
             if (platform.isUnder(target)) {
-                target.groundPos = platform.y - target.height;
+                target.groundPos = platform.y - target.height + target.offset.bottom;
                 break;
             }
             else
