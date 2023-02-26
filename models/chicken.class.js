@@ -22,7 +22,7 @@ class Chicken extends Enemy {
     IMAGES = CHICKEN_ASSETS['IMAGES'];
 
     /**
-     *
+     * TODO remove y param
      * @param {number} x
      * @param {number} y
      */

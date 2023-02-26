@@ -433,8 +433,8 @@ class World {
             }
             mo.draw(this.ctx);
             // mo.drawFramesAndCoordinates(this.ctx);
-            if (mo instanceof CollectibleObject || mo instanceof Platform)
-                mo.drawHitBox(this.ctx);
+            // if (mo instanceof CollectibleObject || mo instanceof Platform)
+            //     mo.drawHitBox(this.ctx);
             if (mo.otherDirection) {
                 this.flipImage(mo);
             }
