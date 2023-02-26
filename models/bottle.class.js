@@ -8,10 +8,10 @@ class Bottle extends CollectibleObject {
     groundPos = 340;
 
     offset = {
-        top: 10,
-        bottom: 10,
-        left: 10,
-        right: 10
+        top: 15,
+        bottom: 30,
+        left: 20,
+        right: 15
     }
 
     playAnimationElapse = 300;
@@ -26,11 +26,12 @@ class Bottle extends CollectibleObject {
      * @param {number} x vertical position
      * @param {number} y horizontal position
      */
-    constructor(x, y) {
+    constructor(x, y, groundPos = 340) {
         super().loadImage('img/6.botella/2.Botella_enterrada1.png');
         super.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
+        this.groundPos = groundPos ? groundPos : 340;
     }
 
     /**

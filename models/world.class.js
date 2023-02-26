@@ -1,5 +1,5 @@
 /**
- * This is our in-game World. Holds everything and performs everything
+ * This is our in-game World.
  */
 class World {
 
@@ -140,12 +140,9 @@ class World {
      */
     checkWorld(timeStamp) {
         this.checkProgress();
-        this.checkCameraTest(this.level.character);
-        //this.checkCameraTest(this.level.enemies[19]);
+        this.checkCamera(this.level.character);
         this.checkAlertEnemies();
         this.checkCollisions();
-        //this.checkCollisionsTest();
-        //this.clearUnDrawableObjects();
     }
 
     checkProgress() {
@@ -159,22 +156,22 @@ class World {
     }
 
     /**
-     * Test @function checkCameraTest same as @function checkCamera
-     * on right movement or left movement, target is position some offset from middle screen,
+     *
+     * On right movement or left movement, target is position some offset from middle screen,
      * opposed to movement direction.
      */
-    checkCameraTest(target) {
+    checkCamera(target) {
         let targetCenterX = target.x + target.width * 0.5;
         let canvasCenterX = this.ctx.canvas.width * 0.5;
         let distanceFromCamera = targetCenterX - this.cameraOffsetX;
 
         if (this.canMoveCamera(canvasCenterX, this.level.level_end_x - canvasCenterX, distanceFromCamera)) {
             this.camera_x = -(distanceFromCamera - canvasCenterX);
-            if (target.isMovingRight() && targetCenterX + this.camera_x >= canvasCenterX * 0.5) {
-                this.cameraOffsetX -= 3;
+            if (target.isMovingRight() && targetCenterX + this.camera_x >= canvasCenterX * 0.2) {
+                this.cameraOffsetX -= 8;
             }
-            if (target.isMovingLeft() && targetCenterX + this.camera_x <= this.ctx.canvas.width - canvasCenterX * 0.5) {
-                this.cameraOffsetX += 3;
+            if (target.isMovingLeft() && targetCenterX + this.camera_x <= this.ctx.canvas.width - canvasCenterX * 0.9) {
+                this.cameraOffsetX += 8;
             }
         }
     }
@@ -189,20 +186,6 @@ class World {
     canMoveCamera(leftBoundary, rightBoundary, distanceFromCamera) {
         return distanceFromCamera > leftBoundary &&
             distanceFromCamera < rightBoundary;
-    }
-
-    /**
-     *  If horizontal moving @param target passes one half the canvas at begin,
-     *  or has not reached  level end minus one half the canvas,
-     *  this instance @member camera_x is updated to keep the @param target in the middle of the screen.
-     */
-    checkCamera(target) {
-        let targetCenterX = target.x + target.width * 0.5;
-        let canvasCenterX = this.ctx.canvas.width * 0.5;
-
-        if (targetCenterX > canvasCenterX && targetCenterX < this.level.level_end_x - canvasCenterX) {
-            this.camera_x = -(targetCenterX - canvasCenterX);
-        }
     }
 
     /**
@@ -226,16 +209,6 @@ class World {
         this.checkCollisionsWithCollectibles(this.level.coins);
         this.checkCollisionsWithCollectibles(this.level.bottles);
         this.checkCollisionWithPlatforms(this.level.character, this.level.platforms);
-    }
-
-    /**
-     * Wrapper @function checkCollisionsTest , calls different collision check functions.
-     */
-    checkCollisionsTest() {
-        //TODO
-        let allObjects = this.level.getAllObjects();
-        let collidabels = this.level.getObjectsByClassName(allObjects, CollidableObject);
-
     }
 
     /**
@@ -352,11 +325,6 @@ class World {
         }
     }
 
-    clearUnDrawableObjects() {
-        const temp = this.level.character.throwBottles.filter(tb => tb.drawable);
-        this.level.character.throwBottles = temp;
-    }
-
     /**
      * @param {CollectibleObject} collectible -
      * @returns {boolean}
@@ -464,8 +432,8 @@ class World {
                 this.flipImage(mo);
             }
             mo.draw(this.ctx);
-            mo.drawFramesAndCoordinates(this.ctx);
-            if (mo instanceof CollidableObject)
+            // mo.drawFramesAndCoordinates(this.ctx);
+            if (mo instanceof CollectibleObject || mo instanceof Platform)
                 mo.drawHitBox(this.ctx);
             if (mo.otherDirection) {
                 this.flipImage(mo);

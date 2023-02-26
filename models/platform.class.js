@@ -1,6 +1,6 @@
 class Platform extends CollidableObject{
 
-    width = 200;
+    width = 300;
     height = 50;
     y = 300;
 
@@ -11,11 +11,13 @@ class Platform extends CollidableObject{
     /**
      *
      * @param {number} x
+     * @param {number} y
      */
-    constructor(x){
+    constructor(x, y = 300){
         super().loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
         this.x = x;
+        this.y = y;
     }
 
     /**

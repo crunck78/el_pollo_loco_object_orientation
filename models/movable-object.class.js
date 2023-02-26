@@ -23,6 +23,7 @@ class MovableObject extends DrawableObject {
      * @type {number} - Vertical Velocity
      */
     velocityY = 20;
+    normalVelocity = 20;
 
     /**
      * @type {number} - Vertical Acceleration, Gravity
@@ -278,6 +279,7 @@ class MovableObject extends DrawableObject {
         this.launching = false;
         this.groundPos = groundPos ? groundPos : this.groundPos;
         this.speedY = this.velocityY;
+        this.velocityY = this.normalVelocity;
     }
 
     // getGroundPos(){

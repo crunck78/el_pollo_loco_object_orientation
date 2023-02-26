@@ -174,7 +174,10 @@ class Enemy extends NPC {
      */
     alert(target, timeStamp) {
         this.lastAlertPosition = target.x;
-        this.otherDirection = target.otherDirection; // this is wrong should check if @this is left or right side from target. TODO
+        if(this.isLeftSide(target))
+            this.otherDirection = true;
+        if(this.isRightSide(target))
+            this.otherDirection = false;
         this.reachedTarget = false;
         this.lastPosX = this.x;
         this.alerted = true;

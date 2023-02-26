@@ -7,7 +7,7 @@ class Character extends Creature {
     damage = 20;
 
     height = 250;
-    x = 0;
+    x = 20;
     y = 80;
     speedX = 5;
     groundPos = 190;
@@ -210,6 +210,7 @@ class Character extends Creature {
     stamp(enemy) {
         enemy.kill();
         this.speedY = 0;
+        this.velocityY = 30; // higher jump
         this.launch();
     }
 
@@ -395,10 +396,7 @@ class Character extends Creature {
      * @returns {boolean}
      */
     isStamping(mo) {
-        //most  likely to stamp an enemy
-        // not exactly but does the job ... is just a soft simulation, not real life
-        // console.log(super.getHitBoxBottomPos() - mo.getHitBoxTopPos()); // Observations: every stamp done by individual jumps this will equal consecutive number between inclusive 1 - 20
-        return /*this.isLanding() &&*/ super.getHitBoxBottomPos() - mo.getHitBoxTopPos() <= 20; //Tolerance may vary on different browsers and or machines config
-        //this.isLanding causes the next mo check if is stamping to hit the character because is not landing anymore.
+        return !(mo instanceof EndBoss) && super.getHitBoxBottomPos() - mo.getHitBoxTopPos() <= 20;
+        //Tolerance may vary on different browsers and or machines config
     }
 }

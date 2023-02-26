@@ -3,7 +3,7 @@ class EndBoss extends Enemy {
     damage = 40;
 
     offset = {
-        top: 0,
+        top: 100,
         bottom: 30,
         left: 30,
         right: 30
@@ -11,13 +11,13 @@ class EndBoss extends Enemy {
 
     energy = 100;
 
-    height = 400;
+    height = 350;
     width = 250;
     y = 0;
     x = 2600;
 
     speedX = 3;
-    groundPos = 60;
+    groundPos = 110;
 
     playAnimationElapse = 550;
 

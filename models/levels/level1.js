@@ -20,7 +20,9 @@ function getLevel1() {
 function getLevelPlatforms() {
     // return [];
     let collection1 = getPlatformCollection(300);
-    return collection1;
+    let collection2 = getPlatformCollection(2000);
+    let collection3 = [new Platform(1450, 100)];
+    return collection1.concat(collection2, collection3);
 }
 
 /**
@@ -31,10 +33,8 @@ function getLevelPlatforms() {
 function getPlatformCollection(firstX) {
     return [
         new Platform(firstX + 0 * 300),
-        new Platform(firstX + 1 * 300),
+        new Platform(firstX + 1 * 300, 100),
         new Platform(firstX + 2 * 300),
-        new Platform(firstX + 3 * 300),
-        new Platform(firstX + 4 * 300)
     ]
 }
 
@@ -43,7 +43,7 @@ function getPlatformCollection(firstX) {
  * @returns {Chicken[]}
  */
 function getLevelChickens() {
-    // return [];
+    return [];
     let collection1 = getChickensCollection(400);
     let collection2 = getChickensCollection(800);
     let collection3 = getChickensCollection(1200);
@@ -110,11 +110,11 @@ function getBackgroundsCollection(xPos, section) {
  * @returns { Coin[] }
  */
 function getLevelCoins() {
-    return [new Coin(1200, 100)];
-    let collection1 = getCoinsCollection(500, 200);
-    let collection2 = getCoinsCollection(1000, 200);
-    let collection3 = getCoinsCollection(1500, 200);
-    let collection4 = getCoinsCollection(2000, 200);
+    //return [new Coin(1200, 100)];
+    let collection1 = getCoinsCollection(300, 200);
+    let collection2 = getCoinsCollection(900, 200);
+    let collection3 = getCoinsCollection(2000, 200);
+    let collection4 = getCoinsCollection(2600, 200);
     return collection1.concat(collection2, collection3, collection4);
 }
 
@@ -126,11 +126,11 @@ function getLevelCoins() {
  */
 function getCoinsCollection(firstX, firstY) {
     return [
-        new Coin(firstX + 0 * 100, firstY - 0 * 50),
-        new Coin(firstX + 1 * 100, firstY - 1 * 50),
-        new Coin(firstX + 2 * 100, firstY - 2 * 50),
-        new Coin(firstX + 3 * 100, firstY - 1 * 50),
-        new Coin(firstX + 4 * 100, firstY - 0 * 50)
+        new Coin(firstX + 0 * 50, firstY - 0 * 50),
+        new Coin(firstX + 1 * 50, firstY - 1 * 50),
+        new Coin(firstX + 2 * 50, firstY - 2 * 50),
+        new Coin(firstX + 3 * 50, firstY - 1 * 50),
+        new Coin(firstX + 4 * 50, firstY - 0 * 50)
     ];
 }
 
@@ -139,21 +139,26 @@ function getCoinsCollection(firstX, firstY) {
  * @returns {Bottle[]}
  */
 function getLevelBottles() {
-    return [new Bottle(1000, 0)];
-    let collection1 = getBottlesCollection(100);
-    let collection2 = getBottlesCollection(400);
-    let collection3 = getBottlesCollection(600);
-    let collection4 = getBottlesCollection(1000);
+    //return [];
+    let collection1 = getBottlesCollection(580, -200, 20);
+    let collection2 = getBottlesCollection(2280, -200, 20);
+    let collection3 = getBottlesCollection(1430, -200, 20);
+    let collection4 = getBottlesCollection(1430, -200);
 
-    let collection5 = getBottlesCollection(200);
-    let collection6 = getBottlesCollection(300);
-    let collection7 = getBottlesCollection(700);
-    let collection8 = getBottlesCollection(900);
+    // let collection5 = getBottlesCollection(200);
+    // let collection6 = getBottlesCollection(300);
+    // let collection7 = getBottlesCollection(700);
+    // let collection8 = getBottlesCollection(900);
 
-    return collection1.concat(collection2, collection3, collection4, collection5,
-        collection6,
-        collection7,
-        collection8);
+    return collection1.concat(
+        collection2,
+        collection3,
+        collection4,
+        // collection5,
+        // collection6,
+        // collection7,
+        // collection8
+    );
 }
 
 /**
@@ -161,14 +166,14 @@ function getLevelBottles() {
  * @param {number} xPos
  * @returns {Bottle[]}
  */
-function getBottlesCollection(xPos) {
+function getBottlesCollection(xPos, yPos, groundPos) {
     return [
-        new Bottle(xPos * 0 + 100, 0),
-        new Bottle(xPos * 1 + 100, 0),
-        new Bottle(xPos * 2 + 100, 0),
-        new Bottle(xPos * 3 + 100, 0),
-        new Bottle(xPos * 4 + 100, 0),
-        new Bottle(xPos * 5 + 100, 0),
-        new Bottle(xPos * 6 + 100, 0)
+        new Bottle(xPos + 60 * 0, yPos, groundPos),
+        new Bottle(xPos + 60 * 1, yPos, groundPos),
+        new Bottle(xPos + 60 * 2, yPos, groundPos),
+        new Bottle(xPos + 60 * 3, yPos, groundPos),
+        new Bottle(xPos + 60 * 4, yPos, groundPos),
+        // new Bottle(xPos + 50 * 5, yPos, groundPos),
+        // new Bottle(xPos + 50 * 6, yPos, groundPos)
     ];
 }
