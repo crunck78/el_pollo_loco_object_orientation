@@ -26,11 +26,12 @@ class Chicken extends Enemy {
      * @param {number} x
      * @param {number} y
      */
-    constructor(x, y = 0) {
+    constructor(x, y = 0, otherDirection) {
         super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png');
         super.loadAllImages(this.IMAGES);
         this.x = x ? x : 1000 + Math.random() * 500;
         this.y = this.groundPos;
+        this.otherDirection = otherDirection ? otherDirection : false;
     }
 
     /**

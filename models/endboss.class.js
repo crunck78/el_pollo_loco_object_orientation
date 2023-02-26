@@ -230,7 +230,7 @@ class EndBoss extends Enemy {
      *
      */
     createChicken() {
-        let newChicken = new Chicken(this.x);
+        let newChicken = new Chicken(this.x, 0,this.otherDirection);
         newChicken.speedX = 2;
         newChicken.animate();
         this.chickens.push(newChicken);

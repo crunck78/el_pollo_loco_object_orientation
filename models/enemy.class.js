@@ -79,8 +79,8 @@ class Enemy extends NPC {
         if (this.lastAlertPosition && !this.reachedTarget) { //there is a last alert pos reached it,
             if (this.changeDirectionInterval) { this.stopDirectionChange(); } //stop the change direction if its started,
             // stop movement
-            this.movingRight = false;
-            this.movingLeft = false;
+            // this.movingRight = false;
+            // this.movingLeft = false;
             if (this.x < this.lastAlertPosition) {
                 this.moveRight();
                 if (this.x >= this.lastAlertPosition) {
@@ -88,20 +88,27 @@ class Enemy extends NPC {
                     this.lastAlertPosition = undefined;
                     this.movingRight = false;
                     this.movingLeft = false;
+                    this.startDirectionChange();
                 }
             }
             else if (this.x > this.lastAlertPosition) {
+                this.moveLeft();
                 if (this.x <= this.lastAlertPosition) {
                     this.reachedTarget = true;
                     this.lastAlertPosition = undefined;
                     this.movingRight = false;
                     this.movingLeft = false;
+                    this.startDirectionChange();
                 }
-                this.moveLeft();
             }
-        } else { // there is no last alert pos, just move around from one point to other, or just stay still or idle or sleep
-            if (this.changeDirectionInterval) { this.startDirectionChange(); }
-
+        }
+        else {
+            if(this.changeDirectionInterval){
+                if(this.otherDirection)
+                    this.moveRight();
+                else
+                    this.moveLeft();
+            }
         }
     }
 
@@ -147,7 +154,7 @@ class Enemy extends NPC {
      * @returns {boolean}
      */
     canAttack() {
-        return !(super.isKilled() || this.alerted || super.isHit() || this.attacking);
+        return !(super.isKilled() || this.alerted || super.isHit() || this.attacking || this.reachedTarget);
     }
 
     /**
@@ -173,6 +180,7 @@ class Enemy extends NPC {
      * @param {number} timeStamp
      */
     alert(target, timeStamp) {
+        if (this.changeDirectionInterval) { this.stopDirectionChange(); }
         this.lastAlertPosition = target.x;
         if(this.isLeftSide(target))
             this.otherDirection = true;

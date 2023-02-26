@@ -7,7 +7,7 @@ class Character extends Creature {
     damage = 20;
 
     height = 250;
-    x = 20;
+    x = 10;
     y = 80;
     speedX = 5;
     groundPos = 190;
