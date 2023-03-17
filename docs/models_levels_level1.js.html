@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> models/levels/level1.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CollectibleObject.html">CollectibleObject</a></li><li><a href="CollidableObject.html">CollidableObject</a></li><li><a href="Creature.html">Creature</a></li><li><a href="DestroyableObject.html">DestroyableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="HitPoint.html">HitPoint</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="NPC.html">NPC</a></li><li><a href="Platform.html">Platform</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBackgroundsCollection">getBackgroundsCollection</a></li><li><a href="global.html#getBottlesCollection">getBottlesCollection</a></li><li><a href="global.html#getChickensCollection">getChickensCollection</a></li><li><a href="global.html#getCoinsCollection">getCoinsCollection</a></li><li><a href="global.html#getLevel1">getLevel1</a></li><li><a href="global.html#getLevelBackgrounds">getLevelBackgrounds</a></li><li><a href="global.html#getLevelBottles">getLevelBottles</a></li><li><a href="global.html#getLevelChickens">getLevelChickens</a></li><li><a href="global.html#getLevelClouds">getLevelClouds</a></li><li><a href="global.html#getLevelCoins">getLevelCoins</a></li><li><a href="global.html#getLevelPlatforms">getLevelPlatforms</a></li><li><a href="global.html#getPlatformCollection">getPlatformCollection</a></li><li><a href="global.html#patrol">patrol</a></li><li><a href="global.html#world">world</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>models/levels/level1.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *
+ * @returns {Level}
+ */
+function getLevel1() {
+    return new Level(
+        getLevelChickens(),
+        getLevelClouds(),
+        getLevelBackgrounds(),
+        getLevelCoins(),
+        getLevelBottles(),
+        getLevelPlatforms()
+    );
+}
+
+/**
+ *
+ * @returns {Platform[]}
+ */
+function getLevelPlatforms() {
+    // return [];
+    let collection1 = getPlatformCollection(300);
+    let collection2 = getPlatformCollection(2000);
+    let collection3 = [new Platform(1450, 100)];
+    return collection1.concat(collection2, collection3);
+}
+
+/**
+ *
+ * @param {number} firstX
+ * @returns {Platform[]}
+ */
+function getPlatformCollection(firstX) {
+    return [
+        new Platform(firstX + 0 * 300),
+        new Platform(firstX + 1 * 300, 100),
+        new Platform(firstX + 2 * 300),
+    ]
+}
+
+/**
+ *
+ * @returns {Chicken[]}
+ */
+function getLevelChickens() {
+    return [];
+    let collection1 = getChickensCollection(400);
+    let collection2 = getChickensCollection(800);
+    let collection3 = getChickensCollection(1200);
+    let collection4 = getChickensCollection(1600);
+    return collection1.concat(collection2, collection3, collection4);
+}
+
+/**
+ *
+ * @param {number} firstX
+ * @returns {Chicken[]}
+ */
+function getChickensCollection(firstX) {
+    return [
+        new Chicken(firstX + 0 * 100, 0),
+        new Chicken(firstX + 1 * 100, 0),
+        new Chicken(firstX + 2 * 100, 0),
+        new Chicken(firstX + 3 * 100, 0),
+        new Chicken(firstX + 4 * 100, 0)
+    ];
+}
+
+/**
+ *
+ * @returns {Cloud[]}
+ */
+function getLevelClouds() {
+    return [
+        new Cloud(300, 200),
+        new Cloud(800, 400)
+    ];
+}
+
+/**
+ *
+ * @returns {BackgroundObject[]}
+ */
+function getLevelBackgrounds() {
+    let collection1 = getBackgroundsCollection(-1, 1);
+    let collection2 = getBackgroundsCollection(0, 2);
+    let collection3 = getBackgroundsCollection(1, 1);
+    let collection4 = getBackgroundsCollection(2, 2);
+    let collection5 = getBackgroundsCollection(3, 1);
+
+    return collection1.concat(collection2, collection3, collection4, collection5);
+}
+
+/**
+ *
+ * @param {number} xPos
+ * @param {string} section
+ * @returns @returns {BackgroundObject[]}
+ */
+function getBackgroundsCollection(xPos, section) {
+    return [
+        new BackgroundObject(`img/5.Fondo/Capas/3.Fondo3/${section}.png`, CANVAS_WIDTH * xPos, 0.5),
+        new BackgroundObject(`img/5.Fondo/Capas/2.Fondo2/${section}.png`, CANVAS_WIDTH * xPos, 0.7),
+        new BackgroundObject(`img/5.Fondo/Capas/1.suelo-fondo1/${section}.png`, CANVAS_WIDTH * xPos)
+    ];
+}
+
+/**
+ *
+ * @returns { Coin[] }
+ */
+function getLevelCoins() {
+    //return [new Coin(1200, 100)];
+    let collection1 = getCoinsCollection(300, 200);
+    let collection2 = getCoinsCollection(900, 200);
+    let collection3 = getCoinsCollection(2000, 200);
+    let collection4 = getCoinsCollection(2600, 200);
+    return collection1.concat(collection2, collection3, collection4);
+}
+
+/**
+ *
+ * @param {number} firstX
+ * @param {number} firstY
+ * @returns { Coin[] }
+ */
+function getCoinsCollection(firstX, firstY) {
+    return [
+        new Coin(firstX + 0 * 50, firstY - 0 * 50),
+        new Coin(firstX + 1 * 50, firstY - 1 * 50),
+        new Coin(firstX + 2 * 50, firstY - 2 * 50),
+        new Coin(firstX + 3 * 50, firstY - 1 * 50),
+        new Coin(firstX + 4 * 50, firstY - 0 * 50)
+    ];
+}
+
+/**
+ *
+ * @returns {Bottle[]}
+ */
+function getLevelBottles() {
+    //return [];
+    let collection1 = getBottlesCollection(580, -200, 20);
+    let collection2 = getBottlesCollection(2280, -200, 20);
+    let collection3 = getBottlesCollection(1430, -200, 20);
+    let collection4 = getBottlesCollection(1430, -200);
+
+    // let collection5 = getBottlesCollection(200);
+    // let collection6 = getBottlesCollection(300);
+    // let collection7 = getBottlesCollection(700);
+    // let collection8 = getBottlesCollection(900);
+
+    return collection1.concat(
+        collection2,
+        collection3,
+        collection4,
+        // collection5,
+        // collection6,
+        // collection7,
+        // collection8
+    );
+}
+
+/**
+ *
+ * @param {number} xPos
+ * @returns {Bottle[]}
+ */
+function getBottlesCollection(xPos, yPos, groundPos) {
+    return [
+        new Bottle(xPos + 60 * 0, yPos, groundPos),
+        new Bottle(xPos + 60 * 1, yPos, groundPos),
+        new Bottle(xPos + 60 * 2, yPos, groundPos),
+        new Bottle(xPos + 60 * 3, yPos, groundPos),
+        new Bottle(xPos + 60 * 4, yPos, groundPos),
+        // new Bottle(xPos + 50 * 5, yPos, groundPos),
+        // new Bottle(xPos + 50 * 6, yPos, groundPos)
+    ];
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

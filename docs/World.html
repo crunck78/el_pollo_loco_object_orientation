@@ -1,0 +1,5083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> World</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CollectibleObject.html">CollectibleObject</a></li><li><a href="CollidableObject.html">CollidableObject</a></li><li><a href="Creature.html">Creature</a></li><li><a href="DestroyableObject.html">DestroyableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="HitPoint.html">HitPoint</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="NPC.html">NPC</a></li><li><a href="Platform.html">Platform</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBackgroundsCollection">getBackgroundsCollection</a></li><li><a href="global.html#getBottlesCollection">getBottlesCollection</a></li><li><a href="global.html#getChickensCollection">getChickensCollection</a></li><li><a href="global.html#getCoinsCollection">getCoinsCollection</a></li><li><a href="global.html#getLevel1">getLevel1</a></li><li><a href="global.html#getLevelBackgrounds">getLevelBackgrounds</a></li><li><a href="global.html#getLevelBottles">getLevelBottles</a></li><li><a href="global.html#getLevelChickens">getLevelChickens</a></li><li><a href="global.html#getLevelClouds">getLevelClouds</a></li><li><a href="global.html#getLevelCoins">getLevelCoins</a></li><li><a href="global.html#getLevelPlatforms">getLevelPlatforms</a></li><li><a href="global.html#getPlatformCollection">getPlatformCollection</a></li><li><a href="global.html#patrol">patrol</a></li><li><a href="global.html#world">world</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>World</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>World<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">This is our in-game World.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="World">
+        <a class="href-link" href="#World">#</a>
+        
+        <span class="code-name">
+            
+                new World<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line4">line 4</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="cameraOffsetX">
+    <a class="href-link" href="#cameraOffsetX">#</a>
+    
+    <span class="code-name">
+        cameraOffsetX
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line26">line 26</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="camera_x">
+    <a class="href-link" href="#camera_x">#</a>
+    
+    <span class="code-name">
+        camera_x
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Value by which is @this @member ctx on Horizontal translated
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line32">line 32</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="checkWorldTime">
+    <a class="href-link" href="#checkWorldTime">#</a>
+    
+    <span class="code-name">
+        checkWorldTime
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms for running code inside recursive @function checkonly after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line62">line 62</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">CanvasRenderingContext2D</code>
+
+
+    </span>
+
+<h4 class="name" id="ctx">
+    <a class="href-link" href="#ctx">#</a>
+    
+    <span class="code-name">
+        ctx
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    The context were @member level's DrawableObjects are been drawn
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line68">line 68</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="drawTime">
+    <a class="href-link" href="#drawTime">#</a>
+    
+    <span class="code-name">
+        drawTime
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms for running code inside recursive @function drawonly after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line47">line 47</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+<h4 class="name" id="endScreen">
+    <a class="href-link" href="#endScreen">#</a>
+    
+    <span class="code-name">
+        endScreen
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Layout to be show when game ends.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line9">line 9</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">string</code>
+
+
+    </span>
+
+<h4 class="name" id="gameStatus">
+    <a class="href-link" href="#gameStatus">#</a>
+    
+    <span class="code-name">
+        gameStatus
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Value by which is check the game status and react accordingly
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line21">line 21</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="groundPos">
+    <a class="href-link" href="#groundPos">#</a>
+    
+    <span class="code-name">
+        groundPos
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Value that determines what is the ground level.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line15">line 15</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="requestCheckWorld">
+    <a class="href-link" href="#requestCheckWorld">#</a>
+    
+    <span class="code-name">
+        requestCheckWorld
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line55">line 55</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="requestDraw">
+    <a class="href-link" href="#requestDraw">#</a>
+    
+    <span class="code-name">
+        requestDraw
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line40">line 40</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addObjectsToMap">
+        <a class="href-link" href="#addObjectsToMap">#</a>
+        
+        <span class="code-name">
+            
+                addObjectsToMap<span class="signature">(objects)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function addObjectsToMap calls @function addToMap for each instanceof DrawableObject in @param objects
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>objects</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="DrawableObject.html">DrawableObject</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line416">line 416</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addToMap">
+        <a class="href-link" href="#addToMap">#</a>
+        
+        <span class="code-name">
+            
+                addToMap<span class="signature">(mo)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Draws the @param mo on this instance @member ctx and performs after and before conditional changes,like flip image or context translations.Each before draw change in this instance @member ctx should be reversed apply after draw.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mo</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="DrawableObject.html">DrawableObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line428">line 428</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="canCollide">
+        <a class="href-link" href="#canCollide">#</a>
+        
+        <span class="code-name">
+            
+                canCollide<span class="signature">(enemy, char)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>enemy</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Enemy.html">Enemy</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>char</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Character.html">Character</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>- Validates a collision between enemy and char</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line250">line 250</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="canHit">
+        <a class="href-link" href="#canHit">#</a>
+        
+        <span class="code-name">
+            
+                canHit<span class="signature">(throwObj, enemy)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Validates a collision between a throwObj and a enemy
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>throwObj</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="ThrowableObject.html">ThrowableObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>enemy</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Enemy.html">Enemy</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line260">line 260</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="canMoveCamera">
+        <a class="href-link" href="#canMoveCamera">#</a>
+        
+        <span class="code-name">
+            
+                canMoveCamera<span class="signature">(leftBoundary, rightBoundary, distanceFromCamera)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Check if camera target is inside Boundaries to allow camera movement
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>leftBoundary</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">minium distance for target to achieve for camera to move.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>rightBoundary</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">maximum distance for target to achieve for camera to move.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>distanceFromCamera</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">how far is the camera's offset from target</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line186">line 186</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="check">
+        <a class="href-link" href="#check">#</a>
+        
+        <span class="code-name">
+            
+                check<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This recursive @function check, calls @this @method checkWorld only after @constant FRAMES_TIME has passed
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line125">line 125</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkAlertEnemies">
+        <a class="href-link" href="#checkAlertEnemies">#</a>
+        
+        <span class="code-name">
+            
+                checkAlertEnemies<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        If Character is in Enemy alert Distance range, enemy will be alerted if it can be alerted
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line194">line 194</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkCamera">
+        <a class="href-link" href="#checkCamera">#</a>
+        
+        <span class="code-name">
+            
+                checkCamera<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        On right movement or left movement, target is position some offset from middle screen,opposed to movement direction.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line163">line 163</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkCollisions">
+        <a class="href-link" href="#checkCollisions">#</a>
+        
+        <span class="code-name">
+            
+                checkCollisions<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function checkCollisions , calls different collision check functions.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line206">line 206</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkCollisionsWithCollectibles">
+        <a class="href-link" href="#checkCollisionsWithCollectibles">#</a>
+        
+        <span class="code-name">
+            
+                checkCollisionsWithCollectibles<span class="signature">(collectibles)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>collectibles</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="CollectibleObject.html">CollectibleObject</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line307">line 307</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkEnemyCharacterCollision">
+        <a class="href-link" href="#checkEnemyCharacterCollision">#</a>
+        
+        <span class="code-name">
+            
+                checkEnemyCharacterCollision<span class="signature">(enemy, index, collection)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Check if player is colliding with @param enemy
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>enemy</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Enemy.html">Enemy</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">instanceof Enemy to check if is Colliding with specific other target Objects</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>index</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the indexOf @param enemy in @param collection</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>collection</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="Enemy.html">Enemy</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the Array that holds a reference to @param enemy</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line231">line 231</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkEnemyCollisions">
+        <a class="href-link" href="#checkEnemyCollisions">#</a>
+        
+        <span class="code-name">
+            
+                checkEnemyCollisions<span class="signature">(enemy, index, collection)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Check if @param enemy is colliding with some specific targets.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>enemy</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="Enemy.html">Enemy</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">instanceof Enemy to check if is Colliding with specific other target Objects</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>index</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the indexOf @param enemy in @param collection</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>collection</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="Enemy.html">Enemy</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">the Array that holds a reference to @param enemy</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line220">line 220</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="checkWorld">
+        <a class="href-link" href="#checkWorld">#</a>
+        
+        <span class="code-name">
+            
+                checkWorld<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function checkWorld, to call different, multiple in game check functions.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line141">line 141</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="collectBottle">
+        <a class="href-link" href="#collectBottle">#</a>
+        
+        <span class="code-name">
+            
+                collectBottle<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Play collect audio, updates status bar.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line356">line 356</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="collectCoin">
+        <a class="href-link" href="#collectCoin">#</a>
+        
+        <span class="code-name">
+            
+                collectCoin<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Play collect audio, updates status bar.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line347">line 347</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="delete">
+        <a class="href-link" href="#delete">#</a>
+        
+        <span class="code-name">
+            
+                delete<span class="signature">(array, mo)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Deletes @param mo from @param array
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>array</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="DrawableObject.html">DrawableObject</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">holds a reference to @param mo</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mo</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="DrawableObject.html">DrawableObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">ist referenced by @param array</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line297">line 297</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="draw">
+        <a class="href-link" href="#draw">#</a>
+        
+        <span class="code-name">
+            
+                draw<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This recursive @member draw calls drawing functions only after @constant FRAMES_TIME has passed
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line366">line 366</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="drawLine">
+        <a class="href-link" href="#drawLine">#</a>
+        
+        <span class="code-name">
+            
+                drawLine<span class="signature">(x1, y1, x2, y2)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Help @function drawLine
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>x1</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>y1</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>x2</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>y2</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line483">line 483</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="hasCollect">
+        <a class="href-link" href="#hasCollect">#</a>
+        
+        <span class="code-name">
+            
+                hasCollect<span class="signature">(collectible)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>collectible</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="CollectibleObject.html">CollectibleObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">-</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line332">line 332</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="insideCanvas">
+        <a class="href-link" href="#insideCanvas">#</a>
+        
+        <span class="code-name">
+            
+                insideCanvas<span class="signature">(mo)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Gives back if the @param mo's Horizontal position is inside Canvas
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mo</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="DrawableObject.html">DrawableObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line456">line 456</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="muteSounds">
+        <a class="href-link" href="#muteSounds">#</a>
+        
+        <span class="code-name">
+            
+                muteSounds<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Help @function muteSounds to stop loop audios from playing
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line465">line 465</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="run">
+        <a class="href-link" href="#run">#</a>
+        
+        <span class="code-name">
+            
+                run<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function run, starts all recursive function in the game.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line78">line 78</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="spliceTimeout">
+        <a class="href-link" href="#spliceTimeout">#</a>
+        
+        <span class="code-name">
+            
+                spliceTimeout<span class="signature">(array, mo)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Calls @function delete after a 2 seconds time out to delete @param mo from @param array
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>array</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;<a href="DrawableObject.html">DrawableObject</a>></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">holds a reference to @param mo</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>mo</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type"><a href="DrawableObject.html">DrawableObject</a></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">ist referenced by @param array</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line288">line 288</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startCheck">
+        <a class="href-link" href="#startCheck">#</a>
+        
+        <span class="code-name">
+            
+                startCheck<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Starts the recursive @function check
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line96">line 96</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startDraw">
+        <a class="href-link" href="#startDraw">#</a>
+        
+        <span class="code-name">
+            
+                startDraw<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Starts the recursive @function draw
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line110">line 110</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stop">
+        <a class="href-link" href="#stop">#</a>
+        
+        <span class="code-name">
+            
+                stop<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function stop, stops all recursive function in the game.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line87">line 87</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopCheck">
+        <a class="href-link" href="#stopCheck">#</a>
+        
+        <span class="code-name">
+            
+                stopCheck<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Stops the recursive @function check
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line103">line 103</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopDraw">
+        <a class="href-link" href="#stopDraw">#</a>
+        
+        <span class="code-name">
+            
+                stopDraw<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Stops the recursive @function draw
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line117">line 117</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="unmuteSounds">
+        <a class="href-link" href="#unmuteSounds">#</a>
+        
+        <span class="code-name">
+            
+                unmuteSounds<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Help @function unmuteSounds to start loop audios to play
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_world.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_world.class.js.html">models/world.class.js</a>, <a href="models_world.class.js.html#line472">line 472</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

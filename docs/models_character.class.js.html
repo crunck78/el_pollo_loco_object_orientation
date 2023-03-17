@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> models/character.class.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CollectibleObject.html">CollectibleObject</a></li><li><a href="CollidableObject.html">CollidableObject</a></li><li><a href="Creature.html">Creature</a></li><li><a href="DestroyableObject.html">DestroyableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="HitPoint.html">HitPoint</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="NPC.html">NPC</a></li><li><a href="Platform.html">Platform</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBackgroundsCollection">getBackgroundsCollection</a></li><li><a href="global.html#getBottlesCollection">getBottlesCollection</a></li><li><a href="global.html#getChickensCollection">getChickensCollection</a></li><li><a href="global.html#getCoinsCollection">getCoinsCollection</a></li><li><a href="global.html#getLevel1">getLevel1</a></li><li><a href="global.html#getLevelBackgrounds">getLevelBackgrounds</a></li><li><a href="global.html#getLevelBottles">getLevelBottles</a></li><li><a href="global.html#getLevelChickens">getLevelChickens</a></li><li><a href="global.html#getLevelClouds">getLevelClouds</a></li><li><a href="global.html#getLevelCoins">getLevelCoins</a></li><li><a href="global.html#getLevelPlatforms">getLevelPlatforms</a></li><li><a href="global.html#getPlatformCollection">getPlatformCollection</a></li><li><a href="global.html#patrol">patrol</a></li><li><a href="global.html#world">world</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>models/character.class.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * An extension of Creature. It is a playable Character that can be controlled via keyboard.
+ * It can walk, jump, throw objects.
+ * Power, it can squish any Enemy it lands on.
+ */
+class Character extends Creature {
+    damage = 20;
+
+    height = 250;
+    x = 10;
+    y = 80;
+    speedX = 5;
+    groundPos = 190;
+
+    lastIdle = new Date().getTime();
+    lastAttack = 0;
+
+    bottles = 0;
+    coins = 0;
+    throwBottles = [];
+
+    offset = {
+        top: 120,
+        bottom: 15,
+        left: 30,
+        right: 30
+    }
+
+
+
+    AUDIOS = CHARACTER_ASSETS['AUDIOS'];
+    IMAGES = CHARACTER_ASSETS['IMAGES'];
+    PROPERTIES = CHARACTER_ASSETS['PROPERTIES'];
+
+    constructor() {
+        super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
+        super.loadAllImages(this.IMAGES);
+        this.keyboard = new Keyboard();
+        this.createStatusBars();
+        //this.initX = super.x;
+    }
+
+    createStatusBars() {
+        this.hitPointsBar = new StatusBar(30, 0, CHARACTER_ASSETS['IMAGES_HIT_POINTS_BAR'], 0);
+        this.hitPointsBar.setPercentage(this.energy);
+        this.coinsBar = new StatusBar(30, 40, CHARACTER_ASSETS['IMAGES_COINS_BAR'], 0);
+        this.coinsBar.setPercentage(this.coins);
+        this.bottlesBar = new StatusBar(30, 80, CHARACTER_ASSETS['IMAGES_BOTTLES_BAR'], 0);
+        this.bottlesBar.setPercentage(this.bottles);
+    }
+
+    /**
+     * @override
+     */
+    animate() {
+        super.startGravity();
+        super.animate();
+    }
+
+    /**
+     * @override
+     */
+    stopAnimate() {
+        super.stopGravity();
+        super.stopAnimate();
+    }
+
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
+    move(timeStamp) {
+        if (this.moveCharTime === undefined) {
+            this.moveCharTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveCharTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveCharTime = timeStamp;
+            this.moveCharacter(timeStamp);
+        }
+        super.move(timeStamp);
+    }
+
+    /**
+     * Defines how a character should be moving
+     * @param {number} timeStamp
+     */
+    moveCharacter(timeStamp) {
+        if (!super.isKilled()) {
+            if (this.canMoveRight()) { this.moveRight(); }
+            if (this.canMoveLeft()) { this.moveLeft(); }
+            if (this.canLaunch()) { this.launch(this.groundPos); }
+            if (this.canAttack()) { this.attack(); }
+        } else {
+            //STOP MOVE DOES NOT WORK, IT IS STILL RUNNING
+            //SET TIMEOUT SOLVES THE PROBLEM BUT WHY???
+            this.launch(CANVAS_HEIGHT + this.height);
+            setTimeout(() => { super.stopMove() });
+        }
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    canMoveRight() {
+        return this.isMovingRight() &amp;&amp;
+            this.x &lt; CANVAS_WIDTH * 4 &amp;&amp;
+            !(this.launching || this.attacking || this.landed);
+    }
+
+    /**
+     * @override
+     */
+    moveRight() {
+        this.lastIdle = 0;
+        super.moveRight();
+        super.otherDirection = false;
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    canMoveLeft() {
+        return this.isMovingLeft() &amp;&amp;
+            this.x > 0 &amp;&amp;
+            !(this.launching || this.attacking || this.landed);
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    isMovingRight() {
+        return this.keyboard.RIGHT; // Poor Control should be fixed, this does not mean is moving right
+    }
+
+    /**
+     * @override
+     */
+    moveLeft() {
+        this.lastIdle = 0;
+        super.moveLeft();
+        super.otherDirection = true;
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    isMovingLeft() {
+        return this.keyboard.LEFT; // Poor Control should be fixed, this does not mean is moving left
+    }
+
+    /**
+     * If this can launch into air
+     * @returns {boolean}
+     */
+    canLaunch() {
+        return (this.keyboard.SPACE &amp;&amp; !(super.isAboveGround() || this.launching || this.landed));
+    }
+
+    /**
+     *
+     * @param {number} groundPos - new  groundPos
+     */
+    launch(groundPos) {
+        this.lastIdle = 0;
+        super.launch(groundPos);
+    }
+
+    /**
+     * @override
+     */
+    land() {
+        this.lastIdle = 0;
+        super.land();
+    }
+
+    /**
+     * If it can throw bottle
+     * @returns {boolean}
+     */
+    canAttack() {
+        return this.keyboard.D &amp;&amp;
+            this.keyboard.THROW_REQUEST_START > this.keyboard.THROW_REQUEST_STOP &amp;&amp;
+            this.bottles > 0 &amp;&amp;
+            !(super.isAboveGround() || super.isHit() || this.landed);
+    }
+
+    /**
+     * Perform bottle throw
+     */
+    attack() {
+        this.lastIdle = 0; //prevents instant idle
+        this.attacking = true; //triggers playAttacking animation
+        this.keyboard.THROW_REQUEST_STOP = new Date().getTime(); //stops attacking if attack button is been hold down
+        let bottle = new ThrowableObject(this.x, this.y + 100, this.otherDirection);
+        this.throwBottles.push(bottle);
+        this.bottles -= 5;
+        this.bottlesBar.setPercentage(this.bottles);
+        setTimeout(() => { this.attacking = false; }, 250); //stops playAttacking after timeout
+    }
+
+    /**
+     * Instant kills an enemy, which performs a followup launch
+     * @param {Enemy} enemy - the enemy to be killed on stamp
+     */
+    stamp(enemy) {
+        enemy.kill();
+        this.speedY = 0;
+        this.velocityY = 30; // higher jump
+        this.launch();
+    }
+
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
+    play(timeStamp) {
+        if (this.playCharTime === undefined) {
+            this.playCharTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playCharTime;
+        if (elapse > FRAMES_TIME) {
+            this.playCharTime = timeStamp;
+            this.playCharacter(timeStamp);
+        }
+        super.play(timeStamp);
+    }
+
+    /**
+     * Defines how a character's images are been played
+     * @param {number} timeStamp
+     */
+    playCharacter(timeStamp) {
+        if (super.isKilled()) { this.playDead(timeStamp); }
+        else if (super.isHit()) { this.playHit(timeStamp); }
+        else if (this.attacking) { this.playAttack(timeStamp); }
+        else if (this.landed) { this.playLanded(timeStamp); }
+        else if (this.launching) { this.playLaunch(timeStamp); }
+        else if (super.isAboveGround() || this.speedY > 0) { this.playAboveGround(timeStamp); }
+        else if (super.isMovingHorizontally()) { this.playMove(timeStamp); }
+        else { this.playStand(timeStamp); }
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playDead(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+        setTimeout(() => { this.stopPlay() }, this.playAnimationElapse * this.IMAGES['DEAD'].length);
+    }
+
+    /**
+     * @override
+     */
+    stopPlay() {
+        // delete this.hitPointsBar;
+        // delete this.coinsBar;
+        // delete this.bottlesBar;
+        super.stopGravity();
+        super.stopPlay();
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playHit(timeStamp) {
+        this.AUDIOS['HIT'].play();
+        super.playAnimation(timeStamp, this.IMAGES['HIT']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playLaunch(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
+        setTimeout(() => { this.launching = false; }, 250);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playAboveGround(timeStamp) {
+        if (super.isJumping()) { this.playJump(timeStamp); }
+        if (super.isMitAir()) { this.playMitAir(timeStamp); }
+        if (super.isLanding()) { this.playLanding(timeStamp); }
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playJump(timeStamp) {
+        this.AUDIOS['JUMP'].play();
+        super.playAnimation(timeStamp, this.IMAGES['JUMP']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playMitAir(timeStamp) {
+        // this.landing = false;
+        // setTimeout(()=> this.landing = true, 100);
+        super.playAnimation(timeStamp, this.IMAGES['MID_AIR']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playLanding(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['LANDING']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playLanded(timeStamp) {
+        this.AUDIOS['LAND'].play();
+        this.landed = true;
+        super.playAnimation(timeStamp, this.IMAGES['LANDED']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playMove(timeStamp) {
+        this.AUDIOS['MOVE'].play();
+        super.playAnimation(timeStamp, this.IMAGES['WALKING']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playStand(timeStamp) {
+        if (this.lastIdle == 0) { // first time idle
+            this.lastIdle = new Date().getTime();
+        }
+        let timePassed = new Date().getTime() - this.lastIdle;
+        if (timePassed > 5000) {
+            super.playAnimation(timeStamp, this.IMAGES['LONG_IDLE']);
+        } else {
+            super.playAnimation(timeStamp, this.IMAGES['IDLE']);
+        }
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playAttack(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['ATTACK']);
+        //setTimeout(() => this.attacking = false, 250);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playLaunch(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['LAUNCH']);
+    }
+
+    /**
+     *
+     * @param {number} damage
+     */
+    hit(damage) {
+        this.lastIdle = 0;
+        super.hit(damage);
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    /**
+     * @override
+     */
+    kill() {
+        this.lastIdle = 0;
+        super.kill();
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    /**
+     * @param {MovableObject} mo
+     * @returns {boolean}
+     */
+    isStamping(mo) {
+        return !(mo instanceof EndBoss) &amp;&amp; super.getHitBoxBottomPos() - mo.getHitBoxTopPos() &lt;= 20;
+        //Tolerance may vary on different browsers and or machines config
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

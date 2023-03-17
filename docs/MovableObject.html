@@ -1,0 +1,4357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> MovableObject</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CollectibleObject.html">CollectibleObject</a></li><li><a href="CollidableObject.html">CollidableObject</a></li><li><a href="Creature.html">Creature</a></li><li><a href="DestroyableObject.html">DestroyableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="HitPoint.html">HitPoint</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="NPC.html">NPC</a></li><li><a href="Platform.html">Platform</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBackgroundsCollection">getBackgroundsCollection</a></li><li><a href="global.html#getBottlesCollection">getBottlesCollection</a></li><li><a href="global.html#getChickensCollection">getChickensCollection</a></li><li><a href="global.html#getCoinsCollection">getCoinsCollection</a></li><li><a href="global.html#getLevel1">getLevel1</a></li><li><a href="global.html#getLevelBackgrounds">getLevelBackgrounds</a></li><li><a href="global.html#getLevelBottles">getLevelBottles</a></li><li><a href="global.html#getLevelChickens">getLevelChickens</a></li><li><a href="global.html#getLevelClouds">getLevelClouds</a></li><li><a href="global.html#getLevelCoins">getLevelCoins</a></li><li><a href="global.html#getLevelPlatforms">getLevelPlatforms</a></li><li><a href="global.html#getPlatformCollection">getPlatformCollection</a></li><li><a href="global.html#patrol">patrol</a></li><li><a href="global.html#world">world</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Class</p>
+                    <h1>MovableObject</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>MovableObject<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">An extension of DrawableObject Construct that can be animated inside a 2d Canvas Context.TODO Each instance after reference to it has been lost or instance is no longer needed and deleted from view, all recursive calls to it should be handled (stopped)</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
+
+
+    
+    <h4 class="name" id="MovableObject">
+        <a class="href-link" href="#MovableObject">#</a>
+        
+        <span class="code-name">
+            
+                new MovableObject<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line6">line 6</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="accelerationY">
+    <a class="href-link" href="#accelerationY">#</a>
+    
+    <span class="code-name">
+        accelerationY
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    - Vertical Acceleration, Gravity
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line31">line 31</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="gravityAnimationElapse">
+    <a class="href-link" href="#gravityAnimationElapse">#</a>
+    
+    <span class="code-name">
+        gravityAnimationElapse
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line92">line 92</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="gravityTime">
+    <a class="href-link" href="#gravityTime">#</a>
+    
+    <span class="code-name">
+        gravityTime
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms for running code inside recursive @function gravityonly after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line87">line 87</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="groundPos">
+    <a class="href-link" href="#groundPos">#</a>
+    
+    <span class="code-name">
+        groundPos
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    - Vertical Position for Gravity to Measure distance relative to ground
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line15">line 15</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">boolean</code>
+
+
+    </span>
+
+<h4 class="name" id="landed">
+    <a class="href-link" href="#landed">#</a>
+    
+    <span class="code-name">
+        landed
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Control flag to determine If this instance is performing ground touch animation
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line104">line 104</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">boolean</code>
+
+
+    </span>
+
+<h4 class="name" id="launching">
+    <a class="href-link" href="#launching">#</a>
+    
+    <span class="code-name">
+        launching
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Control flag to determine if this instance is performing launch animation.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line98">line 98</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="moveAnimationElapse">
+    <a class="href-link" href="#moveAnimationElapse">#</a>
+    
+    <span class="code-name">
+        moveAnimationElapse
+    </span>
+    
+</h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line72">line 72</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="moveOjectTime">
+    <a class="href-link" href="#moveOjectTime">#</a>
+    
+    <span class="code-name">
+        moveOjectTime
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms for running code inside recursive @function moveonly after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line67">line 67</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="playAnimationElapse">
+    <a class="href-link" href="#playAnimationElapse">#</a>
+    
+    <span class="code-name">
+        playAnimationElapse
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms, for how long should one image be drawn
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line52">line 52</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="playObjectTime">
+    <a class="href-link" href="#playObjectTime">#</a>
+    
+    <span class="code-name">
+        playObjectTime
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    Measuring time passing variable in ms for running code inside recursive @function playonly after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line46">line 46</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="requestGravity">
+    <a class="href-link" href="#requestGravity">#</a>
+    
+    <span class="code-name">
+        requestGravity
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line80">line 80</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="requestMove">
+    <a class="href-link" href="#requestMove">#</a>
+    
+    <span class="code-name">
+        requestMove
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line60">line 60</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="requestPlay">
+    <a class="href-link" href="#requestPlay">#</a>
+    
+    <span class="code-name">
+        requestPlay
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    A long integer value, the request id, that uniquely identifies the entry in the callback list. This is a non-zero value, but you may not make any other assumptions about its value. You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line39">line 39</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="speedX">
+    <a class="href-link" href="#speedX">#</a>
+    
+    <span class="code-name">
+        speedX
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    - Horizontal Speed Movement
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line10">line 10</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="speedY">
+    <a class="href-link" href="#speedY">#</a>
+    
+    <span class="code-name">
+        speedY
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    - Vertical Speed Movement
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line20">line 20</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<code class="param-type">number</code>
+
+
+    </span>
+
+<h4 class="name" id="velocityY">
+    <a class="href-link" href="#velocityY">#</a>
+    
+    <span class="code-name">
+        velocityY
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    - Vertical Velocity
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line25">line 25</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="animate">
+        <a class="href-link" href="#animate">#</a>
+        
+        <span class="code-name">
+            
+                animate<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function animate , starts the recursive @function move and @function play
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line129">line 129</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="applyGravity">
+        <a class="href-link" href="#applyGravity">#</a>
+        
+        <span class="code-name">
+            
+                applyGravity<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Simulates Vertical Projectile motion, if this instance isAboveGround or @member speedY greater then 0,
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line229">line 229</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="gravity">
+        <a class="href-link" href="#gravity">#</a>
+        
+        <span class="code-name">
+            
+                gravity<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Self recalling function, calling @method applyGravity only after @constant FRAMES_TIME has passed.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line212">line 212</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isAboveGround">
+        <a class="href-link" href="#isAboveGround">#</a>
+        
+        <span class="code-name">
+            
+                isAboveGround<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        If this instance @member y is less then this instance @member groundPos
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line244">line 244</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isInAir">
+        <a class="href-link" href="#isInAir">#</a>
+        
+        <span class="code-name">
+            
+                isInAir<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        If this instance is jumping or landing or in mit air.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line261">line 261</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isJumping">
+        <a class="href-link" href="#isJumping">#</a>
+        
+        <span class="code-name">
+            
+                isJumping<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        The time when simulating vertical projectile motion inside @method applyGravity,the vertical position is increasing in conventional coordinate systems
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line270">line 270</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isLanding">
+        <a class="href-link" href="#isLanding">#</a>
+        
+        <span class="code-name">
+            
+                isLanding<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        The time when simulating vertical projectile motion inside @method applyGravity,the vertical position is decreasing in conventional coordinate systems
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line302">line 302</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="isMitAir">
+        <a class="href-link" href="#isMitAir">#</a>
+        
+        <span class="code-name">
+            
+                isMitAir<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line293">line 293</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">boolean</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="jump">
+        <a class="href-link" href="#jump">#</a>
+        
+        <span class="code-name">
+            
+                jump<span class="signature">(groundPos)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Triggers @method gravity if it is started to call @method applyGravity
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>groundPos</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new groundPos</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line278">line 278</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="land">
+        <a class="href-link" href="#land">#</a>
+        
+        <span class="code-name">
+            
+                land<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Sets @member landed as true for 250 ms timeout.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line309">line 309</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="launch">
+        <a class="href-link" href="#launch">#</a>
+        
+        <span class="code-name">
+            
+                launch<span class="signature">(groundPos)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>groundPos</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">new groundPos</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line251">line 251</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="move">
+        <a class="href-link" href="#move">#</a>
+        
+        <span class="code-name">
+            
+                move<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This is used to recall the Child Class overridden @method move.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line174">line 174</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="moveDown">
+        <a class="href-link" href="#moveDown">#</a>
+        
+        <span class="code-name">
+            
+                moveDown<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Add to this instance @member y, this instance @member speedY
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line368">line 368</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="moveLeft">
+        <a class="href-link" href="#moveLeft">#</a>
+        
+        <span class="code-name">
+            
+                moveLeft<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Subtract from this instance @member x, this instance @member speedX
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line354">line 354</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="moveRight">
+        <a class="href-link" href="#moveRight">#</a>
+        
+        <span class="code-name">
+            
+                moveRight<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Add to this instance @member x, this instance @member speedX
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line347">line 347</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="moveUp">
+        <a class="href-link" href="#moveUp">#</a>
+        
+        <span class="code-name">
+            
+                moveUp<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Subtract from this instance @member y, this instance @member speedY
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line361">line 361</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="play">
+        <a class="href-link" href="#play">#</a>
+        
+        <span class="code-name">
+            
+                play<span class="signature">(timeStamp)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        This is used to recall the Child Class overridden @method play.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line186">line 186</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="playAnimation">
+        <a class="href-link" href="#playAnimation">#</a>
+        
+        <span class="code-name">
+            
+                playAnimation<span class="signature">(timeStamp, images)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Queries an image from @member imageCache as the next image to be drawnonly if @member playAnimationElapse time passed.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>timeStamp</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>images</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Array.&lt;string></code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">a collection of image paths that have been loaded with @method loadImages to @member imageCache</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line112">line 112</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startGravity">
+        <a class="href-link" href="#startGravity">#</a>
+        
+        <span class="code-name">
+            
+                startGravity<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Starts the recursive @function gravity
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line197">line 197</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startMove">
+        <a class="href-link" href="#startMove">#</a>
+        
+        <span class="code-name">
+            
+                startMove<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Starts the recursive @function move
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line137">line 137</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="startPlay">
+        <a class="href-link" href="#startPlay">#</a>
+        
+        <span class="code-name">
+            
+                startPlay<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Starts the recursive @function play
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line144">line 144</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopAnimate">
+        <a class="href-link" href="#stopAnimate">#</a>
+        
+        <span class="code-name">
+            
+                stopAnimate<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Wrapper @function stopAnimate, cancels the recursion @function move and @function play
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line151">line 151</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopGravity">
+        <a class="href-link" href="#stopGravity">#</a>
+        
+        <span class="code-name">
+            
+                stopGravity<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Stops the recursive @function gravity
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line204">line 204</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopMove">
+        <a class="href-link" href="#stopMove">#</a>
+        
+        <span class="code-name">
+            
+                stopMove<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Stops the recursive @function move
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line159">line 159</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="stopPlay">
+        <a class="href-link" href="#stopPlay">#</a>
+        
+        <span class="code-name">
+            
+                stopPlay<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Stops the recursive @function play
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="models_movable-object.class.js.html" class="button">View Source</a>
+            <span>
+                <a href="models_movable-object.class.js.html">models/movable-object.class.js</a>, <a href="models_movable-object.class.js.html#line166">line 166</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

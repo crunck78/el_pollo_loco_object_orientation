@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> models/endboss.class.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CollectibleObject.html">CollectibleObject</a></li><li><a href="CollidableObject.html">CollidableObject</a></li><li><a href="Creature.html">Creature</a></li><li><a href="DestroyableObject.html">DestroyableObject</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Enemy.html">Enemy</a></li><li><a href="HitPoint.html">HitPoint</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="NPC.html">NPC</a></li><li><a href="Platform.html">Platform</a></li><li><a href="StatusBar.html">StatusBar</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#getBackgroundsCollection">getBackgroundsCollection</a></li><li><a href="global.html#getBottlesCollection">getBottlesCollection</a></li><li><a href="global.html#getChickensCollection">getChickensCollection</a></li><li><a href="global.html#getCoinsCollection">getCoinsCollection</a></li><li><a href="global.html#getLevel1">getLevel1</a></li><li><a href="global.html#getLevelBackgrounds">getLevelBackgrounds</a></li><li><a href="global.html#getLevelBottles">getLevelBottles</a></li><li><a href="global.html#getLevelChickens">getLevelChickens</a></li><li><a href="global.html#getLevelClouds">getLevelClouds</a></li><li><a href="global.html#getLevelCoins">getLevelCoins</a></li><li><a href="global.html#getLevelPlatforms">getLevelPlatforms</a></li><li><a href="global.html#getPlatformCollection">getPlatformCollection</a></li><li><a href="global.html#patrol">patrol</a></li><li><a href="global.html#world">world</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>models/endboss.class.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class EndBoss extends Enemy {
+
+    damage = 40;
+
+    offset = {
+        top: 100,
+        bottom: 30,
+        left: 30,
+        right: 30
+    }
+
+    energy = 100;
+
+    height = 350;
+    width = 250;
+    y = 0;
+    x = 2600;
+
+    speedX = 3;
+    groundPos = 110;
+
+    playAnimationElapse = 550;
+
+    chickens = [];
+
+    AUDIOS = END_BOSS['AUDIOS'];
+    IMAGES = END_BOSS['IMAGES'];
+
+    constructor() {
+        super().loadImage(this.IMAGES['IDLE'][0]);
+        super.loadAllImages(this.IMAGES);
+        this.lastPosX = this.x;
+        this.hitPointsBar = new StatusBar(this.x, this.y, this.IMAGES['IMAGES_HIT_POINTS_BAR']);
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    /**
+     * @override
+     */
+    animate() {
+        // super.startDirectionChange();
+        super.animate();
+    }
+
+    /**
+     * @override
+     */
+    stopAnimate() {
+        // super.stopDirectionChange();
+        super.stopAnimate();
+    }
+
+    /**
+     * @override
+     * @param {number} timeStamp
+     */
+    play(timeStamp) {
+        if (this.playBossTime === undefined) {
+            this.playBossTime = timeStamp;
+        }
+        const elapse = timeStamp - this.playBossTime;
+        if (elapse > FRAMES_TIME) {
+            this.playBossTime = timeStamp;
+            this.playEndBoss(timeStamp);
+        }
+        super.play(timeStamp);
+    }
+
+    /**
+     * Defines how a endboss's images are been played
+     * @param {number} timeStamp
+     */
+    playEndBoss(timeStamp) {
+        if (super.isKilled()) this.playDead(timeStamp);
+        else if (super.isHit()) this.playHit(timeStamp);
+        else if (this.attacking) this.playAttack(timeStamp);
+        else if (this.alerted) this.playAlert(timeStamp);
+        else if (super.isMovingHorizontally()) this.playMove(timeStamp);
+        else this.playIdle(timeStamp);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playDead(timeStamp) {
+        this.playAnimationElapse = 300;
+        super.playAnimation(timeStamp, this.IMAGES['DEAD']);
+        setTimeout(() => { this.stopPlay(); }, this.playAnimationElapse * this.IMAGES['DEAD'].length * 2); //looks nicer for this animation
+    }
+
+    /**
+     * @override
+     */
+    stopPlay() {
+        delete this.hitPointsBar; //is this ok? draw asks anyway if object to draw exists
+        super.stopGravity();
+        super.stopPlay();
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playHit(timeStamp) {
+        this.AUDIOS['HIT'].play();
+        this.playAnimationElapse = 300;
+        super.playAnimation(timeStamp, this.IMAGES['HIT']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playAlert(timeStamp) {
+        this.playAnimationElapse = 300;
+        super.playAnimation(timeStamp, this.IMAGES['ALERT']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playAttack(timeStamp) {
+        this.playAnimationElapse = 300;
+        super.playAnimation(timeStamp, this.IMAGES['ATTACK']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playMove(timeStamp) {
+        this.playAnimationElapse = 300;
+        super.playAnimation(timeStamp, this.IMAGES['WALKING']);
+    }
+
+    /**
+     *
+     * @param {number} timeStamp
+     */
+    playIdle(timeStamp) {
+        super.playAnimation(timeStamp, this.IMAGES['IDLE']);
+        this.playAnimationElapse = 550;
+    }
+
+    /**
+     * @override
+     * @param {time} timeStamp
+     */
+    move(timeStamp) {
+        if (this.moveBossTime === undefined) {
+            this.moveBossTime = timeStamp;
+        }
+        const elapse = timeStamp - this.moveBossTime;
+        if (elapse > FRAMES_TIME) {
+            this.moveBossTime = timeStamp;
+            this.moveEndBoss(timeStamp);
+        }
+        super.move(timeStamp);
+    }
+
+    /**
+     * Defines how a endboss should be moving
+     * @param {number} timeStamp
+     */
+    moveEndBoss(timeStamp) {
+        if (!super.isKilled()) {
+            this.moveEnemy();
+        } else {
+            this.launch(CANVAS_HEIGHT + this.height);
+            setTimeout(() => { super.stopMove(); });
+        }
+    }
+
+    /**
+     * @override
+     */
+    moveEnemy() {
+        super.moveEnemy();
+        this.hitPointsBar.x = this.x;
+        this.hitPointsBar.y = this.y;
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    canMoveRight() {
+        return false;
+    }
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    canMoveLeft() {
+        return false;
+    }
+
+    /**
+     * @override
+     */
+    kill() {
+        super.kill();
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+    /**
+     * @override
+     * @param {CollidableObject} target
+     */
+    hit(target) {
+        super.hit(target);
+        super.alert(target);
+        this.hitPointsBar.setPercentage(this.energy);
+    }
+
+
+    attack() {
+        super.attack();
+        setTimeout(() => { this.createChicken(); }, 0);
+        //find a timeout that creates a new chicken when attack images are playing and the fly image is played
+        //for this purpose , when attack animations begin to play, currentImg should be 0, then multiply the time it takes to
+        //draw a image times the position of fly image in the attack images array
+        setTimeout(() => { this.createChicken(); }, 1000);
+    }
+
+    /**
+     *
+     */
+    createChicken() {
+        let newChicken = new Chicken(this.x, 0,this.otherDirection);
+        newChicken.speedX = 2;
+        newChicken.animate();
+        this.chickens.push(newChicken);
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>
