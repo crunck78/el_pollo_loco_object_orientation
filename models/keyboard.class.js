@@ -81,6 +81,7 @@ class Keyboard {
             }
             if (e.keyCode == 68) {
                 if (this.THROW_REQUEST_STOP > this.THROW_REQUEST_START && !this.D) {
+                    // allow throw only after one second has passed, preventing spamming of throw key press
                     if ((new Date().getTime() - this.THROW_REQUEST_START) > 1000) {
                         this.THROW_REQUEST_START = new Date().getTime();
                     }
