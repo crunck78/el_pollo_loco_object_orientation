@@ -1,3 +1,1 @@
-class BigChicken extends EndBoss{
-
-}
+class BigChicken extends EndBoss {}

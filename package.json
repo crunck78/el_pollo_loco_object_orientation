@@ -18,9 +18,22 @@
   },
   "homepage": "https://github.com/crunck78/el_pollo_loco_object_orientation#readme",
   "devDependencies": {
-    "better-docs": "^2.7.2"
+    "@eslint/css": "^0.10.0",
+    "@eslint/js": "^9.33.0",
+    "@eslint/json": "^0.13.1",
+    "@eslint/markdown": "^7.1.0",
+    "better-docs": "^2.7.2",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2"
   },
   "dependencies": {
     "taffydb": "^2.7.3"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": []
 }

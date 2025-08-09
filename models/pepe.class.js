@@ -1,3 +1,1 @@
-class Pepe extends Character{
-    
-}
+class Pepe extends Character {}

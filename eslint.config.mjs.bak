@@ -1,0 +1,60 @@
+import js from "@eslint/js";
+import globals from "globals";
+import json from "@eslint/json";
+import markdown from "@eslint/markdown";
+import css from "@eslint/css";
+import prettier from "eslint-plugin-prettier"; // NEW
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+  // JavaScript files
+  {
+    files: ["**/*.{js,mjs,cjs}"],
+    plugins: { js, prettier }, // add prettier plugin
+    extends: ["js/recommended", "plugin:prettier/recommended"], // extend Prettier
+    languageOptions: { globals: globals.browser },
+    rules: {
+      "prettier/prettier": "error" // show Prettier issues as errors
+    }
+  },
+
+  // JSON
+  {
+    files: ["**/*.json"],
+    plugins: { json, prettier },
+    language: "json/json",
+    extends: ["json/recommended", "plugin:prettier/recommended"]
+  },
+
+  // JSONC
+  {
+    files: ["**/*.jsonc"],
+    plugins: { json, prettier },
+    language: "json/jsonc",
+    extends: ["json/recommended", "plugin:prettier/recommended"]
+  },
+
+  // JSON5
+  {
+    files: ["**/*.json5"],
+    plugins: { json, prettier },
+    language: "json/json5",
+    extends: ["json/recommended", "plugin:prettier/recommended"]
+  },
+
+  // Markdown
+  {
+    files: ["**/*.md"],
+    plugins: { markdown, prettier },
+    language: "markdown/commonmark",
+    extends: ["markdown/recommended", "plugin:prettier/recommended"]
+  },
+
+  // CSS
+  {
+    files: ["**/*.css"],
+    plugins: { css, prettier },
+    language: "css/css",
+    extends: ["css/recommended", "plugin:prettier/recommended"]
+  }
+]);

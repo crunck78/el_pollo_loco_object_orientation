@@ -4,368 +4,375 @@
  * , all recursive calls to it should be handled (stopped)
  */
 class MovableObject extends DrawableObject {
-    /**
-     * @type {number} - Horizontal Speed Movement
-     */
-    speedX = 0.15;
+  /**
+   * @type {number} - Horizontal Speed Movement
+   */
+  speedX = 0.15;
 
-    /**
-     * @type {number} - Vertical Position for Gravity to Measure distance relative to ground
-     */
-    groundPos = 180;
+  /**
+   * @type {number} - Vertical Position for Gravity to Measure distance relative to ground
+   */
+  groundPos = 180;
 
-    /**
-     * @type {number} - Vertical Speed Movement
-     */
-    speedY = 0;
+  /**
+   * @type {number} - Vertical Speed Movement
+   */
+  speedY = 0;
 
-    /**
-     * @type {number} - Vertical Velocity
-     */
-    velocityY = 20;
-    normalVelocity = 20;
+  /**
+   * @type {number} - Vertical Velocity
+   */
+  velocityY = 20;
+  normalVelocity = 20;
 
-    /**
-     * @type {number} - Vertical Acceleration, Gravity
-     */
-    accelerationY = 1;
+  /**
+   * @type {number} - Vertical Acceleration, Gravity
+   */
+  accelerationY = 1;
 
-    /**
-     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
-     *  This is a non-zero value, but you may not make any other assumptions about its value.
-     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
-     * @type {number}
-     */
-    requestPlay;
+  /**
+   * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+   *  This is a non-zero value, but you may not make any other assumptions about its value.
+   *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+   * @type {number}
+   */
+  requestPlay;
 
-    /**
-     * Measuring time passing variable in ms for running code inside recursive @function play
-     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
-     * @type {number}
-     */
-    playObjectTime;
+  /**
+   * Measuring time passing variable in ms for running code inside recursive @function play
+   * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+   * @type {number}
+   */
+  playObjectTime;
 
-    /**
-     * Measuring time passing variable in ms, for how long should one image be drawn
-     * @type {number}
-     */
-    playAnimationElapse = 160;
+  /**
+   * Measuring time passing variable in ms, for how long should one image be drawn
+   * @type {number}
+   */
+  playAnimationElapse = 160;
 
-    /**
-     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
-     *  This is a non-zero value, but you may not make any other assumptions about its value.
-     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
-     * @type {number}
-     */
-    requestMove;
+  /**
+   * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+   *  This is a non-zero value, but you may not make any other assumptions about its value.
+   *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+   * @type {number}
+   */
+  requestMove;
 
-    /**
-     * Measuring time passing variable in ms for running code inside recursive @function move
-     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
-     * @type {number}
-     */
-    moveOjectTime;
+  /**
+   * Measuring time passing variable in ms for running code inside recursive @function move
+   * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+   * @type {number}
+   */
+  moveOjectTime;
 
-    /**
-     * @type {number}
-     */
-    moveAnimationElapse = 160;
+  /**
+   * @type {number}
+   */
+  moveAnimationElapse = 160;
 
-    /**
-     * A long integer value, the request id, that uniquely identifies the entry in the callback list.
-     *  This is a non-zero value, but you may not make any other assumptions about its value.
-     *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
-     * @type {number}
-     */
-    requestGravity;
+  /**
+   * A long integer value, the request id, that uniquely identifies the entry in the callback list.
+   *  This is a non-zero value, but you may not make any other assumptions about its value.
+   *  You can pass this value to window.cancelAnimationFrame() to cancel the refresh callback request.
+   * @type {number}
+   */
+  requestGravity;
 
-    /**
-     * Measuring time passing variable in ms for running code inside recursive @function gravity
-     * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
-     * @type {number}
-     */
-    gravityTime;
+  /**
+   * Measuring time passing variable in ms for running code inside recursive @function gravity
+   * only after at least this amount off time has passed. ( replaced By FRAMES_TIME @global )
+   * @type {number}
+   */
+  gravityTime;
 
-    /**
-     * @type {number}
-     */
-    gravityAnimationElapse = 160;
+  /**
+   * @type {number}
+   */
+  gravityAnimationElapse = 160;
 
-    /**
-     * Control flag to determine if this instance is performing launch animation.
-     * @type {boolean}
-     */
-    launching;
+  /**
+   * Control flag to determine if this instance is performing launch animation.
+   * @type {boolean}
+   */
+  launching;
 
-    /**
-     * Control flag to determine If this instance is performing ground touch animation
-     * @type {boolean}
-     */
-    landed;
+  /**
+   * Control flag to determine If this instance is performing ground touch animation
+   * @type {boolean}
+   */
+  landed;
 
-    /**
-     * Queries an image from @member imageCache as the next image to be drawn
-     * only if @member playAnimationElapse time passed.
-     * @param {number} timeStamp
-     * @param {string[]} images - a collection of image paths that have been loaded with @method loadImages to @member imageCache
-     */
-    playAnimation(timeStamp, images) {
-        if (this.playAnimationTime === undefined) {
-            this.playAnimationTime = timeStamp;
-        }
-        const elapse = timeStamp - this.playAnimationTime;
-        if (elapse > this.playAnimationElapse) {
-            this.playAnimationTime = timeStamp;
-            let i = this.currentImage % images.length;
-            let path = images[i];
-            this.img = this.imageCache[path].img;
-            this.currentImage++;
-        }
+  /**
+   * Queries an image from @member imageCache as the next image to be drawn
+   * only if @member playAnimationElapse time passed.
+   * @param {number} timeStamp
+   * @param {string[]} images - a collection of image paths that have been loaded with @method loadImages to @member imageCache
+   */
+  playAnimation(timeStamp, images) {
+    if (this.playAnimationTime === undefined) {
+      this.playAnimationTime = timeStamp;
     }
-
-    /**
-     * Wrapper @function animate , starts the recursive @function move and @function play
-     */
-    animate() {
-        this.startMove();
-        this.startPlay();
+    const elapse = timeStamp - this.playAnimationTime;
+    if (elapse > this.playAnimationElapse) {
+      this.playAnimationTime = timeStamp;
+      let i = this.currentImage % images.length;
+      let path = images[i];
+      this.img = this.imageCache[path].img;
+      this.currentImage++;
     }
+  }
 
-    /**
-     * Starts the recursive @function move
-     */
-    startMove() {
-        this.requestMove = requestAnimationFrame(this.move.bind(this));
+  /**
+   * Wrapper @function animate , starts the recursive @function move and @function play
+   */
+  animate() {
+    this.startMove();
+    this.startPlay();
+  }
+
+  /**
+   * Starts the recursive @function move
+   */
+  startMove() {
+    this.requestMove = requestAnimationFrame(this.move.bind(this));
+  }
+
+  /**
+   * Starts the recursive @function play
+   */
+  startPlay() {
+    this.requestPlay = requestAnimationFrame(this.play.bind(this));
+  }
+
+  /**
+   * Wrapper @function stopAnimate, cancels the recursion @function move and @function play
+   */
+  stopAnimate() {
+    this.stopMove();
+    this.stopPlay();
+  }
+
+  /**
+   * Stops the recursive @function move
+   */
+  stopMove() {
+    cancelAnimationFrame(this.requestMove);
+  }
+
+  /**
+   * Stops the recursive @function play
+   */
+  stopPlay() {
+    cancelAnimationFrame(this.requestPlay);
+  }
+
+  /**
+   * This is used to recall the Child Class overridden @method move.
+   * @param {number} timeStamp
+   */
+  move(timeStamp) {
+    if (this.moveOjectTime === undefined) {
+      this.moveOjectTime = timeStamp;
     }
+    if (this instanceof ThrowableObject)
+      console.log('Move Animation Runs for:', this);
+    this.requestMove = requestAnimationFrame(this.move.bind(this));
+  }
 
-    /**
-     * Starts the recursive @function play
-     */
-    startPlay() {
-        this.requestPlay = requestAnimationFrame(this.play.bind(this));
+  /**
+   * This is used to recall the Child Class overridden @method play.
+   * @param {number} timeStamp
+   */
+  play(timeStamp) {
+    if (this.playObjectTime === undefined) {
+      this.playObjectTime = timeStamp;
     }
+    if (this instanceof ThrowableObject)
+      console.log('Play Animation Runs for:', this);
+    this.requestPlay = requestAnimationFrame(this.play.bind(this));
+  }
 
-    /**
-     * Wrapper @function stopAnimate, cancels the recursion @function move and @function play
-     */
-    stopAnimate() {
-        this.stopMove();
-        this.stopPlay();
+  /**
+   * Starts the recursive @function gravity
+   */
+  startGravity() {
+    this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
+  }
+
+  /**
+   * Stops the recursive @function gravity
+   */
+  stopGravity() {
+    cancelAnimationFrame(this.requestGravity);
+  }
+
+  /**
+   * Self recalling function, calling @method applyGravity only after @constant FRAMES_TIME has passed.
+   * @param {number} timeStamp
+   */
+  gravity(timeStamp) {
+    if (this.gravityTime === undefined) {
+      this.gravityTime = timeStamp;
     }
-
-    /**
-     * Stops the recursive @function move
-     */
-    stopMove() {
-        cancelAnimationFrame(this.requestMove);
+    const elapse = timeStamp - this.gravityTime;
+    if (elapse > FRAMES_TIME) {
+      this.gravityTime = timeStamp;
+      this.applyGravity();
+      if (this instanceof ThrowableObject)
+        console.log('Gravity Runs for:', this);
     }
+    this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
+  }
 
-    /**
-     * Stops the recursive @function play
-     */
-    stopPlay() {
-        cancelAnimationFrame(this.requestPlay);
+  /**
+   * Simulates Vertical Projectile motion,
+   *  if this instance isAboveGround or @member speedY greater then 0,
+   */
+  applyGravity() {
+    if (this.isAboveGround() || this.speedY > 0) {
+      this.y -= this.speedY;
+      this.speedY -= this.accelerationY;
+      //This only has to happen once every time this instance after been launched, then lands.
+      if (!(this.isAboveGround() || this.speedY > 0)) {
+        this.land();
+      }
     }
+  }
 
-    /**
-     * This is used to recall the Child Class overridden @method move.
-     * @param {number} timeStamp
-     */
-    move(timeStamp) {
-        if (this.moveOjectTime === undefined) {
-            this.moveOjectTime = timeStamp;
-        }
-        if(this instanceof ThrowableObject) console.log('Move Animation Runs for:', this);
-        this.requestMove = requestAnimationFrame(this.move.bind(this));
-    }
+  /**
+   * If this instance @member y is less then this instance @member groundPos
+   * @returns {boolean}
+   */
+  isAboveGround() {
+    return this.y < this.groundPos;
+  }
 
-    /**
-     * This is used to recall the Child Class overridden @method play.
-     * @param {number} timeStamp
-     */
-    play(timeStamp) {
-        if (this.playObjectTime === undefined) {
-            this.playObjectTime = timeStamp;
-        }
-        if(this instanceof ThrowableObject) console.log('Play Animation Runs for:', this);
-        this.requestPlay = requestAnimationFrame(this.play.bind(this));
-    }
+  /**
+   * @param {number} groundPos - new groundPos
+   */
+  launch(groundPos) {
+    this.currentImage = 0;
+    this.launching = true;
+    setTimeout(() => {
+      this.jump(groundPos);
+    }, 250); // give time for launch animation
+  }
 
-    /**
-     * Starts the recursive @function gravity
-     */
-    startGravity() {
-        this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
-    }
+  /**
+   * If this instance is jumping or landing or in mit air.
+   * @returns {boolean}
+   */
+  isInAir() {
+    return this.isJumping() || this.isLanding() || this.isMitAir();
+  }
 
-    /**
-     * Stops the recursive @function gravity
-     */
-    stopGravity() {
-        cancelAnimationFrame(this.requestGravity);
-    }
+  /**
+   * The time when simulating vertical projectile motion inside @method applyGravity,
+   * the vertical position is increasing in conventional coordinate systems
+   * @returns {boolean}
+   */
+  isJumping() {
+    return this.speedY > 0 && this.isAboveGround();
+  }
 
-    /**
-     * Self recalling function, calling @method applyGravity only after @constant FRAMES_TIME has passed.
-     * @param {number} timeStamp
-     */
-    gravity(timeStamp) {
-        if (this.gravityTime === undefined) {
-            this.gravityTime = timeStamp;
-        }
-        const elapse = timeStamp - this.gravityTime;
-        if (elapse > FRAMES_TIME) {
-            this.gravityTime = timeStamp;
-            this.applyGravity();
-            if(this instanceof ThrowableObject) console.log('Gravity Runs for:', this);
-        }
-        this.requestGravity = requestAnimationFrame(this.gravity.bind(this));
-    }
+  /**
+   * Triggers @method gravity if it is started to call @method applyGravity
+   * @param {number} groundPos - new groundPos
+   */
+  jump(groundPos) {
+    this.launching = false;
+    this.groundPos = groundPos ? groundPos : this.groundPos;
+    this.speedY = this.velocityY;
+    this.velocityY = this.normalVelocity;
+  }
 
-    /**
-     * Simulates Vertical Projectile motion,
-     *  if this instance isAboveGround or @member speedY greater then 0,
-     */
-    applyGravity() {
-        if (this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY;
-            this.speedY -= this.accelerationY;
-            //This only has to happen once every time this instance after been launched, then lands.
-            if (!(this.isAboveGround() || this.speedY > 0)) {
-                this.land();
-            }
-        }
-    }
+  // getGroundPos(){
+  //     return GROUND - this.height;
+  // }
 
-    /**
-     * If this instance @member y is less then this instance @member groundPos
-     * @returns {boolean}
-     */
-    isAboveGround() {
-        return this.y < this.groundPos;
-    }
+  /**
+   * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity
+   * @returns {boolean}
+   */
+  isMitAir() {
+    return this.isAboveGround() && !(this.isJumping() || this.isLanding());
+  }
 
-    /**
-     * @param {number} groundPos - new groundPos
-     */
-    launch(groundPos) {
-        this.currentImage = 0;
-        this.launching = true;
-        setTimeout(() => { this.jump(groundPos); }, 250); // give time for launch animation
-    }
+  /**
+   * The time when simulating vertical projectile motion inside @method applyGravity,
+   * the vertical position is decreasing in conventional coordinate systems
+   * @returns {boolean}
+   */
+  isLanding() {
+    return this.speedY < 0 && this.isAboveGround(); // && this.landing !== undefined &&  this.landing;
+  }
 
-    /**
-     * If this instance is jumping or landing or in mit air.
-     * @returns {boolean}
-     */
-    isInAir() {
-        return this.isJumping() || this.isLanding() || this.isMitAir();
-    }
+  /**
+   * Sets @member landed as true for 250 ms timeout.
+   */
+  land() {
+    this.y = this.groundPos;
+    this.currentImage = 0;
+    this.landed = true;
+    setTimeout(() => {
+      this.landed = false;
+    }, 250); // give time for landing animation
+  }
 
-    /**
-    * The time when simulating vertical projectile motion inside @method applyGravity,
-    * the vertical position is increasing in conventional coordinate systems
-    * @returns {boolean}
-    */
-    isJumping() {
-        return this.speedY > 0 && this.isAboveGround();
-    }
+  isMoving() {
+    return this.isMovingVertically() || this.isMovingHorizontally();
+  }
 
-    /**
-     * Triggers @method gravity if it is started to call @method applyGravity
-     * @param {number} groundPos - new groundPos
-     */
-    jump(groundPos) {
-        this.launching = false;
-        this.groundPos = groundPos ? groundPos : this.groundPos;
-        this.speedY = this.velocityY;
-        this.velocityY = this.normalVelocity;
-    }
+  isMovingVertically() {
+    return this.isMovingUp() || this.isMovingDown();
+  }
 
-    // getGroundPos(){
-    //     return GROUND - this.height;
-    // }
+  isMovingHorizontally() {
+    return this.isMovingRight() || this.isMovingLeft();
+  }
 
-    /**
-     * The time when max point is achieved when simulating vertical projectile motion inside @method applyGravity
-     * @returns {boolean}
-     */
-    isMitAir() {
-        return this.isAboveGround() && !(this.isJumping() || this.isLanding());
-    }
+  isMovingLeft() {
+    throw new Error('You have to implement the method isMovingLeft!');
+  }
 
-    /**
-     * The time when simulating vertical projectile motion inside @method applyGravity,
-     * the vertical position is decreasing in conventional coordinate systems
-     * @returns {boolean}
-     */
-    isLanding() {
-        return this.speedY < 0 && this.isAboveGround(); // && this.landing !== undefined &&  this.landing;
-    }
+  isMovingRight() {
+    throw new Error('You have to implement the method isMovingRight!');
+  }
 
-    /**
-     * Sets @member landed as true for 250 ms timeout.
-     */
-    land() {
-        this.y = this.groundPos;
-        this.currentImage = 0;
-        this.landed = true;
-        setTimeout(() => { this.landed = false; }, 250); // give time for landing animation
-    }
+  isMovingUp() {
+    throw new Error('You have to implement the method isMovingLeft!');
+  }
 
-    isMoving() {
-        return this.isMovingVertically() || this.isMovingHorizontally();
-    }
+  isMovingDown() {
+    throw new Error('You have to implement the method isMovingRight!');
+  }
 
-    isMovingVertically(){
-        return this.isMovingUp() || this.isMovingDown();
-    }
+  /**
+   * Add to this instance @member x, this instance @member speedX
+   */
+  moveRight() {
+    this.x += this.speedX;
+  }
 
-    isMovingHorizontally(){
-        return this.isMovingRight() || this.isMovingLeft();
-    }
+  /**
+   * Subtract from this instance @member x, this instance @member speedX
+   */
+  moveLeft() {
+    this.x -= this.speedX;
+  }
 
-    isMovingLeft() {
-        throw new Error('You have to implement the method isMovingLeft!');
-    }
+  /**
+   * Subtract from this instance @member y, this instance @member speedY
+   */
+  moveUp() {
+    this.y -= this.speedX;
+  }
 
-    isMovingRight() {
-        throw new Error('You have to implement the method isMovingRight!');
-    }
-
-    isMovingUp() {
-        throw new Error('You have to implement the method isMovingLeft!');
-    }
-
-    isMovingDown() {
-        throw new Error('You have to implement the method isMovingRight!');
-    }
-
-    /**
-     * Add to this instance @member x, this instance @member speedX
-     */
-    moveRight() {
-        this.x += this.speedX;
-    }
-
-    /**
-     * Subtract from this instance @member x, this instance @member speedX
-     */
-    moveLeft() {
-        this.x -= this.speedX;
-    }
-
-    /**
-     * Subtract from this instance @member y, this instance @member speedY
-     */
-    moveUp() {
-        this.y -= this.speedX;
-    }
-
-    /**
-     * Add to this instance @member y, this instance @member speedY
-     */
-    moveDown() {
-        this.y += this.speedX;
-    }
+  /**
+   * Add to this instance @member y, this instance @member speedY
+   */
+  moveDown() {
+    this.y += this.speedX;
+  }
 }
