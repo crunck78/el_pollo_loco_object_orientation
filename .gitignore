@@ -5,3 +5,4 @@ El Pollo Loco.bat
 .material-design-icons/*
 node_modules/
 out/
+dist/

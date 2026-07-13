@@ -1,17 +1,21 @@
+import css from "@eslint/css";
 import js from "@eslint/js";
-import globals from "globals";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
-import css from "@eslint/css";
 import prettierPlugin from "eslint-plugin-prettier"; // Import the plugin
 import { defineConfig } from "eslint/config";
+import globals from "globals";
 
 export default defineConfig([
+  {
+    ignores: ["dist/**"]
+  },
+
   // JavaScript files
   {
     files: ["**/*.{js,mjs,cjs}"],
     plugins: { prettier: prettierPlugin },
-    languageOptions: { globals: globals.browser },
+    languageOptions: { globals: globals.browser, sourceType: "module" },
     rules: {
       ...js.configs.recommended.rules, // ESLint JS recommended rules
       ...prettierPlugin.configs.recommended.rules // Prettier recommended rules
