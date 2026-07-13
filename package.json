@@ -1,22 +1,12 @@
 {
-  "name": "el_pollo_loco_object_orientation",
-  "version": "1.0.0",
-  "description": "Run Action Jump Game",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "jsdoc -r -c jsdoc.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/crunck78/el_pollo_loco_object_orientation.git"
-  },
   "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/crunck78/el_pollo_loco_object_orientation/issues"
   },
-  "homepage": "https://github.com/crunck78/el_pollo_loco_object_orientation#readme",
+  "dependencies": {
+    "taffydb": "^2.7.3"
+  },
+  "description": "Run Action Jump Game",
   "devDependencies": {
     "@eslint/css": "^0.10.0",
     "@eslint/js": "^9.33.0",
@@ -27,13 +17,27 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.3.0",
-    "prettier": "^3.6.2"
-  },
-  "dependencies": {
-    "taffydb": "^2.7.3"
+    "prettier": "^3.6.2",
+    "vite": "^8.1.4"
   },
   "directories": {
     "doc": "docs"
   },
-  "keywords": []
+  "homepage": "https://github.com/crunck78/el_pollo_loco_object_orientation#readme",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "el_pollo_loco_object_orientation",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crunck78/el_pollo_loco_object_orientation.git"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "docs": "jsdoc -r -c jsdoc.json",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
 }

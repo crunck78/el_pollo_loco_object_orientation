@@ -6,23 +6,30 @@
 
 ## Day 1 — Vite Scaffolding
 
-**Date:** 2026-07-10  
-**Status:** ⬜ TODO
+**Date:** 2026-07-13  
+**Status:** ✅ DONE
 
 ### Key Concepts Learned
-- [ ] How Vite differs from plain `<script>` bundling
-- [ ] Why setting `sourceType: "module"` in ESLint prevents errors later
-- [ ] How the deploy pipeline changes when you introduce a build step
+- [x] **Vite's dev server vs. build step treat classic `<script>` tags completely differently.** Dev mode just serves your whole project root as static files, so any relative path resolves "by luck." The build step only bundles `<script type="module">` — a classic `<script src="...">` gets a warning (`can't be bundled without type="module" attribute`) and is left untouched **without the referenced file being copied**. This is why `npm run dev` succeeding proved nothing about `npm run build`.
+- [x] **Vite's `public/` convention** copies files byte-for-byte to the build output root, preserving relative paths — this let us keep `img/`, `audio/`, `js/`, `models/` working with zero source-code edits (folder moves only) while classic scripts are still in play. Temporary until Day 9–10 when the entry point collapses to one ES module.
+- [x] **ESLint flat config global ignores**: an object with only an `ignores` key (no `files`) applies to every config in the array — that's how `dist/**` got excluded repo-wide in one line.
+- [x] **`core.autocrlf=true` masks reality.** Git stores blobs as LF internally but checks them out as CRLF on Windows. `git add --renormalize .` showed "no changes" not because things were fine, but because Git already treated the CRLF working copy as equivalent to the LF blob. Confirming the `.gitattributes` `eol=lf` policy actually took effect on disk required `file <filename>` — a diff tool showing nothing is not proof a content-affecting config change worked.
+- [x] **GitHub Actions `on: push` with no `branches:` filter fires on every push to every branch.** `deploy.yml` had this from before any of today's changes — meaning pushing an epic working branch would trigger a live FTP deploy to production. Caught only by explicitly asking "what could still go wrong here" after the main work was done, not automatically.
 
 ### Mistakes / Could Do Better
-(None yet — this is Day 1!)
+- Moved `img/`/`audio/` into `public/` based on reasoning about asset-string paths *before* actually running a full `npm run build` and reading its raw output. The build's very first run already printed the `can't be bundled without type="module"` warning for every script tag — if I'd scanned that output line-by-line immediately instead of jumping to "does the page load in the browser," the `js/`/`models/` fix would have been applied in the same pass as the image/audio fix, not discovered two round-trips later via a runtime "Javascript Files can not be found."
+- Didn't proactively gate the new `dist/` output folder across every repo-wide tool at once — `.gitignore` was added first, ESLint's `dist/**` ignore was only added because the user (not me) noticed it, and the `deploy.yml` branch-trigger risk wasn't caught until an explicit "what went wrong" retro. A new generated-output folder should trigger a single checklist pass (git, linter, formatter, CI triggers) rather than being found one tool at a time.
 
 ### What Went Well
-(To be filled in)
+- Verified real behavior by actually running `npm run build` and inspecting `dist/`'s file list, instead of assuming the fix worked — this is what caught the missing `js/`/`models/` files definitively.
+- Kept the "zero game-code-changes" constraint intact for the whole day — every fix was a folder move or a config change, never a source-code edit.
+- Split unrelated concerns into separate, independently-revertible commits: Vite scaffolding, line-ending normalization, and the deploy-trigger fix.
+- Caught two real issues before I flagged them: the missing `dist/` ESLint ignore, and the CRLF/line-ending drift. Good instinct to keep exercising.
 
 ### Open Questions
 - How does Vite's dev server differ from a simple `python -m http.server`?
 - When would you NOT use Vite for a JS project?
+- Would a separate CI "quality gate" workflow (lint + build on every push/PR, not just `main`) have caught the `deploy.yml` branch-trigger issue automatically, without needing a manual retro? Worth deciding as stretch scope.
 
 ---
 

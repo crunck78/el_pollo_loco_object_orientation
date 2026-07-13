@@ -14,7 +14,7 @@
 
 | Epic | Days | Status | Branch | Merge Commit |
 |------|------|--------|--------|--------------|
-| E1: Tooling foundation | 1 | ⬜ TODO | `epic/01-vite-scaffolding` | — |
+| E1: Tooling foundation | 1 | ✅ DONE (pending merge) | `epic/01-vite-scaffolding` | — |
 | E2: ESM pilot + testing | 2 | ⬜ TODO | `epic/02-esm-pilot-testing` | — |
 | E3: Core spine | 3–6 | ⬜ TODO | `epic/03-core-spine` | — |
 | E4: Leaf classes | 7–8 | ⬜ TODO | `epic/04-leaf-classes` | — |
@@ -38,15 +38,23 @@
 - Set `sourceType: "module"` in [eslint.config.mjs](eslint.config.mjs) pre-emptively
 
 **Definition of Done:**
-- [ ] Game identical under `npm run dev`
-- [ ] Game identical under `npm run preview`
-- [ ] Real `dist/` dry-run deploy works
-- [ ] All game functionality verified (movement, collision, collectibles, boss, HUD)
+- [x] Game identical under `npm run dev`
+- [x] Game identical under `npm run preview`
+- [x] Real `dist/` dry-run deploy works
+- [x] All game functionality verified (movement, collision, collectibles, boss, HUD)
 
-**Status:** ⬜ TODO  
+**Notes:** `img/`, `audio/`, `js/`, `models/` moved under `public/` — Vite's build step
+silently drops classic (non-`type="module"`) `<script src>` references without copying
+the file, so this keeps `dist/` deployable with zero game-code changes. Temporary until
+Day 9–10 collapses the entry point to a single ES module. Also normalized line endings
+to LF via `.gitattributes`/`.editorconfig` (separate commit) — dropped ESLint errors
+from 10,883 (mostly CRLF noise) to 1,007 (real `no-undef` cross-file coupling, expected
+to resolve as the ESM migration proceeds).
+
+**Status:** ✅ DONE  
 **Branch:** `epic/01-vite-scaffolding`  
 **PR:** —  
-**Commits:** —
+**Commits:** `1e35999` (Vite scaffolding + asset relocation), `b17273d` (line-ending normalization)
 
 ---
 
