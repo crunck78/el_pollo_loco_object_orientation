@@ -1,0 +1,382 @@
+# 3-Week Refactor Progress: El Pollo Loco → 2D Game Engine
+
+**Timeline:** 3 weeks, 5 days/week, 15 day-tickets total  
+**Start date:** 2026-07-10  
+**Target end date:** 2026-07-31  
+**Model:** Sonnet 5  
+**Collaboration:** User writes code; AI reviews/mentors
+
+**Full roadmap & context:** [.claude/plans/this-is-my-2d-shimmering-parnas.md](.claude/plans/this-is-my-2d-shimmering-parnas.md)
+
+---
+
+## Status Overview
+
+| Epic | Days | Status | Branch | Merge Commit |
+|------|------|--------|--------|--------------|
+| E1: Tooling foundation | 1 | ⬜ TODO | `epic/01-vite-scaffolding` | — |
+| E2: ESM pilot + testing | 2 | ⬜ TODO | `epic/02-esm-pilot-testing` | — |
+| E3: Core spine | 3–6 | ⬜ TODO | `epic/03-core-spine` | — |
+| E4: Leaf classes | 7–8 | ⬜ TODO | `epic/04-leaf-classes` | — |
+| E5: Entry point | 9–10 | ⬜ TODO | `epic/05-entry-point` | — |
+| E6: Game loop | 11–12 | ⬜ TODO | `epic/06-game-loop` | — |
+| E7: Decouple World/Level | 13 | ⬜ TODO | `epic/07-decouple-world-level` | — |
+| E8: Data-driven levels | 14–15 | ⬜ TODO | `epic/08-data-driven-levels` | — |
+
+---
+
+## Day-by-Day Tickets
+
+### Day 1 — E1: Vite scaffolding
+
+**Ticket:** Add Vite, zero code changes  
+**Concept:** Vite serves plain `<script>` tags fine without any ESM conversion — safest possible first step  
+**Task:**
+- `npm i -D vite`
+- Add `vite.config.js` with `dev`/`build`/`preview` scripts
+- Update [.github/workflows/deploy.yml](.github/workflows/deploy.yml) to `npm ci && npm run build` and FTP-sync `dist/` instead of repo root
+- Set `sourceType: "module"` in [eslint.config.mjs](eslint.config.mjs) pre-emptively
+
+**Definition of Done:**
+- [ ] Game identical under `npm run dev`
+- [ ] Game identical under `npm run preview`
+- [ ] Real `dist/` dry-run deploy works
+- [ ] All game functionality verified (movement, collision, collectibles, boss, HUD)
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/01-vite-scaffolding`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 2 — E2: ESM pilot + Vitest
+
+**Ticket:** Convert `Keyboard`, add Vitest  
+**Concept:** `Keyboard` has no `extends` — cheapest place to learn the "bridge" pattern (`export class X` + `window.X = X`) before touching inheritance  
+**Task:**
+- Convert [models/keyboard.class.js](models/keyboard.class.js) to an ES module with a `window.Keyboard` bridge line
+- Flip its `<script>` to `type="module"` in [index.html](index.html)
+- `npm i -D vitest`; add `test` script in package.json
+- Write first unit tests for `Keyboard` (e.g., flag setting, debounce logic)
+
+**Definition of Done:**
+- [ ] Input still works in-game (left/right/jump/throw)
+- [ ] `npm test` passes
+- [ ] `window.Keyboard` bridge exists and is tested
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/02-esm-pilot-testing`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 3 — E3: Core spine (1/4)
+
+**Ticket:** Convert `DrawableObject`  
+**Concept:** Root of the hierarchy, zero deps — safe starting point for the riskiest migration phase  
+**Task:**
+- Bridge-pattern convert [models/drawable-object.class.js](models/drawable-object.class.js)
+- Flip its `<script>` to `type="module"` in [index.html](index.html)
+- Verify no console errors
+
+**Definition of Done:**
+- [ ] Rendering unaffected (sprites appear, camera pans, parallax works)
+- [ ] Full manual playthrough: move, jump, collide, win/lose
+- [ ] No console errors
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/03-core-spine`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 4 — E3: Core spine (2/4)
+
+**Ticket:** Convert `MovableObject`  
+**Concept:** Depends only on `DrawableObject`, which is now converted  
+**Task:**
+- Bridge-pattern convert [models/movable-object.class.js](models/movable-object.class.js)
+- Flip its `<script>` to `type="module"` in [index.html](index.html)
+
+**Definition of Done:**
+- [ ] Movement/animation unaffected (character walks, jumps, enemies patrol)
+- [ ] Frame throttling still works (no jank)
+- [ ] Full manual playthrough passes
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/03-core-spine`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 5 — E3: Core spine (3/4)
+
+**Ticket:** Convert `CollidableObject` + real tests  
+**Concept:** First genuinely valuable test target — pure AABB math, easy to unit test once importable  
+**Task:**
+- Bridge-pattern convert [models/collidable-object.class.js](models/collidable-object.class.js)
+- Write Vitest coverage for `isColliding()`, `isLeftSide()`, `isRightSide()`, `isAbove()`, `isBelow()`
+- Flip its `<script>` to `type="module"` in [index.html](index.html)
+
+**Definition of Done:**
+- [ ] Collision behavior unaffected (character lands on platforms, enemy hits are detected, coins collected)
+- [ ] Collision test suite green (`npm test`)
+- [ ] Full manual playthrough passes
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/03-core-spine`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 6 — E3: Core spine (4/4)
+
+**Ticket:** Convert `DestroyableObject` + `Creature`  
+**Concept:** Closes out the spine before the wide leaf-class conversion  
+**Task:**
+- Bridge-pattern convert [models/destroyable-object.class.js](models/destroyable-object.class.js) and [models/creature-object.class.js](models/creature-object.class.js)
+- Flip their `<script>` tags to `type="module"` in [index.html](index.html)
+
+**Definition of Done:**
+- [ ] Hit/kill/energy behavior unaffected (enemies die, character loses health, coins/bottles collected)
+- [ ] Full manual playthrough passes
+- [ ] No console errors
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/03-core-spine`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 7 — E4: Leaf classes (1/2)
+
+**Ticket:** Convert batch 1 of leaf classes  
+**Concept:** Mechanical repetition of the now-learned bridge pattern — lighter mentoring, good solo-practice day  
+**Task:**
+- Bridge-pattern convert: `Platform`, `Collectible`, `Coin`, `Bottle`, `HitPoint`, `Cloud`, `BackgroundObject`, `StatusBar`, `ThrowableObject`
+- Flip all their `<script>` tags to `type="module"` in [index.html](index.html)
+
+**Definition of Done:**
+- [ ] Full playthrough: coins appear, bottles throw, platforms hold, clouds parallax, status bars render
+- [ ] No console errors
+- [ ] All 9 classes have `window.X` bridges in place
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/04-leaf-classes`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 8 — E4: Leaf classes (2/2)
+
+**Ticket:** Convert batch 2 + data modules  
+**Concept:** Same pattern, finishes the class tree plus the two data/config files  
+**Task:**
+- Bridge-pattern convert: `NPC`, `Enemy`, `Chicken`, `EndBoss`, `BigChicken`, `Character`, `Pepe`, `World`, `Level`
+- Convert data files: [js/assets.js](js/assets.js), [models/levels/level1.js](models/levels/level1.js)
+- Flip all their `<script>` tags to `type="module"` in [index.html](index.html)
+
+**Definition of Done:**
+- [ ] Full playthrough: enemies patrol, boss spawns chickens, assets load, level data loads
+- [ ] No console errors
+- [ ] All remaining classes + data modules have `window.X` bridges in place
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/04-leaf-classes`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 9 — E5: Entry point (1/2)
+
+**Ticket:** Rewire inline handlers  
+**Concept:** The landmine: `onload`/`onclick` break the moment `game.js` becomes a module — isolate this failure mode from the World/Level conversion  
+**Task:**
+- In [index.html](index.html), remove `onload="init()"` and the three `onclick="..."` attributes
+- Create [js/main.js](js/main.js) that wires all four handlers via `addEventListener`
+- Flip [js/game.js](js/game.js) to `type="module"` in [index.html](index.html)
+- Keep all other `<script>` tags as-is; you'll delete them on Day 10
+
+**Definition of Done:**
+- [ ] HUD buttons (play/sound toggle/HUD toggle) work identically
+- [ ] Game starts on page load
+- [ ] No console errors
+- [ ] 24 `<script>` tags still exist (one `<script type="module" src="js/main.js">`, 23 classic tags); `js/game.js` is now a module
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/05-entry-point`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 10 — E5: Entry point (2/2)
+
+**Ticket:** Convert `World`/`Level`, single module entry  
+**Concept:** Last two globals; once these convert, everything can collapse to one script tag  
+**Task:**
+- Bridge-pattern convert `World`/`Level` (already 70% done from Day 8, finish the bridges)
+- Replace all 25 `<script>` tags in [index.html](index.html) with one `<script type="module" src="js/main.js">`
+- Delete every `window.X` bridge line from [js/main.js](js/main.js) and all class files
+- `npm run build && npm run preview` — verify production build works
+
+**Definition of Done:**
+- [ ] Full playthrough from the single module entry
+- [ ] Zero bridges remain in the codebase
+- [ ] `npm run build` succeeds
+- [ ] `npm run preview` runs the built version identically
+- [ ] No console errors
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/05-entry-point`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 11 — E6: Game loop (1/2)
+
+**Ticket:** `GameLoop` shim  
+**Concept:** Unifying the loop *before* decoupling World/Level avoids redoing all iteration code twice  
+**Task:**
+- Create [engine/game-loop.js](engine/game-loop.js) — a new `GameLoop` class
+- `GameLoop` computes `dt` from one `requestAnimationFrame`, wrapping the existing `animate()` calls with no behavior change yet
+- Add `engine/` folder to eslint/build ignore list if needed
+- Add loop/dt unit tests to [engine/game-loop.test.js](engine/game-loop.test.js)
+
+**Definition of Done:**
+- [ ] Exactly one `requestAnimationFrame` in the codebase (in `GameLoop`, not scattered)
+- [ ] Game behavior identical (no animation stutter, no behavior change)
+- [ ] Loop/dt test suite green (`npm test`)
+- [ ] Full manual playthrough passes
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/06-game-loop`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 12 — E6: Game loop (2/2)
+
+**Ticket:** Migrate entities onto `update(dt)`/`render(ctx)`  
+**Concept:** Centralizing `FRAMES_TIME` throttling in one place instead of copy-pasted per-class guards  
+**Task:**
+- Migrate `Character` first, then remaining entities, onto the `GameLoop`'s `update(dt)` and `render(ctx)` calls
+- Delete the old per-class `startMove()`/`startPlay()`/`startGravity()` rAF chains and per-class `FRAMES_TIME` throttle guards
+- Centralize frame-time math in `GameLoop` only
+
+**Definition of Done:**
+- [ ] `FRAMES_TIME` throttle logic centralized in one place (GameLoop)
+- [ ] All entities migrate to `update(dt)`/`render(ctx)` lifecycle
+- [ ] Game behavior identical (no animation changes, no timing changes)
+- [ ] Loop migration unit tests green
+- [ ] Full manual playthrough passes
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/06-game-loop`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 13 — E7: Decouple World/Level
+
+**Ticket:** Generic entity registry + decouple World/Level  
+**Concept:** Highest-value decoupling — removes the god-object pattern that blocks reuse; folds in stripping `instanceof` leaks  
+**Task:**
+- Add a generic `entities` array in `World`, populated alongside existing named fields (`enemies`, `endBoss.chickens`, etc.)
+- Cut `checkCollisions()`/draw order over to iterate the generic array one field at a time
+- Delete old hardcoded fields last
+- Remove `instanceof Character/Bottle/Coin` checks from `DrawableObject`/`MovableObject`
+- Extract collision-orchestration logic into pure, tested functions in [engine/collision.js](engine/collision.js)
+
+**Definition of Done:**
+- [ ] Identical playthrough (coins, bottles, boss fight, win/lose)
+- [ ] Zero `instanceof` checks remain in base classes
+- [ ] `World.checkCollisions()` now generic (iterates `entities`)
+- [ ] Collision-orchestration test suite green
+- [ ] Full manual playthrough passes
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/07-decouple-world-level`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 14 — E8: Data-driven levels (1/2)
+
+**Ticket:** Entity factory  
+**Concept:** A factory must exist *before* JSON is worth adding — otherwise JSON only externalizes coordinates, not the hardcoded-type problem  
+**Task:**
+- Create [engine/entity-factory.js](engine/entity-factory.js) — an `EntityFactory` mapping type strings (`"coin"`, `"chicken"`, `"platform"`, etc.) to constructors
+- Refactor `Level` to use the factory to spawn entities
+- Add factory unit tests in [engine/entity-factory.test.js](engine/entity-factory.test.js)
+
+**Definition of Done:**
+- [ ] Factory unit-tested (each type string maps to the correct constructor)
+- [ ] `Level` still builds identically via the factory
+- [ ] Full manual playthrough passes
+- [ ] Ready for Day 15 (JSON level format)
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/08-data-driven-levels`  
+**PR:** —  
+**Commits:** —
+
+---
+
+### Day 15 — E8: Data-driven levels (2/2)
+
+**Ticket:** `level1.json` + `LevelLoader`  
+**Concept:** Closes the loop — externalizes the last hardcoded, magic-number data source  
+**Task:**
+- Convert [models/levels/level1.js](models/levels/level1.js) into [models/levels/level1.json](models/levels/level1.json) (entity arrays, positions, types)
+- Create [engine/level-loader.js](engine/level-loader.js) — a `LevelLoader` that reads JSON and spawns entities via the Day-14 factory
+- Add loader unit tests in [engine/level-loader.test.js](engine/level-loader.test.js)
+
+**Definition of Done:**
+- [ ] `level1.json` reproduces the level exactly (same entities, positions, behavior)
+- [ ] Loader unit-tested
+- [ ] Full manual playthrough passes (coins at exact positions, enemies patrol correctly, boss spawns)
+- [ ] `npm run build && npm run preview` works
+- [ ] No console errors
+
+**Status:** ⬜ TODO  
+**Branch:** `epic/08-data-driven-levels`  
+**PR:** —  
+**Commits:** —
+
+---
+
+## Stretch / Backlog (Beyond 15 days)
+
+Not committed to the 3-week deadline — defer freely:
+
+- [ ] AssetManager: centralized image/audio cache, shared pool, uniform mute coverage
+- [ ] Folder split: move engine code into `engine/`, game code into `game/`
+- [ ] Second level or toy game as proof the engine is decoupled
+- [ ] JSDoc/engine API documentation
+- [ ] End-to-end tests (Vitest with mock canvas or Playwright)
+
+---
+
+## Notes
+
+- **Each day is a real mentoring unit:** a concept to learn, a concrete task, a way to verify the game still works.
+- **If a day runs long:** expand it to 2 days rather than cut corners. Better to deliver quality than rush.
+- **Model switching:** Use Sonnet (or Opus for hard design calls). Haiku is not sufficient for this level of mentoring/code review.
+- **Verification approach:**
+  - `npm run dev` — manual playthrough, exercise the behavior touched that day
+  - `npm test` — keep test suite green (starting Day 2)
+  - `npm run build && npm run preview` — spot-check at epic boundaries (Days 1, 10, 15 minimum)
+
