@@ -1,7 +1,12 @@
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**.md'
 name: 🚀 Deploy website on push
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   web-deploy:
     name: 🎉 Deploy
