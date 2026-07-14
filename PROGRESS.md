@@ -375,6 +375,10 @@ Not committed to the 3-week deadline — defer freely:
 - [ ] Second level or toy game as proof the engine is decoupled
 - [ ] JSDoc/engine API documentation
 - [ ] End-to-end tests (Vitest with mock canvas or Playwright)
+- [ ] Input abstraction: `Keyboard`/on-screen controls hardcode this game's DOM ids (`btnLeft`, `btnRight`, `btnJump`, `btnThrow`) — an engine-grade input class should receive DOM refs or an id/action mapping via config/injection instead, so a different game built on the engine can define its own control scheme
+- [ ] `Keyboard` needs a teardown method (e.g. `destroy()`/`unbind()`) — it currently has no way to remove the listeners it attaches to `window`; harmless at today's scale but worth having once the engine creates/destroys many input instances (e.g. multiple levels, tests)
+- [ ] Decide project-wide formatting width: `prettier.config.cjs` has `printWidth: 80`; if the 120-column editor ruler in `.vscode/settings.json` is the real target, bump `printWidth` to 120 too (they're currently inconsistent) — note Prettier reflows structurally and won't hard-wrap something it can't safely split (e.g. a long string/template literal)
+- [ ] Touch-event tests (`keyboard.class.test.js`) only run where `TouchEvent` has a native constructor — jsdom fakes it and Chromium/WebKit implement it, but desktop Firefox does not by default, so those cases are skipped there via `test.skipIf`. Revisit if real mobile/touch-device test coverage becomes a priority (e.g. Playwright mobile-viewport emulation)
 
 ---
 

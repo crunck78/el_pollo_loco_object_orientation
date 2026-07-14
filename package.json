@@ -12,13 +12,16 @@
     "@eslint/js": "^9.33.0",
     "@eslint/json": "^0.13.1",
     "@eslint/markdown": "^7.1.0",
+    "@vitest/browser-playwright": "^4.1.10",
     "better-docs": "^2.7.2",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.3.0",
+    "jsdom": "^29.1.1",
     "prettier": "^3.6.2",
-    "vite": "^8.1.4"
+    "vite": "^8.1.4",
+    "vitest": "^4.1.10"
   },
   "directories": {
     "doc": "docs"
@@ -37,7 +40,8 @@
     "dev": "vite",
     "docs": "jsdoc -r -c jsdoc.json",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:browser": "vitest --config=vitest.browser.config.js"
   },
   "version": "1.0.0"
 }

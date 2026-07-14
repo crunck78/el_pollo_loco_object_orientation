@@ -1,4 +1,4 @@
-class Keyboard {
+export class Keyboard {
   LEFT = false;
   RIGHT = false;
   UP = false;
@@ -121,3 +121,5 @@ class Keyboard {
     });
   }
 }
+
+window.Keyboard = Keyboard;
