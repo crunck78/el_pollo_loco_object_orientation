@@ -35,23 +35,31 @@
 
 ## Day 2 — ESM Pilot + Vitest
 
-**Date:** TBD  
-**Status:** ⬜ TODO
+**Date:** 2026-07-14  
+**Status:** ✅ DONE
 
 ### Key Concepts Learned
-- [ ] ES module syntax (`import`/`export`)
-- [ ] The "bridge pattern" (`export class X` + `window.X = X`)
-- [ ] Why unit testing an isolated class is easier once it's importable
+- [x] **The bridge pattern's actual mechanism**: `export class X` gives the module its own scope, so `X` stops leaking onto `window` automatically the way a classic `<script>`'s top-level `class`/`function` declarations do. `window.X = X` manually restores that global for every other file that still expects `new X()` to work as a bare identifier. It's a deliberate, temporary crutch — deleted once everything is real modules importing each other (Day 10).
+- [x] **A converted file must leave `public/` to actually get bundled.** `public/` is always raw passthrough — Vite never processes it. `Keyboard` moved back to `models/` specifically because it's now `type="module"`, and the build output proved it worked: `dist/assets/index-*.js` appeared as a real bundled/hashed asset for the first time, instead of a verbatim-copied file.
+- [x] **Vitest table-test title interpolation depends on the case shape.** `%s`/`%i` printf placeholders only work for array-of-*array* (positional) cases; array-of-*objects* need `$propertyName` syntax instead. Mixed these up and every title silently rendered `"keyCode NaN toggles NaN correctly"` — caught by actually reading verbose test output, not just the pass/fail count.
+- [x] **`new JSDOM()` inside a test creates a second, isolated DOM — not a shortcut to configure the existing one.** Vitest's `environment: 'jsdom'` already injects `window`/`document` as the real global objects; `Keyboard` reads those ambient globals directly. A manually-constructed `JSDOM()` instance is a completely separate realm the class under test never touches, so elements added to its document are invisible, and events dispatched on its window never reach listeners bound to the real global window.
+- [x] **`TouchEvent` has no native constructor in desktop Firefox by default** — Chromium and WebKit implement it, and jsdom fakes it uniformly, which is exactly why `npm test` (jsdom-only) never caught this but `npm run test:browser` (real browsers via Playwright) did. A genuine cross-browser platform gap, not a config mistake — fixed with `test.skipIf(typeof TouchEvent === 'undefined')`, not by forcing it to pass.
+- [x] **A lockfile can be internally inconsistent, not just stale.** `npm ci` failed in CI with "Missing: @emnapi/core@1.11.2 from lock file" even though the same `package-lock.json` installed fine locally on Windows — the lockfile had two different pinned versions of the same nested WASM binding dependency, which only surfaces as a hard failure under `npm ci`'s strict check, not under the more lenient `npm install`.
 
 ### Mistakes / Could Do Better
-(To be filled in)
+- Two `test.for` title bugs shipped before being caught: the `%i` placeholder issue (see above) and a separate `$btnID`/`btnId` casing mismatch in the touch-test titles. Neither broke the actual assertions — only the human-readable test names — which is exactly why they're easy to miss without deliberately checking verbose output.
+- The touchstart/touchend test cases were missing `btnThrow` entirely (only `btnLeft`/`btnRight`/`btnJump` were covered) — a coverage gap that a quick "does every button in the source have a matching test case" pass would have caught immediately.
+- `package-lock.json` committed on Day 2 was already internally inconsistent — didn't surface until the next CI run. Worth remembering: a lockfile installing cleanly on your own machine isn't proof it's correct; `npm ci` (not `npm install`) is the real trust check, and it's worth running locally before pushing when dependencies changed.
 
 ### What Went Well
-(To be filled in)
+- Verified the ESM conversion actually worked by checking the *build output*, not just that tests passed — seeing `Keyboard` show up as a real bundled `dist/assets/*.js` file (instead of a verbatim-copied one) was concrete proof the module graph picked it up correctly.
+- Caught two real `no-unused-vars` findings via ESLint while cleaning up the test file (a dead `let keyboard` at describe-scope, an unused local in the bridge test) — these weren't cosmetic, they were genuinely dead code the auto-formatter wouldn't have caught on its own.
+- Diagnosed the CI-only lockfile failure by reproducing CI's exact `npm ci` step locally (fresh `node_modules` wipe) instead of guessing — confirmed the root cause before touching anything, then verified the fix with the full test suite + a production build before pushing.
 
 ### Open Questions
-- Why does the bridge pattern work? (Module scope vs. global scope?)
-- When would you delete the bridge vs. keep it?
+- Why does the bridge pattern work? (Module scope vs. global scope?) — **Answered above**, keeping as a permanent reference note for future days' conversions.
+- When would you delete the bridge vs. keep it? — Day 10, once every file importing `Keyboard` does so via real `import` instead of the global.
+- Would pinning Node/npm versions (`.nvmrc` + `engines` in `package.json`) or switching to pnpm have caught the `@emnapi` lockfile inconsistency earlier, before it reached CI? Tracked in `PROGRESS.md` backlog.
 
 ---
 

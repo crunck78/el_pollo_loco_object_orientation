@@ -379,6 +379,8 @@ Not committed to the 3-week deadline — defer freely:
 - [ ] `Keyboard` needs a teardown method (e.g. `destroy()`/`unbind()`) — it currently has no way to remove the listeners it attaches to `window`; harmless at today's scale but worth having once the engine creates/destroys many input instances (e.g. multiple levels, tests)
 - [ ] Decide project-wide formatting width: `prettier.config.cjs` has `printWidth: 80`; if the 120-column editor ruler in `.vscode/settings.json` is the real target, bump `printWidth` to 120 too (they're currently inconsistent) — note Prettier reflows structurally and won't hard-wrap something it can't safely split (e.g. a long string/template literal)
 - [ ] Touch-event tests (`keyboard.class.test.js`) only run where `TouchEvent` has a native constructor — jsdom fakes it and Chromium/WebKit implement it, but desktop Firefox does not by default, so those cases are skipped there via `test.skipIf`. Revisit if real mobile/touch-device test coverage becomes a priority (e.g. Playwright mobile-viewport emulation)
+- [ ] Move from npm to pnpm — stricter, content-addressed lockfile and dependency resolution that's less prone to the kind of internally-inconsistent lock (`@emnapi/core` pinned at two different versions across the tree) that broke `npm ci` in CI on 2026-07-14; pnpm's lockfile format and strict node_modules layout catch this class of drift earlier
+- [ ] Adopt a supply-chain safety scanner in the install step (e.g. Aikido Safe Chain or Socket) that vets packages for malware/typosquatting before they land in `node_modules` — currently nothing gates what a transitive dependency bump can pull in
 
 ---
 
