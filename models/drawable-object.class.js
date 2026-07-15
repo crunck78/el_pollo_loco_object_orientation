@@ -1,7 +1,7 @@
 /**
  * A Construction to be drawn on a 2d Canvas Context
  */
-class DrawableObject {
+export class DrawableObject {
   drawable = true;
   static count = 0;
 
@@ -183,3 +183,5 @@ class DrawableObject {
     return arr.every((path) => this.imageCache[path].loaded);
   }
 }
+
+window.DrawableObject = DrawableObject;

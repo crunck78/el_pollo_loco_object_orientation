@@ -63,7 +63,33 @@
 
 ---
 
-## Day 3–15 (Template)
+## Day 3 — Core Spine (1/4): DrawableObject
+
+**Date:** 2026-07-15  
+**Status:** ✅ DONE
+
+### Key Concepts Learned
+- [x] **Classic `<script>` and `<script type="module">` execute in fundamentally different timing, not just different scoping.** A plain `<script src>` runs synchronously, in document order, immediately as the parser reaches it. A module script always defers until after the *entire* document has finished parsing — regardless of where it sits in the source. Converting one class in the middle of an `extends` chain to a module doesn't just change its scope; it changes *when* it runs relative to everything else.
+- [x] **`extends X` resolves `X` immediately, at the class declaration itself — not lazily.** This is why `Keyboard` (Day 2) converted safely (its only reference was `new Keyboard()` deep inside a method body, evaluated long after every script had loaded) while `DrawableObject` broke `MovableObject` instantly: `class MovableObject extends DrawableObject` needs `DrawableObject` to exist the moment that line executes, synchronously, during parsing.
+- [x] **`defer` on classic scripts joins the same execution queue as non-`async` module scripts.** Both are deferred until after parsing, both run in document order relative to each other. Adding `defer` to every remaining classic script tag fixes the ordering mismatch once, for every remaining conversion day — not something to special-case per file.
+- [x] **Dead code can look like a live coupling problem.** `DrawableObject.drawFramesAndCoordinates()`'s `instanceof Character/Bottle/Coin` checks were flagged in the architecture review as a coupling smell, but grepping for callers showed it's only ever invoked from a commented-out line — worth confirming a smell is actually load-bearing before deciding whether it blocks anything.
+
+### Mistakes / Could Do Better
+- Should have anticipated the `extends`-timing issue before converting `DrawableObject`, not after hitting the `ReferenceError` live. The tell was sitting in the architecture already: `DrawableObject` is the *base* of an inheritance chain, unlike `Keyboard` which had zero subclasses — any base class with classic-script subclasses was always going to hit this the moment it became a module.
+- Forgot to update Day 2's individual ticket checklist/status block in `PROGRESS.md` after merging — only the top-level status table got updated at the time. Worth double-checking both places close out together before starting the next day.
+
+### What Went Well
+- Diagnosed the `ReferenceError` from first principles (script execution timing) rather than guessing at fixes — confirmed the exact mechanism before touching any code.
+- The `defer` fix is a one-time, durable solution rather than a per-file workaround — Days 4-8 won't need to rediscover this.
+- Checked whether the flagged `instanceof` coupling was actually reachable code before assuming it needed fixing today.
+
+### Open Questions
+- Does `defer` have any downside worth knowing about before Day 10 (when everything collapses to a single module and `defer` becomes irrelevant)? Worth a quick check when that day arrives.
+- Are there other timing-sensitive patterns (besides `extends`) in the remaining classes worth scanning for before their conversion day - e.g. static field initializers that reference another class at the top level?
+
+---
+
+## Day 4–15 (Template)
 
 **Date:** TBD  
 **Status:** ⬜ TODO
