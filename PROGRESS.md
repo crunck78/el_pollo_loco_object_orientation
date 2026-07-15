@@ -418,6 +418,7 @@ Not committed to the 3-week deadline — defer freely:
 - **Each day is a real mentoring unit:** a concept to learn, a concrete task, a way to verify the game still works.
 - **If a day runs long:** expand it to 2 days rather than cut corners. Better to deliver quality than rush.
 - **Model switching:** Use Sonnet (or Opus for hard design calls). Haiku is not sufficient for this level of mentoring/code review.
+- **Merge cadence (updated after Day 3):** merge per day-ticket, not per whole epic. A multi-day epic (e.g. E3, Days 3-6) may span several sequential branches sharing the same name, one per day, rather than accumulating all days on one branch before merging.
 - **Verification approach:**
   - `npm run dev` — manual playthrough, exercise the behavior touched that day
   - `npm test` — keep test suite green (starting Day 2)
