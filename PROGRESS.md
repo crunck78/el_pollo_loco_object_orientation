@@ -15,8 +15,8 @@
 | Epic | Days | Status | Branch | Merge Commit |
 |------|------|--------|--------|--------------|
 | E1: Tooling foundation | 1 | ✅ DONE (pending merge) | `epic/01-vite-scaffolding` | — |
-| E2: ESM pilot + testing | 2 | ⬜ TODO | `epic/02-esm-pilot-testing` | — |
-| E3: Core spine | 3–6 | ⬜ TODO | `epic/03-core-spine` | — |
+| E2: ESM pilot + testing | 2 | ✅ DONE | `epic/02-esm-pilot-testing` | `6a3817e` |
+| E3: Core spine | 3–6 | 🟡 IN PROGRESS (1/4) | `epic/03-core-spine` | — |
 | E4: Leaf classes | 7–8 | ⬜ TODO | `epic/04-leaf-classes` | — |
 | E5: Entry point | 9–10 | ⬜ TODO | `epic/05-entry-point` | — |
 | E6: Game loop | 11–12 | ⬜ TODO | `epic/06-game-loop` | — |
@@ -69,14 +69,23 @@ to resolve as the ESM migration proceeds).
 - Write first unit tests for `Keyboard` (e.g., flag setting, debounce logic)
 
 **Definition of Done:**
-- [ ] Input still works in-game (left/right/jump/throw)
-- [ ] `npm test` passes
-- [ ] `window.Keyboard` bridge exists and is tested
+- [x] Input still works in-game (left/right/jump/throw)
+- [x] `npm test` passes
+- [x] `window.Keyboard` bridge exists and is tested
 
-**Status:** ⬜ TODO  
+**Notes:** Also added a browser-mode test config (`vitest.browser.config.js`, Playwright
+chromium/firefox/webkit) as a stretch addition beyond the day's original scope. Surfaced
+a real cross-browser gap: desktop Firefox has no native `TouchEvent` constructor by
+default, so touch-button tests skip there via `test.skipIf` rather than being forced to
+pass. Follow-up incidents after merge (tracked as separate direct-to-main commits, not
+part of this branch): an internally-inconsistent `package-lock.json` broke `npm ci` in
+CI (`0b3b189`), and two quick successive pushes triggered overlapping FTP deploys, fixed
+with `concurrency: cancel-in-progress` + `paths-ignore: ['**.md']` (`d4bdd40`).
+
+**Status:** ✅ DONE  
 **Branch:** `epic/02-esm-pilot-testing`  
-**PR:** —  
-**Commits:** —
+**PR:** #2  
+**Commits:** `91c4707` (Keyboard ESM + Vitest)
 
 ---
 
@@ -90,14 +99,34 @@ to resolve as the ESM migration proceeds).
 - Verify no console errors
 
 **Definition of Done:**
-- [ ] Rendering unaffected (sprites appear, camera pans, parallax works)
-- [ ] Full manual playthrough: move, jump, collide, win/lose
-- [ ] No console errors
+- [x] Rendering unaffected (sprites appear, camera pans, parallax works)
+- [x] Full manual playthrough: move, jump, collide, win/lose
+- [x] No console errors
 
-**Status:** ⬜ TODO  
+**Notes:** `drawFramesAndCoordinates()`'s `instanceof Character/Bottle/Coin` checks
+(flagged in `ARCHITECTURE_REVIEW.md`) turned out to be dead code — only reachable via
+a commented-out call in `world.class.js`. Left as-is; real removal is still Day 13 scope.
+
+Hit a real bug converting the first class with subclasses: classic `<script src>` tags
+execute synchronously in document order, but `<script type="module">` always defers
+until after the whole document parses, regardless of position. `MovableObject extends
+DrawableObject` resolves `DrawableObject` immediately at the class declaration - so the
+moment `DrawableObject` became a module, every remaining classic script depending on it
+via `extends` broke (`ReferenceError: DrawableObject is not defined`), even though the
+`window.DrawableObject` bridge was correctly in place. `Keyboard` never hit this because
+its only reference was a lazy `new Keyboard()` call deep inside a method body, not a
+top-level `extends`.
+
+**Fix, applied once for all remaining days:** added `defer` to every remaining classic
+`<script src>` tag in `index.html`. `defer`'d classic scripts and non-`async` module
+scripts share the same execution queue (both deferred until after parsing, both run in
+document order relative to each other) - so Days 4-8 no longer need to worry about this
+ordering issue when converting the next class in the chain.
+
+**Status:** ✅ DONE  
 **Branch:** `epic/03-core-spine`  
 **PR:** —  
-**Commits:** —
+**Commits:** `3ca0640` (DrawableObject ESM + script-order fix)
 
 ---
 
