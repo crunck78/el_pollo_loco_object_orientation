@@ -139,14 +139,22 @@ ordering issue when converting the next class in the chain.
 - Flip its `<script>` to `type="module"` in [index.html](index.html)
 
 **Definition of Done:**
-- [ ] Movement/animation unaffected (character walks, jumps, enemies patrol)
-- [ ] Frame throttling still works (no jank)
-- [ ] Full manual playthrough passes
+- [x] Movement/animation unaffected (character walks, jumps, enemies patrol)
+- [x] Frame throttling still works (no jank)
+- [x] Full manual playthrough passes
 
-**Status:** ⬜ TODO  
+**Notes:** First real `import` between two converted modules (`MovableObject` imports
+`DrawableObject` directly) instead of relying on the `window` bridge for that dependency
+— possible because `DrawableObject` was already converted on Day 3. The `window.X` bridge
+is only still needed for the *remaining classic-script* side of each dependency; it'll
+disappear entirely by Day 10. `no-undef` lint count moved 1,007 → 1,013 (a few newly-exposed
+cross-file references from the file move), consistent with the expected trajectory - not
+a regression.
+
+**Status:** ✅ DONE  
 **Branch:** `epic/03-core-spine`  
 **PR:** —  
-**Commits:** —
+**Commits:** `f2f3420` (MovableObject ESM + real import)
 
 ---
 

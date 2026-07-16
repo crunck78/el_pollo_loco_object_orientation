@@ -89,22 +89,25 @@
 
 ---
 
-## Day 4–15 (Template)
+## Day 4 — Core Spine (2/4): MovableObject
 
-**Date:** TBD  
-**Status:** ⬜ TODO
+**Date:** 2026-07-16  
+**Status:** ✅ DONE
 
 ### Key Concepts Learned
-- [ ] 
+- [x] **A real `import` becomes possible the moment both sides of a dependency are converted.** `MovableObject` is the first class to `import { DrawableObject } from './drawable-object.class.js'` directly instead of leaning on `window.DrawableObject`. The bridge is only ever needed for the *remaining classic-script* side of a given dependency — once both ends are modules, there's no reason not to import properly.
+- [x] **`defer` becomes a redundant no-op once a tag also has `type="module"`.** Module scripts are always deferred regardless of the attribute, so leaving both on a converted tag doesn't break anything, but it's dead weight worth cleaning up as each file converts.
+- [x] **Lazy `instanceof` checks inside method bodies (e.g. `this instanceof ThrowableObject` in `move()`/`play()`/`gravity()`) don't need any special handling when their *own* class converts** — same reasoning as `Keyboard`'s bridge timing on Day 2, just confirmed again on a class that's actually mid-hierarchy rather than a leaf.
 
 ### Mistakes / Could Do Better
-- 
+- Didn't proactively check whether `MovableObject` had lazy `instanceof` references to *not-yet-converted* classes (`ThrowableObject`) before starting — got lucky that they're all inside method bodies rather than top-level. Worth a quick grep for `instanceof` before every remaining spine conversion, not just after something breaks.
 
 ### What Went Well
-- 
+- Recognized before converting that this was the first opportunity for a real `import` rather than defaulting to "bridge pattern again" out of habit — matches the actual end-goal (a real module graph), not just a mechanical repeat of Day 3's steps.
+- Checked the repo-wide lint count against the known baseline (1,007 from Day 1) before assuming the small increase (1,013) was a problem, rather than either ignoring it or panicking over it.
 
 ### Open Questions
-- 
+- As more classes convert and start importing each other directly, will any of them need a *bridge in the other direction* — a classic script needing something a module-only helper exports, with no equivalent global? Watch for this on Days 5-8.
 
 ---
 
