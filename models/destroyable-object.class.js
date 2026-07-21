@@ -1,7 +1,9 @@
+import { CollidableObject } from './collidable-object.class.js';
+
 /**
  * An extension of Class CollidableObject, used to damage this instance and measure if is hurt or killed.
  */
-class DestroyableObject extends CollidableObject {
+export class DestroyableObject extends CollidableObject {
   destroyable = true;
   energy = 100;
   lastHit = 0;
@@ -57,3 +59,5 @@ class DestroyableObject extends CollidableObject {
     this.currentImage = 0;
   }
 }
+
+window.DestroyableObject = DestroyableObject;
