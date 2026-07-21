@@ -1,7 +1,9 @@
+import { MovableObject } from './movable-object.class.js';
+
 /**
  * An extension of MovableObject that can collide with other CollidableObjects.
  */
-class CollidableObject extends MovableObject {
+export class CollidableObject extends MovableObject {
   /**
    * @type {boolean} - a flag to mark this instance as collidable
    */
@@ -195,3 +197,5 @@ class CollidableObject extends MovableObject {
     return this.getHitBoxBottomPos() - this.getHitBoxTopPos();
   }
 }
+
+window.CollidableObject = CollidableObject;
