@@ -111,6 +111,32 @@
 
 ---
 
+## Day 5 — Core Spine (3/4): CollidableObject + AABB Tests
+
+**Date:** 2026-07-21  
+**Status:** ✅ DONE
+
+### Key Concepts Learned
+- [x] **AABB checks are two completely independent axis questions, not one "arrangement" question.** `isHorizontalIntersecting` asks "do the x-ranges overlap if you squash both boxes flat onto the x-axis" — it has nothing to do with whether the boxes are visually side-by-side or stacked. Two boxes stacked vertically (one above the other) actually overlap *horizontally* (same x-columns) while being separated *vertically* (different y-rows) — the opposite of what the visual arrangement suggests at a glance.
+- [x] **`a.isAbove(b)` is directional, not symmetric.** It specifically asks "is `a` positioned above `b`," evaluated from `a`'s side of the call — not "are these two related by an above/below relationship in general." In a corner-touch case, `a.isAbove(b)` and `b.isAbove(a)` give different answers, and only one of them matches the actual geometry.
+- [x] **Two same-size boxes only have 9 possible relative-position zones** (a 3×3 grid: true overlap, 4 edge-touches, 4 corner-touches) — touching-edge and far-apart-with-a-gap produce identical boolean results for these methods, so there's no need to test both; only the boundary value matters.
+- [x] **Corner-touch cases have two side-flags true simultaneously** (e.g. `isLeftSide` *and* `isAbove` both `true`) — this is what broke the first draft of the perimeter test, which assumed one blanket set of expected values could cover every point around the ring.
+
+### Mistakes / Could Do Better
+- First draft of the "not colliding" perimeter test used one set of blanket assertions across 11 geometrically different points (some pure-horizontal, some pure-vertical, some diagonal corners) — only 2 of the 11 actually matched. Should map out the "9 zones" model *before* writing cases next time, not after debugging failures one by one.
+- A one-off `TypeError: Cannot read properties of undefined (reading 'config')` showed up mid-session and didn't reproduce on rerun — cost some confusion before recognizing it was transient (likely a race condition from running vitest twice in quick succession) rather than a real bug to chase.
+- Left an inconsistency in edge-case sample counts (3 samples for three edges, only 2 for the fourth) before it was flagged and fixed — worth a quick self-review pass for "did I sample this the same way everywhere" before considering a test file done.
+
+### What Went Well
+- Verified my own worked-through math against the actual formulas before trusting either — caught that my first instinct about a corner case (`isAbove` vs `isBelow`) needed the "which direction is this specific method call evaluating" framing to resolve, not just re-deriving the same math again.
+- Diagnosed a confusing local tooling issue (format-on-save not working) down to a specific root cause — a global VS Code `"[javascript]"` override beating the workspace's Prettier setting — instead of giving up on auto-format or fighting it manually file by file.
+- Organized the finished test file into a clean, walkable structure (clockwise sweep around the reference box, one comment per zone) rather than leaving it in whatever order the cases were discovered in.
+
+### Open Questions
+- Would it have been faster to draw the 3×3 grid (or the picture from this session) *before* writing any test cases, rather than after confusion forced it? Worth trying "sketch the zones first" as a default habit for the next geometry-heavy test file.
+
+---
+
 ## Reflection Prompts (Review Every 3–5 Days)
 
 After Days 3, 6, 10, 13, 15, ask yourself:

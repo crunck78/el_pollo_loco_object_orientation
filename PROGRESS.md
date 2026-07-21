@@ -169,13 +169,24 @@ a regression.
 
 **Definition of Done:**
 - [ ] Collision behavior unaffected (character lands on platforms, enemy hits are detected, coins collected)
-- [ ] Collision test suite green (`npm test`)
-- [ ] Full manual playthrough passes
+- [x] Collision test suite green (`npm test`)
+- [x] Full manual playthrough passes
 
-**Status:** ⬜ TODO  
+**Notes:** Test suite covers all 9 possible zones two same-size boxes can occupy relative
+to each other (true overlap, 4 edge-touches, 4 corner-touches), organized as a clockwise
+sweep around the reference box. Found and fixed two real bugs in early drafts along the
+way: a `test.for` block asserting one set of expected values across 11 geometrically
+different perimeter points (corners and edges don't share the same true/false pattern),
+and a confusion between "boxes stacked vertically overlap horizontally" (shadow/projection
+model) vs. the more intuitive-but-wrong "vertically arranged = vertically intersecting"
+reading. Also fixed an unrelated local IDE issue: a global VS Code `"[javascript]"`
+formatter override was beating this workspace's Prettier setting - pinned explicitly in
+`.vscode/settings.json` (local-only, not committed).
+
+**Status:** ✅ DONE  
 **Branch:** `epic/03-core-spine`  
 **PR:** —  
-**Commits:** —
+**Commits:** `68476bf` (CollidableObject ESM + AABB test suite)
 
 ---
 
