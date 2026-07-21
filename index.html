@@ -2,96 +2,96 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-    <script defer src="js/assets.js"></script>
-    <script type="module" src="models/keyboard.class.js"></script>
-    <script type="module" src="models/drawable-object.class.js"></script>
-    <script type="module" src="models/movable-object.class.js"></script>
-    <script type="module" src="models/collidable-object.class.js"></script>
-    <script defer src="models/platform.class.js"></script>
-    <script defer src="models/destroyable-object.class.js"></script>
-    <script defer src="models/creature-object.class.js"></script>
-    <script defer src="models/npc-object.class.js"></script>
-    <script defer src="models/enemy.class.js"></script>
-    <script defer src="models/background-object.class.js"></script>
-    <script defer src="models/cloud.class.js"></script>
-    <script defer src="models/status-bar.class.js"></script>
-    <script defer src="models/collectible.class.js"></script>
-    <script defer src="models/throwable-object.class.js"></script>
-    <script defer src="models/coin.class.js"></script>
-    <script defer src="models/bottle.class.js"></script>
-    <script defer src="models/endboss.class.js"></script>
-    <script defer src="models/big-chicken.class.js"></script>
-    <script defer src="models/chicken.class.js"></script>
-    <script defer src="models/character.class.js"></script>
-    <script defer src="models/pepe.class.js"></script>
-    <script defer src="models/world.class.js"></script>
-    <script defer src="models/level.class.js"></script>
-    <script defer src="models/levels/level1.js"></script>
-    <script defer src="js/game.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+  <script defer src="js/assets.js"></script>
+  <script type="module" src="models/keyboard.class.js"></script>
+  <script type="module" src="models/drawable-object.class.js"></script>
+  <script type="module" src="models/movable-object.class.js"></script>
+  <script type="module" src="models/collidable-object.class.js"></script>
+  <script defer src="models/platform.class.js"></script>
+  <script type="module" src="models/destroyable-object.class.js"></script>
+  <script type="module" src="models/creature-object.class.js"></script>
+  <script defer src="models/npc-object.class.js"></script>
+  <script defer src="models/enemy.class.js"></script>
+  <script defer src="models/background-object.class.js"></script>
+  <script defer src="models/cloud.class.js"></script>
+  <script defer src="models/status-bar.class.js"></script>
+  <script defer src="models/collectible.class.js"></script>
+  <script defer src="models/throwable-object.class.js"></script>
+  <script defer src="models/coin.class.js"></script>
+  <script defer src="models/bottle.class.js"></script>
+  <script defer src="models/endboss.class.js"></script>
+  <script defer src="models/big-chicken.class.js"></script>
+  <script defer src="models/chicken.class.js"></script>
+  <script defer src="models/character.class.js"></script>
+  <script defer src="models/pepe.class.js"></script>
+  <script defer src="models/world.class.js"></script>
+  <script defer src="models/level.class.js"></script>
+  <script defer src="models/levels/level1.js"></script>
+  <script defer src="js/game.js"></script>
 </head>
 
 <body onload="init()">
-    <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
-    <div class="overlay">
-        <div id="hud" class="background-cover d-none">
+  <canvas id="canvas" class="d-none" width="720" height="480"></canvas>
+  <div class="overlay">
+    <div id="hud" class="background-cover d-none">
 
-            <div class="panel">
-                <div class="panel-wrapper ml-auto">
-                    <button onclick="togglePlay(iconPlay, this)">
-                        <span id="iconPlay" class="material-icons">
-                            play_circle
-                        </span>
-                    </button>
-                    <button onclick="toggleSounds(iconSound, this)">
-                        <span id="iconSound" class="material-icons">
-                            volume_off
-                        </span>
-                    </button>
+      <div class="panel">
+        <div class="panel-wrapper ml-auto">
+          <button onclick="togglePlay(iconPlay, this)">
+            <span id="iconPlay" class="material-icons">
+              play_circle
+            </span>
+          </button>
+          <button onclick="toggleSounds(iconSound, this)">
+            <span id="iconSound" class="material-icons">
+              volume_off
+            </span>
+          </button>
 
-                    <button onclick="toggleHUD(iconHUD, this)">
-                        <span id="iconHUD" class="material-icons">
-                            visibility_off
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div id="loading" class="d-none" >Loading...</div>
-            <div class="panel">
-                <div class="panel-wrapper">
-                    <button id="btnLeft">
-                        <span id="iconMoveLeft" class="material-icons">
-                            chevron_left
-                        </span>
-                    </button>
-                    <button id="btnRight">
-                        <span id="iconMoveRight" class="material-icons">
-                            chevron_right
-                        </span>
-                    </button>
-                </div>
-
-                <div class="panel-wrapper">
-                    <button id="btnJump">
-                        <span id="iconJump" class="material-icons">
-                            keyboard_arrow_up
-                        </span>
-                    </button>
-                    <button id="btnThrow">
-                        <span style="transform: rotateY(180deg);" id="iconthrow" class="material-icons">
-                            undo
-                        </span>
-                    </button>
-                </div>
-            </div>
-
+          <button onclick="toggleHUD(iconHUD, this)">
+            <span id="iconHUD" class="material-icons">
+              visibility_off
+            </span>
+          </button>
         </div>
+      </div>
+      <div id="loading" class="d-none">Loading...</div>
+      <div class="panel">
+        <div class="panel-wrapper">
+          <button id="btnLeft">
+            <span id="iconMoveLeft" class="material-icons">
+              chevron_left
+            </span>
+          </button>
+          <button id="btnRight">
+            <span id="iconMoveRight" class="material-icons">
+              chevron_right
+            </span>
+          </button>
+        </div>
+
+        <div class="panel-wrapper">
+          <button id="btnJump">
+            <span id="iconJump" class="material-icons">
+              keyboard_arrow_up
+            </span>
+          </button>
+          <button id="btnThrow">
+            <span style="transform: rotateY(180deg);" id="iconthrow" class="material-icons">
+              undo
+            </span>
+          </button>
+        </div>
+      </div>
+
     </div>
+  </div>
 </body>
 
 </html>

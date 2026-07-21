@@ -1,8 +1,10 @@
+import { DestroyableObject } from './destroyable-object.class.js';
+
 /**
  * An extension of DestroyableObject,
  *  used as an abstract definition for this instances which can perform some sort of attack.
  */
-class Creature extends DestroyableObject {
+export class Creature extends DestroyableObject {
   /**
    * Control flag, to determine if this instance is performing an attack
    * @type {boolean}
@@ -27,3 +29,5 @@ class Creature extends DestroyableObject {
     this.currentImage = 0;
   }
 }
+
+window.Creature = Creature;

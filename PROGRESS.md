@@ -14,9 +14,9 @@
 
 | Epic | Days | Status | Branch | Merge Commit |
 |------|------|--------|--------|--------------|
-| E1: Tooling foundation | 1 | ✅ DONE (pending merge) | `epic/01-vite-scaffolding` | — |
+| E1: Tooling foundation | 1 | ✅ DONE | `epic/01-vite-scaffolding` | `b6a759c` |
 | E2: ESM pilot + testing | 2 | ✅ DONE | `epic/02-esm-pilot-testing` | `6a3817e` |
-| E3: Core spine | 3–6 | 🟡 IN PROGRESS (1/4) | `epic/03-core-spine` | — |
+| E3: Core spine | 3–6 | ✅ DONE | `epic/03-core-spine` | — |
 | E4: Leaf classes | 7–8 | ⬜ TODO | `epic/04-leaf-classes` | — |
 | E5: Entry point | 9–10 | ⬜ TODO | `epic/05-entry-point` | — |
 | E6: Game loop | 11–12 | ⬜ TODO | `epic/06-game-loop` | — |
@@ -199,14 +199,22 @@ formatter override was beating this workspace's Prettier setting - pinned explic
 - Flip their `<script>` tags to `type="module"` in [index.html](index.html)
 
 **Definition of Done:**
-- [ ] Hit/kill/energy behavior unaffected (enemies die, character loses health, coins/bottles collected)
-- [ ] Full manual playthrough passes
-- [ ] No console errors
+- [x] Hit/kill/energy behavior unaffected (enemies die, character loses health, coins/bottles collected)
+- [x] Full manual playthrough passes
+- [x] No console errors
 
-**Status:** ⬜ TODO  
+**Notes:** Both classes were clean converts - no lazy `instanceof` references, no global
+constants, so no surprises like Day 3's script-ordering bug. Real imports both ways
+(`Creature` imports `DestroyableObject`, which imports `CollidableObject`). Bridges kept
+for both since `ThrowableObject` (Day 7) still extends `DestroyableObject` directly, and
+`Character`/`NPC` (Days 7-8) still extend `Creature`. This closes out E3: the full spine
+`DrawableObject -> MovableObject -> CollidableObject -> DestroyableObject -> Creature` is
+now a real ES module chain, four days after Day 3 started it.
+
+**Status:** ✅ DONE  
 **Branch:** `epic/03-core-spine`  
 **PR:** —  
-**Commits:** —
+**Commits:** `c10d5e7` (DestroyableObject + Creature ESM)
 
 ---
 
