@@ -137,6 +137,27 @@
 
 ---
 
+## Day 6 — Core Spine (4/4): DestroyableObject + Creature
+
+**Date:** 2026-07-21  
+**Status:** ✅ DONE
+
+### Key Concepts Learned
+- [x] **Not every conversion day hits a surprise.** `DestroyableObject` and `Creature` had zero lazy `instanceof` references and zero global-constant dependencies — a clean convert, no debugging needed. Worth noticing when a day goes smoothly, not just when it doesn't; it confirms the pattern (move out of `public/`, real import + bridge, flip the script tag) is solid once you've internalized it.
+- [x] **Converting two classes in the same day means the second one gets a real import from the start**, not a bridge-then-upgrade-later pattern like `MovableObject` needed on Day 4. `Creature` imports `DestroyableObject` directly in the same commit that creates it.
+
+### Mistakes / Could Do Better
+- None worth logging today — this was the first day since Day 3 without a genuine debugging detour.
+
+### What Went Well
+- Recognized this was a "clean day" and didn't manufacture extra complexity or second-guess the lack of surprises.
+- E3 (Core Spine) is now fully closed: four days, one real script-ordering bug (Day 3) that got fixed permanently rather than worked around per-file, and a growing chain of real imports replacing bridges as each pair of classes converts.
+
+### Open Questions
+- None new today - see Day 4's open question about the "bridge in the other direction" possibility, still unresolved and worth watching through Days 7-8.
+
+---
+
 ## Reflection Prompts (Review Every 3–5 Days)
 
 After Days 3, 6, 10, 13, 15, ask yourself:
@@ -145,6 +166,13 @@ After Days 3, 6, 10, 13, 15, ask yourself:
 2. **What pattern will you repeat?** (e.g., "Always write tests first for pure math functions like collision detection")
 3. **What would you do differently next time?** (e.g., "I should have created the EntityFactory earlier so I wasn't refactoring L twice")
 4. **What's your biggest "aha"?** (the one insight that changes how you think about game engines)
+
+### Checkpoint after Day 6 (closing out E3: Core Spine)
+
+1. **What surprised you?** How much a single fix (the `defer` attribute on Day 3) permanently solved a whole category of bug for every subsequent day — Days 4, 5, and 6 all converted classes with `extends` chains and none of them hit the script-ordering problem again.
+2. **What pattern will you repeat?** Checking for lazy `instanceof`/global references *before* converting a class, not after something breaks — worked well once established on Day 4, paid off again on Day 6 (confirming there were none, quickly).
+3. **What would you do differently next time?** Sketch the "N possible relative-position zones" model before writing geometry-heavy tests (from Day 5), rather than after debugging a wrong assumption — apply this proactively to any future spatial/geometric test writing.
+4. **What's your biggest "aha"?** The bridge pattern's real purpose only becomes obvious in reverse: it's not really about "making old code work with new code," it's specifically about restoring a *global* that module scoping removes — which is why it's only needed on the *classic-script* side of any given dependency, and why real imports quietly replace it, one pair of classes at a time, without any single day needing to "finish" the whole migration at once.
 
 ---
 
